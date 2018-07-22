@@ -13,8 +13,9 @@ and open the template in the editor.
 
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" /><!-- Bootstrap -->        
         <link rel="stylesheet" href="css/maps.css" type="text/css" /><!-- Maps -->
+        <link rel="stylesheet" href="css/loading.css" ><!-- Loading -->
     </head>
-    <body>
+    <body >
         <?php
         ?>
         <div class="container-fluid">
@@ -534,11 +535,15 @@ and open the template in the editor.
                 <!-- Fin Modal Persona -->
             </div>
         </div>
+        
+        <div class="modalLoain"></div>
+        
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
         <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
-        <script type="text/javascript" src="js/maps.js"></script><!-- Maps -->
+        <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
+        
         <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA06_WwtQMA1pcVPG01XUD2QvZd9SjM-p4&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA06_WwtQMA1pcVPG01XUD2QvZd9SjM-p4&callback=initMap"></script><!-- Maps -->
 
 
     </body>

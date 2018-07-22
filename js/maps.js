@@ -7,6 +7,11 @@ var arrayLugares;
 var arrayMarkerPropiedades = [];
 var arrayMarkerLugares = [];
 
+$(document).on({
+    ajaxStart: function() { $("body").addClass("loading");    },
+    ajaxStop: function() { $("body").removeClass("loading"); }    
+});
+
 //MAPA--------------------------------------------------------------------------
 function initMap() {
     //Inicio del mapa
@@ -897,6 +902,7 @@ function reiniciar() {
 
 //GENERALES---------------------------------------------------------------------
 function traerDatos() {
+   
     $.ajax({
         data: $("#mes"),
         url: 'controlers/controler_return_puntos.php',
