@@ -113,10 +113,10 @@ and open the template in the editor.
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="fPersonasSexo">
                                         Sexo
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="Femenino">Hombre</label>
+                                            <label><input type="checkbox" value="Masculino">Hombre</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="Masculino">Mujer</label>
+                                            <label><input type="checkbox" value="Femenino">Mujer</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" id="fPersonasVotante">
@@ -293,16 +293,17 @@ and open the template in the editor.
                                             Servicios
                                             <div>
                                                 <div class="checkbox">
-                                                    <label class="checkbox-inline"><input type="checkbox" value="Agua" id="fPropiedadesCloacas">Agua</label>
-
+                                                    <label class="checkbox-inline"><input type="checkbox" value="Agua" id="fPropiedadesCloacas">Cloacas</label>
+                                                </div>
+                                                <div class="checkbox">
                                                     <label class="checkbox-inline"><input type="checkbox" value="Gas" id="fPropiedadesGas">Gas</label>
                                                 </div>
-                                            </div>
-                                            <div>
+
                                                 <div class="checkbox">
                                                     <label class="checkbox-inline"><input type="checkbox" value="Luz" id="fPropiedadesLuz">Luz</label>
-
-                                                    <label class="checkbox-inline"><input type="checkbox" value="Pavimento" id="fPropiedadesPavimento">Pavi.</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="checkbox-inline"><input type="checkbox" value="Pavimento" id="fPropiedadesPavimento">Pavimento</label>
                                                 </div>  
                                             </div>
                                         </div>
@@ -535,13 +536,13 @@ and open the template in the editor.
                 <!-- Fin Modal Persona -->
             </div>
         </div>
-        
+
         <div class="modalLoain"></div>
-        
+
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
         <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
         <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
-        
+
         <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA06_WwtQMA1pcVPG01XUD2QvZd9SjM-p4&callback=initMap"></script><!-- Maps -->
 
