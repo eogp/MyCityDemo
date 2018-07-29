@@ -457,7 +457,7 @@ and open the template in the editor.
                                             <h5 id="mpPropietario">Sin datos.</h5>
                                             <h5 id="mpSexoEdadProp">Sin datos.</h5>
                                         </div>
-                                        <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
+                                        <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="mpResidenteIMG">
                                             <img  src="images/persona.jpg"  >
 
                                         </div>
@@ -539,12 +539,15 @@ and open the template in the editor.
 
         <div class="modalLoain"></div>
 
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA06_WwtQMA1pcVPG01XUD2QvZd9SjM-p4&callback=initMap"></script><!-- Maps -->
+
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
         <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
         <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
-
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA06_WwtQMA1pcVPG01XUD2QvZd9SjM-p4&callback=initMap"></script><!-- Maps -->
+        <script type="text/javascript" src="js/markerclusterer/markerclusterer.js"></script><!-- MarkerClusterer -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.js"></script><!-- OverlappingMarkerSpiderfier -->
+        
 
 
     </body>

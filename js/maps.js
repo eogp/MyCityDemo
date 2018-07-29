@@ -1,5 +1,7 @@
 
 var map;
+var markerCluster;
+var oms;
 var arrayPropiedades;
 var arrayPersonas;
 var arrayPropietarios;
@@ -24,204 +26,208 @@ function initMap() {
     var inicio = {lat: -35.444434, lng: -60.885507};
     map = new google.maps.Map(document.getElementById('map'), {
         center: inicio,
-        zoom: 16,
+        zoom: 14,
         styles: [
-            {
-                "elementType": "geometry",
-                "stylers": [
+                {
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#f5f5f5"
+                      "color": "#f5f5f5"
                     }
-                ]
-            },
-            {
-                "elementType": "labels.icon",
-                "stylers": [
+                  ]
+                },
+                {
+                  "elementType": "labels.icon",
+                  "stylers": [
                     {
-                        "visibility": "off"
+                      "visibility": "off"
                     }
-                ]
-            },
-            {
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#616161"
+                      "color": "#616161"
                     }
-                ]
-            },
-            {
-                "elementType": "labels.text.stroke",
-                "stylers": [
+                  ]
+                },
+                {
+                  "elementType": "labels.text.stroke",
+                  "stylers": [
                     {
-                        "color": "#f5f5f5"
+                      "color": "#f5f5f5"
                     }
-                ]
-            },
-            {
-                "featureType": "administrative",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "administrative",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "visibility": "off"
+                      "visibility": "off"
                     }
-                ]
-            },
-            {
-                "featureType": "administrative.land_parcel",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "administrative.land_parcel",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#bdbdbd"
+                      "color": "#bdbdbd"
                     }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "stylers": [
                     {
-                        "visibility": "off"
+                      "visibility": "off"
                     }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#eeeeee"
+                      "color": "#eeeeee"
                     }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "poi",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#757575"
+                      "color": "#757575"
                     }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "poi.park",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#e5e5e5"
+                      "color": "#e5e5e5"
                     }
-                ]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "poi.park",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#9e9e9e"
+                      "color": "#9e9e9e"
                     }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#ffffff"
+                      "color": "#ffffff"
                     }
-                ]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.icon",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road",
+                  "elementType": "labels.icon",
+                  "stylers": [
                     {
-                        "visibility": "off"
+                      "visibility": "off"
                     }
-                ]
-            },
-            {
-                "featureType": "road.arterial",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road.arterial",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#757575"
+                      "color": "#757575"
                     }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#dadada"
+                      "color": "#dadada"
                     }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road.highway",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#616161"
+                      "color": "#616161"
                     }
-                ]
-            },
-            {
-                "featureType": "road.local",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "road.local",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#9e9e9e"
+                      "color": "#9e9e9e"
                     }
-                ]
-            },
-            {
-                "featureType": "transit",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "transit",
+                  "stylers": [
                     {
-                        "visibility": "off"
+                      "visibility": "off"
                     }
-                ]
-            },
-            {
-                "featureType": "transit.line",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "transit.line",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#e5e5e5"
+                      "color": "#e5e5e5"
                     }
-                ]
-            },
-            {
-                "featureType": "transit.station",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "transit.station",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#eeeeee"
+                      "color": "#eeeeee"
                     }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "water",
+                  "elementType": "geometry",
+                  "stylers": [
                     {
-                        "color": "#c9c9c9"
+                      "color": "#c9c9c9"
                     }
-                ]
-            },
-            {
-                "featureType": "water",
-                "elementType": "labels.text.fill",
-                "stylers": [
+                  ]
+                },
+                {
+                  "featureType": "water",
+                  "elementType": "labels.text.fill",
+                  "stylers": [
                     {
-                        "color": "#9e9e9e"
+                      "color": "#9e9e9e"
                     }
-                ]
-            }
-        ],
+                  ]
+                }
+              ],
         disableDefaultUI: true
 
     });
+    //activa Clusterer
+    addClusterer();
+    //activa Oms
+    addOms();
 }
 //FIN MAPA----------------------------------------------------------------------
 
@@ -259,10 +265,8 @@ $(document).ready(function () {
 //PERSONAS----------------------------------------------------------------------
 function filtrarPersonas() {
     sacarMarkers(arrayMarkerPropiedades);
-    var indice = 0;
-    
+    var arrayMarkersPropiedadesMostrar=[]
     arrayPersonas.forEach(function (persona) {
-        
         if (tieneProfesion(persona)
                 && tieneEducacion(persona)
                 && esVotante(persona)
@@ -272,13 +276,12 @@ function filtrarPersonas() {
                 && tieneDeuda(persona)
                 )
         {
-            console.log("dni: "+persona.dni);
-            //mostar marker
+            //agregar marker a mostrar
             var indicePropiedad = obtenerIndicePropiedadPor(persona.reside_propiedad);
-            arrayMarkerPropiedades[indicePropiedad].setMap(map);
+            arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indicePropiedad]);
         }
-        indice++;
     });
+    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
     $('#modalFilterPesonas').modal('hide');
 }
 
@@ -341,7 +344,6 @@ function fDeudaMaxPersonaActivo(){
 function fDeudaMinMaxPersonaActivo(){
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
-
 function tieneProfesion(persona) {
     var coincide = false;
     if (fProfesionPersonaActivo()) {
@@ -433,7 +435,6 @@ function tieneDeuda(persona){
     
     return true;
 }
-
 function obtenerPersonaPor(dni) {
     var retorno;
     arrayPersonas.forEach(function (persona) {
@@ -508,26 +509,30 @@ function obtenerPersonaPorResidencia(partida) {
 function generarArrayMarkerPropiedades() {
     arrayPropiedades.forEach(function (element) {
         var myLatLng = {lat: Number(element.altitud), lng: Number(element.longitud)};
-        var image = 'images/Casa.png';
+      //  var image = 'images/Casa.png';
         var marker = new google.maps.Marker({
             position: myLatLng,
             animation: google.maps.Animation.DROP,
-            icon: image
+         //   icon: 'images/point.png',
+            title: element.tipo
         });
-        var infowindow = new google.maps.InfoWindow({
-            content: element.tipo
-        });
+        // var infowindow = new google.maps.InfoWindow({
+        //     content: element.tipo
+        // });
         ////console.log(element);
-        marker.addListener('click', function (e) {
+        // marker.addListener('click', function (e) {
+        //     showPropiedad(element);
+        // });
+        // marker.addListener('mouseover', function (e) {
+        //     ////console.log("mouseover: " + this.getTitle());
+        //     infowindow.open(marker.get('map'), marker);
+        // });
+        // marker.addListener('mouseout', function (e) {
+        //     ////console.log("mouseout: " + this.getTitle());
+        //     infowindow.close();
+        // });
+        google.maps.event.addListener(marker, 'spider_click', function(e){
             showPropiedad(element);
-        });
-        marker.addListener('mouseover', function (e) {
-            ////console.log("mouseover: " + this.getTitle());
-            infowindow.open(marker.get('map'), marker);
-        });
-        marker.addListener('mouseout', function (e) {
-            ////console.log("mouseout: " + this.getTitle());
-            infowindow.close();
         });
         arrayMarkerPropiedades.push(marker);
     });
@@ -536,6 +541,7 @@ function generarArrayMarkerPropiedades() {
 function filtrarPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
     var indice = 0;
+    var arrayMarkersPropiedadesMostrar=[]
     arrayPropiedades.forEach(function (propiedad) {
         if (esTipoProp(propiedad)
                 && tieneUsoProp(propiedad)
@@ -545,11 +551,13 @@ function filtrarPropiedades() {
                 && tieneDeudaProp(propiedad)
                 )
         {
-            //mostar marker
-            arrayMarkerPropiedades[indice].setMap(map);
+            //agregar marker a mostrar
+            arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
+            
         }
         indice++;
     });
+    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
     $('#modalFilterPropiedades').modal('hide');
 }
 
@@ -595,7 +603,6 @@ function fMtsTotalesMaxPropActivo() {
 function fMtsTotalesMinMaxPropActivo() {
     return fMtsTotalesMinPropActivo() && fMtsTotalesMaxPropActivo();
 }
-
 function esTipoProp(propiedad) {
     var coincide = false;
     if (fTipoPropActivo()) {
@@ -694,7 +701,6 @@ function tieneDeudaProp(propiedad) {
     }
     return true;
 }
-
 function obtenerIndicesPropiedadesPor(partidas) {
     var contador = 0;
     var arrayResult = [];
@@ -732,31 +738,35 @@ function obetnerPropiedadPor(partida) {
 function generarArrayMarkerLugares() {
     arrayLugares.forEach(function (element) {
         var myLatLng = {lat: Number(element.altitud), lng: Number(element.longitud)};
-        var image = 'images/' + element.tipo + '.png';
+        //var image = 'images/' + element.tipo + '.png';
         var marker = new google.maps.Marker({
             position: myLatLng,
             animation: google.maps.Animation.DROP,
-            icon: image
+        //    icon: 'images/point.png',
+            title: element.tipo
+
         });
-        var infowindow = new google.maps.InfoWindow({
-            content: element.tipo
-        });
+        // var infowindow = new google.maps.InfoWindow({
+        //     content: element.tipo
+        // });
         ////console.log(element);
-        marker.addListener('click', function (e) {
+        // marker.addListener('click', function (e) {
+        //     showLugar(element);
+        // });
+        // marker.addListener('mouseover', function (e) {
+        //     ////console.log("mouseover: " + this.getTitle());
+        //     infowindow.open(marker.get('map'), marker);
+        // });
+        // marker.addListener('mouseout', function (e) {
+        //     ////console.log("mouseout: " + this.getTitle());
+        //     infowindow.close();
+        // });
+        google.maps.event.addListener(marker, 'spider_click', function(e){
             showLugar(element);
-        });
-        marker.addListener('mouseover', function (e) {
-            ////console.log("mouseover: " + this.getTitle());
-            infowindow.open(marker.get('map'), marker);
-        });
-        marker.addListener('mouseout', function (e) {
-            ////console.log("mouseout: " + this.getTitle());
-            infowindow.close();
         });
         arrayMarkerLugares.push(marker);
     });
 }
-
 function filtrarLugares() {
     var arrayIndexDejar = [];
     var arrayIndexQuitar = [];
@@ -768,13 +778,12 @@ function filtrarLugares() {
             obtenerIndicesLugares($(this).val(), arrayIndexQuitar);
         }
     });
-//    //console.log("dejar: "+arrayIndexDejar);
-//    //console.log("sacar: "+arrayIndexQuitar);
+    //console.log("dejar: "+arrayIndexDejar);
+    //console.log("sacar: "+arrayIndexQuitar);
     sacarMarkers(arrayMarkerLugares);
-    restablecerMarkers(arrayIndexDejar, arrayMarkerLugares);
+    restablecerMarkersByIndex(arrayIndexDejar, arrayMarkerLugares);
     $('#modalFilterLugares').modal('hide');
 }
-
 function obtenerIndicesLugares(tipo, arrayIndex) {
     var contador = 0;
     arrayLugares.forEach(function (element) {
@@ -784,7 +793,6 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
         }
         contador++;
     });
-
 }
 //FIN LUGARES-------------------------------------------------------------------
 
@@ -816,7 +824,6 @@ function agregarPropidadModal(propiedad) {
     div.append(divTexto);
     divPropiedades.append(div);
 }
-
 function showPropiedad(element) {
     $('#mpDireccion').text(element.calle + ' ' + element.altura);
     $('#mpLocalidad').text(element.partido);
@@ -849,10 +856,15 @@ function showPropiedad(element) {
 
     var personaResidente = obtenerPersonaPorResidencia(element.partida);
     ////console.log("dni residente: " + personaResidente.dni);
-
-    $('#mpResidente').text(personaResidente.nombres + ' ' + personaResidente.apellidos);
-    $('#mpSexoEdadRes').text('Sexo: ' + personaResidente.sexo + ', ' + personaResidente.edad + ' años');
-
+    if (personaResidente!=null) {
+        $('#verResidente').show();
+        $('#mpResidenteIMG').show();
+        $('#mpResidente').text(personaResidente.nombres + ' ' + personaResidente.apellidos);
+        $('#mpSexoEdadRes').text('Sexo: ' + personaResidente.sexo + ', ' + personaResidente.edad + ' años');
+    }else{
+        $('#verResidente').hide();
+        $('#mpResidenteIMG').hide();
+    }
     document.getElementById('verPropietario').addEventListener('click', function () {
         $('#modalShowPropiedad').modal('hide');
         showPersona(propietario);
@@ -894,20 +906,37 @@ function showPersona(persona) {
 
 
     $('#modalShowPersona').modal('show');
-
-
 }
 // FIN VISTAS-------------------------------------------------------------------
 
 //MARKERS-----------------------------------------------------------------------
-function restablecerMarkers(arrayIndex, arrayMarker) {
-    arrayIndex.forEach(function (element) {
-        arrayMarker[element].setMap(map);
+function restablecerMarkersByArray(arrayMarker){
+    arrayMarker.forEach(function (marker) {
+        //agrega los markers al oms y al mapa
+        oms.addMarker(marker);
+        addListenerOmsIconMarker(marker);
     });
+    //agrega los markers al cluster y al mapa
+    markerCluster.addMarkers(arrayMarker);
+
+}
+function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
+    arrayShowMarkers=[];
+    arrayIndex.forEach(function (element) {
+        arrayShowMarkers.push(arrayMarker[element]);
+        //agrega los markers al oms y al mapa
+        oms.addMarker(arrayMarker[element]);
+        addListenerOmsIconMarker(arrayMarker[element]);
+    });
+    //agrega los markers al cluster y al mapa
+    markerCluster.addMarkers(arrayShowMarkers, false);
 }
 function sacarMarkers(arrayMarker) {
+    //elimina los markers del cluster y del mapa
+    markerCluster.removeMarkers(arrayMarker, false);
+    //elimina los markers del oms y del mapa
     arrayMarker.forEach(function (element) {
-        element.setMap(null);
+        oms.removeMarker(element);
     });
 }
 function cargarMarkers(arrayMarker) {
@@ -925,6 +954,40 @@ function reiniciar() {
     eliminarMarkers(arrayMarkerPropiedades);
     habilitarControles(false);
 }
+function addClusterer(){
+    //agrega clusterer y markers al map
+    // if(markerCluster==null){
+    //     markerCluster = new MarkerClusterer(map, markers,{maxZoom: 19, imagePath: 'js/markerclusterer/m'});
+    // }else{
+    //     markerCluster.addMarkers(markers, false);
+    // }
+    if(markerCluster==null){
+        markerCluster = new MarkerClusterer(map, [],{maxZoom: 19, imagePath: 'js/markerclusterer/m'});
+    }
+}
+function addOms(){
+    oms = new OverlappingMarkerSpiderfier(map, { 
+        markersWontMove: true,   // we promise not to move any markers, allowing optimizations
+        markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
+        basicFormatEvents: false , // allow the library to skip calculating advanced formatting information
+        nearbyDistance: 1
+    });
+}
+function addListenerOmsIconMarker(marker) {
+  //icono por estado
+  oms.addListener('format', function(marker, status) {
+    var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/point.png' :
+      status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/group.png' :
+      status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/point.png' : 
+      null;
+    var iconSize = new google.maps.Size(16, 16);
+    marker.setIcon({
+      url: iconURL,
+      size: iconSize
+    });
+  });
+
+} 
 //FIN MARKERS----------
 
 //GENERALES---------------------------------------------------------------------
@@ -972,9 +1035,11 @@ function traerDatos() {
                 generarArrayMarkerLugares();
 
                 //cargarMarkers(arrayMarkerPropiedades);
-//                cargarMarkers(arrayMarkerLugares);
+                //cargarMarkers(arrayMarkerLugares);
 
                 habilitarControles(true);
+
+
             }
             document.getElementById('getPuntos').blur();
         },
