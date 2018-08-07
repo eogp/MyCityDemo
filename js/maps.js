@@ -1,4 +1,5 @@
 
+// global vars
 var map;
 var markerCluster;
 var oms;
@@ -28,199 +29,199 @@ function initMap() {
         center: inicio,
         zoom: 14,
         styles: [
-                {
-                  "elementType": "geometry",
-                  "stylers": [
+            {
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#f5f5f5"
+                        "color": "#f5f5f5"
                     }
-                  ]
-                },
-                {
-                  "elementType": "labels.icon",
-                  "stylers": [
+                ]
+            },
+            {
+                "elementType": "labels.icon",
+                "stylers": [
                     {
-                      "visibility": "off"
+                        "visibility": "off"
                     }
-                  ]
-                },
-                {
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#616161"
+                        "color": "#616161"
                     }
-                  ]
-                },
-                {
-                  "elementType": "labels.text.stroke",
-                  "stylers": [
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
                     {
-                      "color": "#f5f5f5"
+                        "color": "#f5f5f5"
                     }
-                  ]
-                },
-                {
-                  "featureType": "administrative",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "visibility": "off"
+                        "visibility": "off"
                     }
-                  ]
-                },
-                {
-                  "featureType": "administrative.land_parcel",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#bdbdbd"
+                        "color": "#bdbdbd"
                     }
-                  ]
-                },
-                {
-                  "featureType": "poi",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "poi",
+                "stylers": [
                     {
-                      "visibility": "off"
+                        "visibility": "off"
                     }
-                  ]
-                },
-                {
-                  "featureType": "poi",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#eeeeee"
+                        "color": "#eeeeee"
                     }
-                  ]
-                },
-                {
-                  "featureType": "poi",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#757575"
+                        "color": "#757575"
                     }
-                  ]
-                },
-                {
-                  "featureType": "poi.park",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#e5e5e5"
+                        "color": "#e5e5e5"
                     }
-                  ]
-                },
-                {
-                  "featureType": "poi.park",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#9e9e9e"
+                        "color": "#9e9e9e"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#ffffff"
+                        "color": "#ffffff"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road",
-                  "elementType": "labels.icon",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.icon",
+                "stylers": [
                     {
-                      "visibility": "off"
+                        "visibility": "off"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road.arterial",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#757575"
+                        "color": "#757575"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road.highway",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#dadada"
+                        "color": "#dadada"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road.highway",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#616161"
+                        "color": "#616161"
                     }
-                  ]
-                },
-                {
-                  "featureType": "road.local",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#9e9e9e"
+                        "color": "#9e9e9e"
                     }
-                  ]
-                },
-                {
-                  "featureType": "transit",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "transit",
+                "stylers": [
                     {
-                      "visibility": "off"
+                        "visibility": "off"
                     }
-                  ]
-                },
-                {
-                  "featureType": "transit.line",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#e5e5e5"
+                        "color": "#e5e5e5"
                     }
-                  ]
-                },
-                {
-                  "featureType": "transit.station",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#eeeeee"
+                        "color": "#eeeeee"
                     }
-                  ]
-                },
-                {
-                  "featureType": "water",
-                  "elementType": "geometry",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry",
+                "stylers": [
                     {
-                      "color": "#c9c9c9"
+                        "color": "#c9c9c9"
                     }
-                  ]
-                },
-                {
-                  "featureType": "water",
-                  "elementType": "labels.text.fill",
-                  "stylers": [
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
                     {
-                      "color": "#9e9e9e"
+                        "color": "#9e9e9e"
                     }
-                  ]
-                }
-              ],
+                ]
+            }
+        ],
         disableDefaultUI: true
 
     });
@@ -228,13 +229,30 @@ function initMap() {
     addClusterer();
     //activa Oms
     addOms();
+
+    heightMap();
+}
+
+function heightMap() {
+
+    console.log($(window).height());
+
+    // set initial div height / width
+    document.getElementById('map').style.height= ""+$(window).height() - 70+"px";
+    document.getElementById('menu').style.height= ""+$(window).height() - 70+"px";
+    // make sure div stays full width/height on resize
+    $(window).resize(function () {
+        console.log($(window).height());
+        document.getElementById('map').style.height=""+$(window).height() - 70+"px";
+        document.getElementById('menu').style.height= ""+$(window).height() - 70+"px";
+    });
 }
 //FIN MAPA----------------------------------------------------------------------
 
 //LISTENERS---------------------------------------------------------------------
 $(document).ready(function () {
     //LISTENERS
-    document.getElementById('getPuntos').addEventListener('click', function () {
+    document.getElementById('menu').addEventListener('change', function () {
         traerDatos();
     });
     document.getElementById('filterPersonas').addEventListener('click', function () {
@@ -265,7 +283,7 @@ $(document).ready(function () {
 //PERSONAS----------------------------------------------------------------------
 function filtrarPersonas() {
     sacarMarkers(arrayMarkerPropiedades);
-    var arrayMarkersPropiedadesMostrar=[]
+    var arrayMarkersPropiedadesMostrar = []
     arrayPersonas.forEach(function (persona) {
         if (tieneProfesion(persona)
                 && tieneEducacion(persona)
@@ -301,7 +319,7 @@ function fEducacionPersonaActivo() {
     ////console.log("Filtro Persona profesion: "+estado);
     return estado;
 }
-function fVotantePersonaActivo(){
+function fVotantePersonaActivo() {
     var estado = false;
     $("#fPersonasVotante").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
@@ -309,7 +327,7 @@ function fVotantePersonaActivo(){
     ////console.log("Filtro Persona profesion: "+estado);
     return estado;
 }
-function fSexoPersonaActivo(){
+function fSexoPersonaActivo() {
     var estado = false;
     $("#fPersonasSexo").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
@@ -317,31 +335,31 @@ function fSexoPersonaActivo(){
     ////console.log("Filtro Persona profesion: "+estado);
     return estado;
 }
-function fPropietarioMinPersonaActivo(){
+function fPropietarioMinPersonaActivo() {
     return $("#fPersonasPropietarioDesde").val() != "";
 }
-function fPropietarioMaxPersonaActivo(){
+function fPropietarioMaxPersonaActivo() {
     return $("#fPersonasPropietarioHasta").val() != "";
 }
-function fPropietarioMinMaxPersonaActivo(){
+function fPropietarioMinMaxPersonaActivo() {
     return fPropietarioMinPersonaActivo() && fPropietarioMaxPersonaActivo();
 }
-function fEdadMinPersonaActivo(){
+function fEdadMinPersonaActivo() {
     return $("#fPersonasEdadDesde").val() != "";
 }
-function fEdadMaxPersonaActivo(){
+function fEdadMaxPersonaActivo() {
     return $("#fPersonasEdadHasta").val() != "";
 }
-function fEdadMinMaxPersonaActivo(){
+function fEdadMinMaxPersonaActivo() {
     return fEdadMinPersonaActivo() && fEdadMaxPersonaActivo();
 }
-function fDeudaMinPersonaActivo(){
+function fDeudaMinPersonaActivo() {
     return $("#fPersonasDeudaDesde").val() != "";
 }
-function fDeudaMaxPersonaActivo(){
+function fDeudaMaxPersonaActivo() {
     return $("#fPersonasDeudaHasta").val() != "";
 }
-function fDeudaMinMaxPersonaActivo(){
+function fDeudaMinMaxPersonaActivo() {
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
 function tieneProfesion(persona) {
@@ -392,47 +410,47 @@ function tieneSexo(persona) {
     }
     return true;
 }
-function esPropietario(persona){
-    var cantPropiedades=cantPorpiedades(persona.dni);
-    if(fPropietarioMinMaxPersonaActivo()){
-        return cantPropiedades >= $("#fPersonasPropietarioDesde").val() 
-                && cantPropiedades <= $("#fPersonasPropietarioHasta").val() ;
+function esPropietario(persona) {
+    var cantPropiedades = cantPorpiedades(persona.dni);
+    if (fPropietarioMinMaxPersonaActivo()) {
+        return cantPropiedades >= $("#fPersonasPropietarioDesde").val()
+                && cantPropiedades <= $("#fPersonasPropietarioHasta").val();
     }
-    if(fPropietarioMinPersonaActivo()){
-        return cantPropiedades >= $("#fPersonasPropietarioDesde").val() ;
+    if (fPropietarioMinPersonaActivo()) {
+        return cantPropiedades >= $("#fPersonasPropietarioDesde").val();
     }
-    if(fPropietarioMaxPersonaActivo()){
-        cantPropiedades <= $("#fPersonasPropietarioHasta").val(); 
+    if (fPropietarioMaxPersonaActivo()) {
+        cantPropiedades <= $("#fPersonasPropietarioHasta").val();
     }
     return true;
 }
-function tieneEdad(persona){
-    var edad=Number(persona.edad);
-    if(fEdadMinMaxPersonaActivo()){
-        return edad >= $("#fPersonasEdadDesde").val() 
-                && edad <= $("#fPersonasEdadHasta").val() ;
+function tieneEdad(persona) {
+    var edad = Number(persona.edad);
+    if (fEdadMinMaxPersonaActivo()) {
+        return edad >= $("#fPersonasEdadDesde").val()
+                && edad <= $("#fPersonasEdadHasta").val();
     }
-    if(fEdadMinPersonaActivo()){
+    if (fEdadMinPersonaActivo()) {
         return edad >= $("#fPersonasEdadDesde").val();
     }
-    if(fEdadMaxPersonaActivo()){
-        return edad <= $("#fPersonasEdadHasta").val() ;
-    } 
+    if (fEdadMaxPersonaActivo()) {
+        return edad <= $("#fPersonasEdadHasta").val();
+    }
     return true;
 }
-function tieneDeuda(persona){
-    var deuda=deudaTotal(persona.dni);
-    if(fDeudaMinMaxPersonaActivo()){
-        return deuda >= $("#fPersonasDeudaDesde").val() 
-                && deuda <= $("#fPersonasDeudaHasta").val() ;
+function tieneDeuda(persona) {
+    var deuda = deudaTotal(persona.dni);
+    if (fDeudaMinMaxPersonaActivo()) {
+        return deuda >= $("#fPersonasDeudaDesde").val()
+                && deuda <= $("#fPersonasDeudaHasta").val();
     }
-    if(fDeudaMinPersonaActivo()){
+    if (fDeudaMinPersonaActivo()) {
         return deuda >= $("#fPersonasDeudaDesde").val();
     }
-    if(fDeudaMaxPersonaActivo()){
-        return deuda <= $("#fPersonasDeudaHasta").val() ;
+    if (fDeudaMaxPersonaActivo()) {
+        return deuda <= $("#fPersonasDeudaHasta").val();
     }
-    
+
     return true;
 }
 function obtenerPersonaPor(dni) {
@@ -509,11 +527,11 @@ function obtenerPersonaPorResidencia(partida) {
 function generarArrayMarkerPropiedades() {
     arrayPropiedades.forEach(function (element) {
         var myLatLng = {lat: Number(element.altitud), lng: Number(element.longitud)};
-      //  var image = 'images/Casa.png';
+        //  var image = 'images/Casa.png';
         var marker = new google.maps.Marker({
             position: myLatLng,
             animation: google.maps.Animation.DROP,
-         //   icon: 'images/point.png',
+            //   icon: 'images/point.png',
             title: element.tipo
         });
         // var infowindow = new google.maps.InfoWindow({
@@ -531,7 +549,7 @@ function generarArrayMarkerPropiedades() {
         //     ////console.log("mouseout: " + this.getTitle());
         //     infowindow.close();
         // });
-        google.maps.event.addListener(marker, 'spider_click', function(e){
+        google.maps.event.addListener(marker, 'spider_click', function (e) {
             showPropiedad(element);
         });
         arrayMarkerPropiedades.push(marker);
@@ -541,7 +559,7 @@ function generarArrayMarkerPropiedades() {
 function filtrarPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
     var indice = 0;
-    var arrayMarkersPropiedadesMostrar=[]
+    var arrayMarkersPropiedadesMostrar = []
     arrayPropiedades.forEach(function (propiedad) {
         if (esTipoProp(propiedad)
                 && tieneUsoProp(propiedad)
@@ -553,7 +571,7 @@ function filtrarPropiedades() {
         {
             //agregar marker a mostrar
             arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
-            
+
         }
         indice++;
     });
@@ -742,7 +760,7 @@ function generarArrayMarkerLugares() {
         var marker = new google.maps.Marker({
             position: myLatLng,
             animation: google.maps.Animation.DROP,
-        //    icon: 'images/point.png',
+            //    icon: 'images/point.png',
             title: element.tipo
 
         });
@@ -761,7 +779,7 @@ function generarArrayMarkerLugares() {
         //     ////console.log("mouseout: " + this.getTitle());
         //     infowindow.close();
         // });
-        google.maps.event.addListener(marker, 'spider_click', function(e){
+        google.maps.event.addListener(marker, 'spider_click', function (e) {
             showLugar(element);
         });
         arrayMarkerLugares.push(marker);
@@ -799,7 +817,7 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 //VISTAS------------------------------------------------------------------------
 function agregarPropidadModal(propiedad) {
     var divPropiedades = $('#mperPropiedades');
-    
+
     var div = document.createElement("div");
     var divImg = document.createElement("div");
     var img = document.createElement("img");
@@ -856,12 +874,12 @@ function showPropiedad(element) {
 
     var personaResidente = obtenerPersonaPorResidencia(element.partida);
     ////console.log("dni residente: " + personaResidente.dni);
-    if (personaResidente!=null) {
+    if (personaResidente != null) {
         $('#verResidente').show();
         $('#mpResidenteIMG').show();
         $('#mpResidente').text(personaResidente.nombres + ' ' + personaResidente.apellidos);
         $('#mpSexoEdadRes').text('Sexo: ' + personaResidente.sexo + ', ' + personaResidente.edad + ' años');
-    }else{
+    } else {
         $('#verResidente').hide();
         $('#mpResidenteIMG').hide();
     }
@@ -910,7 +928,7 @@ function showPersona(persona) {
 // FIN VISTAS-------------------------------------------------------------------
 
 //MARKERS-----------------------------------------------------------------------
-function restablecerMarkersByArray(arrayMarker){
+function restablecerMarkersByArray(arrayMarker) {
     arrayMarker.forEach(function (marker) {
         //agrega los markers al oms y al mapa
         oms.addMarker(marker);
@@ -921,7 +939,7 @@ function restablecerMarkersByArray(arrayMarker){
 
 }
 function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
-    arrayShowMarkers=[];
+    arrayShowMarkers = [];
     arrayIndex.forEach(function (element) {
         arrayShowMarkers.push(arrayMarker[element]);
         //agrega los markers al oms y al mapa
@@ -954,47 +972,47 @@ function reiniciar() {
     eliminarMarkers(arrayMarkerPropiedades);
     habilitarControles(false);
 }
-function addClusterer(){
+function addClusterer() {
     //agrega clusterer y markers al map
     // if(markerCluster==null){
     //     markerCluster = new MarkerClusterer(map, markers,{maxZoom: 19, imagePath: 'js/markerclusterer/m'});
     // }else{
     //     markerCluster.addMarkers(markers, false);
     // }
-    if(markerCluster==null){
-        markerCluster = new MarkerClusterer(map, [],{maxZoom: 19, imagePath: 'js/markerclusterer/m'});
+    if (markerCluster == null) {
+        markerCluster = new MarkerClusterer(map, [], {maxZoom: 19, imagePath: 'js/markerclusterer/m'});
     }
 }
-function addOms(){
-    oms = new OverlappingMarkerSpiderfier(map, { 
-        markersWontMove: true,   // we promise not to move any markers, allowing optimizations
-        markersWontHide: true,   // we promise not to change visibility of any markers, allowing optimizations
-        basicFormatEvents: false , // allow the library to skip calculating advanced formatting information
+function addOms() {
+    oms = new OverlappingMarkerSpiderfier(map, {
+        markersWontMove: true, // we promise not to move any markers, allowing optimizations
+        markersWontHide: true, // we promise not to change visibility of any markers, allowing optimizations
+        basicFormatEvents: false, // allow the library to skip calculating advanced formatting information
         nearbyDistance: 1
     });
 }
 function addListenerOmsIconMarker(marker) {
-  //icono por estado
-  oms.addListener('format', function(marker, status) {
-    var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/point.png' :
-      status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/group.png' :
-      status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/point.png' : 
-      null;
-    var iconSize = new google.maps.Size(16, 16);
-    marker.setIcon({
-      url: iconURL,
-      size: iconSize
+    //icono por estado
+    oms.addListener('format', function (marker, status) {
+        var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/point.png' :
+                status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/group.png' :
+                status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE ? 'images/point.png' :
+                null;
+        var iconSize = new google.maps.Size(16, 16);
+        marker.setIcon({
+            url: iconURL,
+            size: iconSize
+        });
     });
-  });
 
-} 
+}
 //FIN MARKERS----------
 
 //GENERALES---------------------------------------------------------------------
 function traerDatos() {
 
     $.ajax({
-        data: $("#mes"),
+        data: $("#meses"),
         url: 'controlers/controler_return_puntos.php',
         type: 'POST',
         success: function (response) {
@@ -1010,7 +1028,7 @@ function traerDatos() {
                 arrayPersonas = [];
                 arrayPropietarios = [];
                 arrayLugares = [];
-                
+
                 habilitarControles(false);
 
             } else {
@@ -1034,14 +1052,9 @@ function traerDatos() {
                 generarArrayMarkerPropiedades();
                 generarArrayMarkerLugares();
 
-                //cargarMarkers(arrayMarkerPropiedades);
-                //cargarMarkers(arrayMarkerLugares);
-
                 habilitarControles(true);
-
-
             }
-            document.getElementById('getPuntos').blur();
+
         },
         error: function () {
             alert("Ocurrio un error al conectar con el servidor. Verifique su coexion a internet.");

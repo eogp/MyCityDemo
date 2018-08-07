@@ -10,14 +10,9 @@ and open the template in the editor.
 
 /* Always set the map height explicitly to define the size of the div
            * element that contains the map. */
-#map {
-    height: 700px;
+/*#map {
+    
+    height: 900px;
 
-}
-/* Optional: Makes the sample page fill the window. 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 1;
-}
-*/
+}*/
+

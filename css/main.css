@@ -1,0 +1,153 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04-ago-2018, 15:40:58
+    Author     : enriquegomezpena
+*/
+
+html,body{
+    margin:0px;
+    height:100%;
+    background-color: #43425d; 
+
+}
+
+/*----------------header---------------------*/
+.header{
+    height:70px;
+    background-color: #35344a; 
+}
+
+.header-puntos{
+    height:70px;
+    background-color: #9997fa;
+}
+
+.header-buscar{
+    height:70px;
+    background-color: #ffffff;
+}
+.icon-header-buscar{
+    margin: 3%;
+}
+.imagenPerfil{
+    padding: 0px;
+    height: 50px;
+    margin: 10px;
+    margin-right: 0px;
+}
+
+.selectSesion{
+
+    padding: 0px;
+    margin: 0px;
+    color: white;
+    text-align-last:center;
+    width: auto;
+    background-color: #35344a;
+    border: none;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor:pointer;
+}
+
+/*----------------menu---------------------*/
+.menuIz{
+    background-color: #3b3a53; 
+    color: white;
+    padding: 0;
+}
+
+.iconMenuIz{
+    margin-left: 5%;
+    margin-right: 0;
+}
+
+.selectMes{
+    padding: 0px;
+    padding-left: 1%;
+    margin: 6%;
+    margin-left: 0;
+    color: white;
+    text-align-last:left;
+    width: 60%;
+    background-color: #3b3a53;
+    border: none;
+    background: URL(../images/flecha_select.png) no-repeat 100% 3px #3b3a53;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor:pointer;
+}
+
+.btnFiltros{
+    border: none;
+    background-color: #3b3a53;
+    margin: 6%;
+    margin-left: 0;
+    width: 60%;
+    text-align-last:left;
+    background: URL(../images/flecha_btn.png) no-repeat 100% 3px #3b3a53;
+}
+
+hr { 
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border-style: inset;
+    border-color: #a5a6ac;
+}
+
+.menuTitulos{
+    margin: 8%;
+    color: #a5a6ac;
+    font-size: 12px; 
+
+}
+
+/*----------------modal---------------------*/
+.modal {
+    text-align: center;
+    padding: 0!important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+
+}
+.modal-header{
+    background-color: #3b3a53;
+    color: white;
+
+}
+.modal-title{
+    font-style: normal;
+    font-size: 15px;
+    
+}
+.modal-title-img{
+    margin-right: 3%;
+    margin-left:  3%;
+}
+.close{
+    color: white;
+    font-style: normal;
+}
