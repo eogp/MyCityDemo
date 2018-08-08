@@ -126,132 +126,101 @@ and open the template in the editor.
                                 </div>
                             </div>
                             <div class="modal-body">
-                                <div class="container-fluid">
-                                    <div class="row" id="fPerRol">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Rol:</div>
+                                
+                                    <div class="row row-modal" id="fPerRol">
+                                        <div class="col-md-2">
+                                            <h5>Rol:</h5>
                                         </div>
-                                        <div class="col-md-10">
-                                            <div class="checkbox">
-
-                                                <label><input type="checkbox" value="Si">DUEÑO</label>
-
-                                                <label><input type="checkbox" value="No">RESIDENTE</label>
-                                            </div>
+                                        <div class="col-md-10 myclase">
+                                            <input type="checkbox" value="Si" id="chDueno">
+                                            <label for="chDueno">DUEÑO</label>
+                                            <input type="checkbox" value="No" id="chResidente">
+                                            <label for="chResidente">RESIDENTE</label>
                                         </div>
                                     </div>
-                                    
-                                    <div class="row"> 
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Deuda:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal"> 
+                                        <div class="col-md-2">
+                                            <h5>Deuda:</h5>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="number" placeholder="DESDE" id="fPersonasDeudaDesde">
-                                            <input type="number"  placeholder="HASTA" id="fPersonasDeudaHasta">
+                                            <input class="input-text-modal" type="number" placeholder="DESDE" id="fPersonasDeudaDesde">
+                                            <input class="input-text-modal" type="number"  placeholder="HASTA" id="fPersonasDeudaHasta">
                                         </div>
                                     </div>
-                                    
-                                    <div class="row" id="fPersonasSexo">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Sexo:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal" id="fPersonasSexo">
+                                        <div class="col-md-2">
+                                            <h5>Sexo:</h5>
                                         </div>
                                         <div class="col-md-10">
-                                            <div class="checkbox">
-
-
-                                                <label><input type="checkbox" value="Masculino">HOMBRE</label>
-
-                                                <label><input type="checkbox" value="Femenino">MUJER</label>
-                                            </div>
+                                            <input type="checkbox" value="Masculino" id="chHombre">
+                                            <label for="chHombre">HOMBRE</label>
+                                            <input type="checkbox" value="Femenino" id="chFemenino">
+                                            <label for="chFemenino">MUJER</label>
                                         </div>
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Edad:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal">
+                                        <div class="col-md-2">
+                                            <h5>Edad:</h5>
                                         </div>
                                         <div class="col-md-10">
-
-                                            <input type="number" placeholder="DESDE" id="fPersonasEdadDesde">
-                                            <input type="number" placeholder="HASTA" id="fPersonasEdadHasta">
+                                            <input class="input-text-modal" type="number" placeholder="DESDE" id="fPersonasEdadDesde">
+                                            <input class="input-text-modal" type="number" placeholder="HASTA" id="fPersonasEdadHasta">
                                         </div>
                                     </div>
-
-                                    <div class="row" id="fPersonasEducacion">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Educación:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal" id="fPersonasEducacion">
+                                        <div class="col-md-2">
+                                            <h5>Educación:</h5>
                                         </div>
                                         <div class="col-md-10">
-                                            <div class="checkbox">       
-
-                                                <label><input type="checkbox" value="Primario">PRIMARIO</label>
-
-                                                <label><input type="checkbox" value="Secundaria">SECUNDARIO</label>
-
-                                                <label><input type="checkbox" value="Terciario">TERCIARIO</label>
-
-                                                <label><input type="checkbox" value="Universitario">UNIVERSITARIO</label>
-                                            </div>
+                                            <input type="checkbox" value="Primario" id="chPrimario">
+                                            <label for="chPrimario">PRIMARIO</label>
+                                            <input type="checkbox" value="Secundaria" id="chSecundario">
+                                            <label for="chSecundario">SECUNDARIO</label>
+                                            <input type="checkbox" value="Terciario" id="chTerceario">
+                                            <label for="chTerceario">TERCIARIO</label>
+                                            <input type="checkbox" value="Universitario" id="chUniversitario">
+                                            <label for="chUniversitario">UNIVERSITARIO</label>
                                         </div>
                                     </div>
-
-                                    <div class="row" id="fPersonasProfesion">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Profesión:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal" id="fPersonasOcupacion">
+                                        <div class="col-md-2">
+                                            <h5>Ocupación:</h5>
                                         </div>
                                         <div class="col-md-10">
-                                            <div class="checkbox">
-                                                <label><input type="checkbox" value="Abogado">Abogado</label>
-
-                                                <label><input type="checkbox" value="Ama de casa">Ama de casa</label>
-
-                                                <label><input type="checkbox" value="Cajero">Cajero</label>
-
-                                                <label><input type="checkbox" value="Chofer">Chofer</label>
-
-                                                <label><input type="checkbox" value="Comerciante">Comerciante</label>
-
-                                                <label><input type="checkbox" value="Comerciante">Comerciante</label>
-
-                                                <label><input type="checkbox" value="Contador">Contador</label>
-
-                                                <label><input type="checkbox" value="Desempleado">Desempleado</label>
-
-                                                <label><input type="checkbox" value="Electricista">Electricista</label>
-
-                                                <label><input type="checkbox" value="Empleado">Empleado</label>
-
-                                                <label><input type="checkbox" value="Ingeniero">Ingeniero</label>
-
-                                                <label><input type="checkbox" value="Mecanico">Mecánico</label>
-
-                                                <label><input type="checkbox" value="Medico">Médico</label>
-
-                                                <label><input type="checkbox" value="Plomero">Plomero</label>
-
-                                                <label><input type="checkbox" value="Portero">Portero</label>
-                                            </div>
+                                            <input type="checkbox" value="Empleado" id="chEmpleado">
+                                            <label for="chEmpleado">EMPLEADO</label>
+                                            <input type="checkbox" value="Autonomo" id="chAutonomo">
+                                            <label for="chAutonomo">AUTÓNOMO</label>
+                                            <input type="checkbox" value="Monotributista" id="chMonotributista"> 
+                                            <label for="chMonotributista">MONOTRIBUTISTA</label>
+                                            <input type="checkbox" value="Jubilado" id="chJubilado">
+                                            <label for="chJubilado">JUBILADO</label>
+                                            <input type="checkbox" value="Desempleado" id="chDesempleaado">
+                                            <label for="chDesempleaado">DESEMPLEADO</label>
                                         </div>
                                     </div> 
-                                    
-                                    <div class="row" id="fPersonasVotante">
-                                        <div class="col-lg-2">
-                                            <div class="checkbox">Votante:</div>
+                                    <hr class="hr-modal">
+                                    <div class="row row-modal" id="fPersonasVotante">
+                                        <div class="col-md-2">
+                                            <h5>Votante:</h5>
                                         </div>
                                         <div class="col-md-10">
-                                            <div class="checkbox">
-
-                                                <label><input type="checkbox" value="Si">SI</label>
-
-                                                <label><input type="checkbox" value="No">NO</label>
-                                            </div>
+                                            <input type="checkbox" value="Si" id="chVotoSi">
+                                            <label for="chVotoSi">SI</label>
+                                            <input type="checkbox" value="No" id="chVotoNo">
+                                            <label for="chVotoNo">NO</label>
                                         </div>
                                     </div>
-                                </div>
+                                
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">BORRAR FILTROS</button>
-                                <button type="button" class="btn btn-primary" id="applyFilterPersonas">GUARDAR FILTROS</button>
+                                <button type="button" class="btn-modal" >BORRAR FILTROS</button>
+                                <button type="button" class="btn-modal-default" id="applyFilterPersonas">GUARDAR FILTROS</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
@@ -354,7 +323,7 @@ and open the template in the editor.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
-                                <button type="button" class="btn btn-primary" id="applyFilterPropiedades">Aplicar</button>
+                                <button type="button" class="btnFiltros" id="applyFilterPropiedades">Aplicar</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
