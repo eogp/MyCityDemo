@@ -11,23 +11,23 @@ and open the template in the editor.
 html,body{
     margin:0px;
     height:100%;
-    background-color: #43425d; 
+    background-color: #3b3a53; 
 
 }
 
 /*----------------header---------------------*/
 .header{
-    height:70px;
+    height:90px;
     background-color: #35344a; 
 }
 
 .header-puntos{
-    height:70px;
+    height:90px;
     background-color: #9997fa;
 }
 
 .header-buscar{
-    height:70px;
+    height:90px;
     background-color: #ffffff;
 }
 .icon-header-buscar{
@@ -36,12 +36,12 @@ html,body{
 .imagenPerfil{
     padding: 0px;
     height: 50px;
-    margin: 10px;
+    margin: 20px;
+    margin-left: 30px;
     margin-right: 0px;
 }
 
 .selectSesion{
-
     padding: 0px;
     margin: 0px;
     color: white;
@@ -64,7 +64,7 @@ html,body{
 }
 
 .iconMenuIz{
-    margin-left: 5%;
+    margin-left: 30px;
     margin-right: 0;
 }
 
@@ -94,6 +94,16 @@ html,body{
     width: 60%;
     text-align-last:left;
     background: URL(../images/flecha_btn.png) no-repeat 100% 3px #3b3a53;
+}
+
+.btnFiltros2{
+    border: none;
+    background-color: #3b3a53;
+    margin: 6%;
+    margin-left: 0;
+    width: 60%;
+    text-align-last:left;
+    background: URL(../images/cadrado_btn.png) no-repeat 100% 3px #3b3a53;
 }
 
 hr { 
@@ -127,13 +137,25 @@ hr {
 
 }
 
-.modal-dialog {
+.modal-dialog-md{
     display: inline-block;
     text-align: left;
     vertical-align: middle;
-    width: 45%;
+    width: auto;
+    min-width: 45%;
 
 }
+
+.modal-dialog-sm{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: auto;
+    min-width: 700px;
+
+}
+
+
 .modal-header{
     background-color: #3b3a53;
     color: white;
@@ -170,9 +192,6 @@ hr {
 }
 
 label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: normal;
     font-size: 12px;
     padding: 3px;
     padding-left: 10px;
@@ -196,9 +215,6 @@ input[type=checkbox]:checked + label {
 }
 
 .input-text-modal{
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: normal;
     font-size: 12px;
     padding: 3px;
     padding-left: 10px;
@@ -208,13 +224,10 @@ input[type=checkbox]:checked + label {
     color: white;
     border: 1px solid transparent;
     border-radius: 20px;
-    width: 100px;
+    width: auto;
     text-align: center;
 }
 input[type="number"].input-text-modal::placeholder {
-    font-family: Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: normal;
     font-size: 12px;
     color: white;
     text-align: center;
@@ -264,4 +277,25 @@ input[type="number"].input-text-modal::placeholder {
     display: block;
     border-style: inset;
     border-color: #cccccc;
+}
+
+.select-modal{
+    font-size: 12px;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 1%;
+    background: #cccccc;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 20px;
+    min-width: 50px;
+    text-align: center;
+    text-align-last:center;
+    width: auto;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor:pointer;
 }

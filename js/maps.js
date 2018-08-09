@@ -1016,6 +1016,7 @@ function traerDatos() {
         url: 'controlers/controler_return_puntos.php',
         type: 'POST',
         success: function (response) {
+
             if (response == "") {
                 alert("No se cargaron datos para este periodo");
 
@@ -1023,15 +1024,19 @@ function traerDatos() {
                 sacarMarkers(arrayMarkerLugares);
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
-
+                
                 arrayPropiedades = [];
                 arrayPersonas = [];
                 arrayPropietarios = [];
                 arrayLugares = [];
+                
 
                 habilitarControles(false);
+                
 
             } else {
+                
+                
                 array = JSON.parse(response);
 
                 sacarMarkers(arrayMarkerPropiedades);
@@ -1053,8 +1058,8 @@ function traerDatos() {
                 generarArrayMarkerLugares();
 
                 habilitarControles(true);
-            }
 
+            }
         },
         error: function () {
             alert("Ocurrio un error al conectar con el servidor. Verifique su coexion a internet.");
@@ -1066,12 +1071,10 @@ function habilitarControles(boolean) {
         document.getElementById('filterPersonas').disabled = false;
         document.getElementById('filterPropiedades').disabled = false;
         document.getElementById('filterLugares').disabled = false;
-        document.getElementById('reiniciar').disabled = false;
     } else {
         document.getElementById('filterPersonas').disabled = true;
         document.getElementById('filterPropiedades').disabled = true;
         document.getElementById('filterLugares').disabled = true;
-        document.getElementById('reiniciar').disabled = true;
     }
 }
 function todosLosIndices(array) {
