@@ -227,58 +227,31 @@ function initMap() {
     });
     //activa Clusterer
     addClusterer();
-    //activa Oms
-    addOms();
 
+    //activa Oms
+    //addOms();
+
+    //altura automatica del mapa
     heightMap();
 }
 
+//AJUSTA LA ALTURA DEL MAPA
 function heightMap() {
 
     console.log($(window).height());
 
     // set initial div height / width
-    document.getElementById('map').style.height= ""+$(window).height() - 70+"px";
-    document.getElementById('menu').style.height= ""+$(window).height() - 70+"px";
+    document.getElementById('map').style.height = "" + $(window).height() - 70 + "px";
+    document.getElementById('menu').style.height = "" + $(window).height() - 70 + "px";
     // make sure div stays full width/height on resize
     $(window).resize(function () {
         console.log($(window).height());
-        document.getElementById('map').style.height=""+$(window).height() - 70+"px";
-        document.getElementById('menu').style.height= ""+$(window).height() - 70+"px";
+        document.getElementById('map').style.height = "" + $(window).height() - 70 + "px";
+        document.getElementById('menu').style.height = "" + $(window).height() - 70 + "px";
     });
 }
 //FIN MAPA----------------------------------------------------------------------
 
-//LISTENERS---------------------------------------------------------------------
-$(document).ready(function () {
-    //LISTENERS
-    document.getElementById('menu').addEventListener('change', function () {
-        traerDatos();
-    });
-    document.getElementById('filterPersonas').addEventListener('click', function () {
-        $('#modalFilterPesonas').modal('show');
-    });
-    document.getElementById('filterPropiedades').addEventListener('click', function () {
-        $('#modalFilterPropiedades').modal('show');
-    });
-    document.getElementById('filterLugares').addEventListener('click', function () {
-        $('#modalFilterLugares').modal('show');
-    });
-    document.getElementById('applyFilterPersonas').addEventListener('click', function () {
-        filtrarPersonas();
-    });
-    document.getElementById('applyFilterPropiedades').addEventListener('click', function () {
-        filtrarPropiedades();
-    });
-    document.getElementById('applyFilterLugares').addEventListener('click', function () {
-        filtrarLugares();
-    });
-    document.getElementById('reiniciar').addEventListener('click', function () {
-        reiniciar();
-    });
-
-});
-//FIN LISTENERS-----------------------------------------------------------------
 
 //PERSONAS----------------------------------------------------------------------
 function filtrarPersonas() {
@@ -549,24 +522,25 @@ function generarArrayMarkerPropiedades() {
         //     ////console.log("mouseout: " + this.getTitle());
         //     infowindow.close();
         // });
-        google.maps.event.addListener(marker, 'spider_click', function (e) {
+        google.maps.event.addListener(marker, 'click', function (e) {
             showPropiedad(element);
         });
         arrayMarkerPropiedades.push(marker);
     });
 }
 
+//filtrar por datos modal
+//deshabiliatr filtros segun resultado filtro
 function filtrarPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
     var indice = 0;
-    var arrayMarkersPropiedadesMostrar = []
+    var arrayMarkersPropiedadesMostrar = [];
     arrayPropiedades.forEach(function (propiedad) {
-        if (esTipoProp(propiedad)
-                && tieneUsoProp(propiedad)
-                && tieneServicios(propiedad)
-                && tieneMtsCubProp(propiedad)
-                && tieneMtsTotProp(propiedad)
-                && tieneDeudaProp(propiedad)
+        if (tieneDeudaProp(propiedad)
+                || esTipoProp(propiedad)
+                || tieneDestinoProp(propiedad)
+                || tieneMtsTotProp(propiedad)
+                || tieneServicios(propiedad)
                 )
         {
             //agregar marker a mostrar
@@ -575,30 +549,31 @@ function filtrarPropiedades() {
         }
         indice++;
     });
+    addIconMarkers(arrayMarkersPropiedadesMostrar);
     restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
     $('#modalFilterPropiedades').modal('hide');
 }
 
 function fTipoPropActivo() {
     var estado = false;
-    $("#fPropiedadesTipo").find("input").each(function () {
+    $("#dvPropTipo").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
-    ////console.log("Filtro Propiedad Tipo: "+estado);
+    //console.log("Filtro Propiedad Tipo: "+estado);
     return estado;
 }
-function fUsoPropActivo() {
+function fDestinoPropActivo() {
     var estado = false;
-    $("#fPropiedadesUso").find("input").each(function () {
+    $("#dvPropDestino").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
     return estado;
 }
 function fDeudaMinPropActivo() {
-    return $("#fPropiedadesDeudaDesde").val() != "";
+    return $("#inProDeudaDesde").val() != "";
 }
 function fDeudaMaxPropActivo() {
-    return $("#fPropiedadesDeudaHasta").val() != "";
+    return $("#inProDeudaHasta").val() != "";
 }
 function fDeudaMinMaxPropActivo() {
     return fDeudaMinPropActivo() && fDeudaMaxPropActivo();
@@ -613,67 +588,58 @@ function fMtsCubMinMaxActivo() {
     return fMtsCubMinPropActivo() && fMtsCubMaxPropActivo();
 }
 function fMtsTotalesMinPropActivo() {
-    return $("#fPropiedadesMtsTotalesDesde").val() != "";
+    return $("#inProMtsDesde").val() != "";
 }
 function fMtsTotalesMaxPropActivo() {
-    return $("#fPropiedadesMtsTotalesHasta").val() != "";
+    return $("#inProMtsHasta").val() != "";
 }
 function fMtsTotalesMinMaxPropActivo() {
     return fMtsTotalesMinPropActivo() && fMtsTotalesMaxPropActivo();
 }
+
 function esTipoProp(propiedad) {
     var coincide = false;
-    if (fTipoPropActivo()) {
-        $("#fPropiedadesTipo").find("input").each(function () {
-            if ($(this).is(':checked')) {
-                coincide = propiedad.tipo == $(this).val() || coincide;
-            }
-        });
-        return coincide;
-    }
-    return true;
+    $("#dvPropTipo").find("input").each(function () {
+        if ($(this).is(':checked')) {
+            coincide = propiedad.tipo == $(this).val() || coincide;
+        }
+    });
+    return coincide;
 }
-function tieneUsoProp(propiedad) {
+function tieneDestinoProp(propiedad) {
     var coincide = false;
-    if (fUsoPropActivo()) {
-        $("#fPropiedadesUso").find("input").each(function () {
+    if (fDestinoPropActivo()) {
+        $("#dvPropDestino").find("input").each(function () {
             if ($(this).is(':checked')) {
-                coincide = propiedad.uso == $(this).val() || coincide;
+                coincide = propiedad.destino == $(this).val() || coincide;
             }
         });
         return coincide;
     }
-    return true;
+    return false;
 }
+
 function tieneCloacaProp(propiedad) {
-    if ($("#fPropiedadesCloacas").is(':checked')) {
-        return  propiedad.cloacas == "Si";
-    }
-    return true;
+    return $("#slCloacas").val() == propiedad.cloacas;
 }
 function tieneGasProp(propiedad) {
-    if ($("#fPropiedadesGas").is(':checked')) {
-        return propiedad.gas == "Si";
-    }
-    return true;
+    return $("#slGas").val() == propiedad.gas;
 }
 function tieneLuzProp(propiedad) {
-    if ($("#fPropiedadesLuz").is(':checked')) {
-        return propiedad.luz == "Si";
-    }
-    return true;
+    return $("#slLuz").val() == propiedad.luz;
 }
 function tienePavimentoProp(propiedad) {
-    if ($("#fPropiedadesPavimento").is(':checked')) {
-        return propiedad.paviemnto == "Si";
-    }
-    return true;
+    return $("#slPavimento").val() == propiedad.paviemnto;
+}
+function tieneAguaProp(propiedad) {
+    return $("#slAgua").val() == propiedad.agua;
 }
 function tieneServicios(propiedad) {
-    return tieneCloacaProp(propiedad)
-            && tieneGasProp(propiedad)
+    return tienePavimentoProp(propiedad)
             && tieneLuzProp(propiedad)
-            && tienePavimentoProp(propiedad);
+            && tieneGasProp(propiedad)
+            && tieneAguaProp(propiedad)
+            && tieneCloacaProp(propiedad);
 }
 function tieneMtsCubProp(propiedad) {
     var mts = Number(propiedad.mts_cubiertos);
@@ -687,38 +653,39 @@ function tieneMtsCubProp(propiedad) {
     if (fMtsCubMaxPropActivo()) {
         return mts <= $("#fPropiedadesMtsCubiertosHasta").val();
     }
-    return true;
+    return false;
 }
 function tieneMtsTotProp(propiedad) {
     var mts = Number(propiedad.mts_totales);
     if (fMtsTotalesMinMaxPropActivo()) {
-        return mts >= $("#fPropiedadesMtsTotalesDesde").val() &&
-                mts <= $("#fPropiedadesMtsTotalesHasta").val();
+        return mts >= $("#inProMtsDesde").val() &&
+                mts <= $("#inProMtsHasta").val();
     }
     if (fMtsTotalesMinPropActivo()) {
-        return mts >= $("#fPropiedadesMtsTotalesDesde").val();
+        return mts >= $("#inProMtsDesde").val();
     }
     if (fMtsTotalesMaxPropActivo()) {
-        return mts <= $("#fPropiedadesMtsTotalesHasta").val();
+        return mts <= $("#inProMtsHasta").val();
     }
-    return true;
+    return false;
 }
 function tieneDeudaProp(propiedad) {
     var deuda = Number(propiedad.deuda);
     if (fDeudaMinMaxPropActivo()) {
         //console.log("filtro deudaMinMax activo");
-        return deuda >= $("#fPropiedadesDeudaDesde").val() && deuda <= $("#fPropiedadesDeudaHasta").val();
+        return deuda >= $("#inProDeudaDesde").val() && deuda <= $("#inProDeudaHasta").val();
     }
     if (fDeudaMinPropActivo()) {
         //console.log("filtro deudaMin activo");
-        return deuda >= $("#fPropiedadesDeudaDesde").val();
+        return deuda >= $("#inProDeudaDesde").val();
     }
     if (fDeudaMaxPropActivo()) {
         //console.log("filtro deudaMax activo");
-        return deuda <= $("#fPropiedadesDeudaHasta").val();
+        return deuda <= $("#inProDeudaHasta").val();
     }
-    return true;
+    return false;
 }
+
 function obtenerIndicesPropiedadesPor(partidas) {
     var contador = 0;
     var arrayResult = [];
@@ -756,13 +723,11 @@ function obetnerPropiedadPor(partida) {
 function generarArrayMarkerLugares() {
     arrayLugares.forEach(function (element) {
         var myLatLng = {lat: Number(element.altitud), lng: Number(element.longitud)};
-        //var image = 'images/' + element.tipo + '.png';
         var marker = new google.maps.Marker({
             position: myLatLng,
             animation: google.maps.Animation.DROP,
-            //    icon: 'images/point.png',
+            icon: 'images/' + element.tipo + '-circulo.png',
             title: element.tipo
-
         });
         // var infowindow = new google.maps.InfoWindow({
         //     content: element.tipo
@@ -779,7 +744,7 @@ function generarArrayMarkerLugares() {
         //     ////console.log("mouseout: " + this.getTitle());
         //     infowindow.close();
         // });
-        google.maps.event.addListener(marker, 'spider_click', function (e) {
+        google.maps.event.addListener(marker, 'click', function (e) {
             showLugar(element);
         });
         arrayMarkerLugares.push(marker);
@@ -787,13 +752,10 @@ function generarArrayMarkerLugares() {
 }
 function filtrarLugares() {
     var arrayIndexDejar = [];
-    var arrayIndexQuitar = [];
-    $('#fLugTipo').find("input").each(function () {
+    $('#dvLugTipo').find("input").each(function () {
         if ($(this).is(':checked')) {
             //alert($(this).val());
             obtenerIndicesLugares($(this).val(), arrayIndexDejar);
-        } else {
-            obtenerIndicesLugares($(this).val(), arrayIndexQuitar);
         }
     });
     //console.log("dejar: "+arrayIndexDejar);
@@ -815,6 +777,15 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 //FIN LUGARES-------------------------------------------------------------------
 
 //VISTAS------------------------------------------------------------------------
+function showFilterPropiedad() {
+    $('#modalFilterPropiedades').modal('show');
+}
+function showFilterPersonas() {
+    $('#modalFilterPesonas').modal('show');
+}
+function showFilterLugares() {
+    $('#modalFilterLugares').modal('show');
+}
 function agregarPropidadModal(propiedad) {
     var divPropiedades = $('#mperPropiedades');
 
@@ -895,7 +866,10 @@ function showPropiedad(element) {
     $('#modalShowPropiedad').modal('show');
 }
 function showLugar(element) {
-    $('#idlugar').html('<img  class="center-block" src="images/' + element.tipo + '.png"  ><br>' + '<p class="text-center">Tipo: ' + element.tipo + '</p> <p class="text-center">Descripción: ' + element.descripcion + '</p>');
+    $('#dvShowLugar').html('<br>'
+            + '<img  class="center-block" src="images/' + element.tipo + '-circulo.png">'
+            + '<br>'
+            + '<p class="text-center">' + element.descripcion + '</p>');
     $('#modalShowLugar').modal('show');
 }
 function showPersona(persona) {
@@ -928,39 +902,66 @@ function showPersona(persona) {
 // FIN VISTAS-------------------------------------------------------------------
 
 //MARKERS-----------------------------------------------------------------------
-function restablecerMarkersByArray(arrayMarker) {
-    arrayMarker.forEach(function (marker) {
-        //agrega los markers al oms y al mapa
-        oms.addMarker(marker);
-        addListenerOmsIconMarker(marker);
-    });
-    //agrega los markers al cluster y al mapa
-    markerCluster.addMarkers(arrayMarker);
+function compLatLogMarker(arrayMarker, marker) {
+    var cont = 0;
+    arrayMarker.forEach(function (markerProp) {
+        if (marker.getPosition().lat() == markerProp.getPosition().lat() &&
+                marker.getPosition().lng() == markerProp.getPosition().lng())
+        {
+            cont++;
+        }
 
+    });
+    return cont;
+}
+function addIconMarkers(arrayMarkersProp) {
+    arrayMarkersProp.forEach(function (markerProp) {
+        var cantidad = compLatLogMarker(arrayMarkersProp, markerProp)
+        if (cantidad > 1) {
+            markerProp.setIcon('images/punto-multi.png');
+            markerProp.setLabel({
+                text: cantidad.toString(),
+                color: 'white'
+            });
+        } else {
+            markerProp.setIcon("images/punto-uni.png");
+        }
+    });
+}
+function restablecerMarkersByArray(arrayMarker) {
+//    arrayMarker.forEach(function (marker) {
+//        //agrega los markers al oms y al mapa
+//        oms.addMarker(marker);
+//        addListenerOmsIconMarker(marker);
+//    });
+    //agrega los markers al cluster y al mapa
+    markerCluster.addMarkers(arrayMarker, false);
 }
 function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
     arrayShowMarkers = [];
     arrayIndex.forEach(function (element) {
         arrayShowMarkers.push(arrayMarker[element]);
         //agrega los markers al oms y al mapa
-        oms.addMarker(arrayMarker[element]);
-        addListenerOmsIconMarker(arrayMarker[element]);
+//        oms.addMarker(arrayMarker[element]);
+//        addListenerOmsIconMarker(arrayMarker[element]);
     });
     //agrega los markers al cluster y al mapa
-    markerCluster.addMarkers(arrayShowMarkers, false);
+    cargarMarkers(arrayShowMarkers)
+
 }
 function sacarMarkers(arrayMarker) {
     //elimina los markers del cluster y del mapa
     markerCluster.removeMarkers(arrayMarker, false);
     //elimina los markers del oms y del mapa
-    arrayMarker.forEach(function (element) {
-        oms.removeMarker(element);
-    });
+//    arrayMarker.forEach(function (element) {
+//        oms.removeMarker(element);
+//    });
 }
 function cargarMarkers(arrayMarker) {
-    arrayMarker.forEach(function (element) {
-        element.setMap(map);
-    });
+    markerCluster.addMarkers(arrayMarker, false);
+//    arrayMarker.forEach(function (element) {
+//        element.setMap(map);
+//    });
 }
 function eliminarMarkers(arrayMarker) {
     arrayMarker = [];
@@ -974,15 +975,11 @@ function reiniciar() {
 }
 function addClusterer() {
     //agrega clusterer y markers al map
-    // if(markerCluster==null){
-    //     markerCluster = new MarkerClusterer(map, markers,{maxZoom: 19, imagePath: 'js/markerclusterer/m'});
-    // }else{
-    //     markerCluster.addMarkers(markers, false);
-    // }
     if (markerCluster == null) {
         markerCluster = new MarkerClusterer(map, [], {maxZoom: 19, imagePath: 'js/markerclusterer/m'});
     }
 }
+//OMS DESHABILITADO
 function addOms() {
     oms = new OverlappingMarkerSpiderfier(map, {
         markersWontMove: true, // we promise not to move any markers, allowing optimizations
@@ -991,6 +988,7 @@ function addOms() {
         nearbyDistance: 1
     });
 }
+//OMS DESHABILITADO
 function addListenerOmsIconMarker(marker) {
     //icono por estado
     oms.addListener('format', function (marker, status) {
@@ -1010,13 +1008,11 @@ function addListenerOmsIconMarker(marker) {
 
 //GENERALES---------------------------------------------------------------------
 function traerDatos() {
-
     $.ajax({
         data: $("#meses"),
         url: 'controlers/controler_return_puntos.php',
         type: 'POST',
         success: function (response) {
-
             if (response == "") {
                 alert("No se cargaron datos para este periodo");
 
@@ -1024,19 +1020,15 @@ function traerDatos() {
                 sacarMarkers(arrayMarkerLugares);
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
-                
+
                 arrayPropiedades = [];
                 arrayPersonas = [];
                 arrayPropietarios = [];
                 arrayLugares = [];
-                
 
                 habilitarControles(false);
-                
 
             } else {
-                
-                
                 array = JSON.parse(response);
 
                 sacarMarkers(arrayMarkerPropiedades);
@@ -1058,11 +1050,10 @@ function traerDatos() {
                 generarArrayMarkerLugares();
 
                 habilitarControles(true);
-
             }
         },
         error: function () {
-            alert("Ocurrio un error al conectar con el servidor. Verifique su coexion a internet.");
+            alert("Ocurrió un error al conectar con el servidor. Verifique su conexión a internet.");
         }
     });
 }

@@ -10,7 +10,7 @@ and open the template in the editor.
 
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="UTF-8">
-        
+
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" /><!-- Bootstrap -->        
         <link rel="stylesheet" href="css/main.css" type="text/css" /><!-- Style -->
         <link rel="stylesheet" href="css/maps.css" type="text/css" /><!-- Maps -->
@@ -44,13 +44,13 @@ and open the template in the editor.
             <!-- Cuerpo -->
             <div class="row">
                 <!-- Menu -->
-                <div id="menu" class="col-xs-2 col-sm-2 col-md-2  col-lg-2 menuIz">
+                <div class="col-xs-2 col-sm-2 col-md-2  col-lg-2 menuIz" id="menu">
                     <p class="menuTitulos">Seleccione un período:</p>
                     <hr >
                     <!--Post puntos-->
                     <div>
                         <img src="images/fecha.png" width="32" height="32" class="iconMenuIz"/>
-                        <select class="selectMes" id="meses" name="mes">
+                        <select class="selectMes" id="meses" name="mes" onchange="traerDatos()">
                             <option value="" disabled selected>Mes</option>
                             <option value="Enero">Enero</option>
                             <option value="Febrero">Febrero</option>
@@ -74,12 +74,12 @@ and open the template in the editor.
                     <!-- Filtros -->   
                     <div>
                         <img src="images/prop.png" width="32" height="32" class="iconMenuIz"/>
-                        <button id="filterPropiedades" class="btnFiltros" disabled="true">Propiedades</button>
+                        <button id="filterPropiedades" class="btnFiltros" disabled="true" onclick="showFilterPropiedad()">Propiedades</button>
                     </div>
                     <hr >
                     <div>
                         <img src="images/personas.png" width="32" height="32" class="iconMenuIz"/>
-                        <button id="filterPersonas" class="btnFiltros" disabled="true">Personas</button>
+                        <button id="filterPersonas" class="btnFiltros" disabled="true" onclick="showFilterPersonas()">Personas</button>
                     </div>
                     <hr >
                     <div>
@@ -92,7 +92,7 @@ and open the template in the editor.
                     <div>
                         <img src="images/lugares.png" width="32" height="32" class="iconMenuIz"/>
 
-                        <button id="filterLugares" class="btnFiltros" disabled="true">Lugares</button>
+                        <button id="filterLugares" class="btnFiltros" disabled="true" onclick="showFilterLugares()">Lugares</button>
                     </div>
                     <hr >
                     <div>
@@ -110,7 +110,6 @@ and open the template in the editor.
 
                 </div>
                 <!-- Fin Menu -->
-
                 <!-- Mapa -->
                 <div id="map" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">                       
                 </div>
@@ -121,119 +120,6 @@ and open the template in the editor.
         <!-- ////////// Fin Contenedor principal ////////// -->
 
         <!-- ////////// Modals ////////////// -->
-
-        <!-- Modal Filtro Personas-->
-        <div class="modal fade" id="modalFilterPesonas" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-md" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <div class="row modal-title">
-                            <img src="images/personas.png" width="32" height="32" class="modal-title-img"/>
-                            Filtrar personas por:
-                        </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row row-modal" id="fPerRol">
-                            <div class="col-md-2">
-                                <h5>Rol:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="checkbox" value="Si" id="chDueno">
-                                <label for="chDueno">DUEÑO</label>
-                                <input type="checkbox" value="No" id="chResidente">
-                                <label for="chResidente">RESIDENTE</label>
-                            </div>
-                        </div>
-                        <hr class="hr-modal">
-                        <div class="row row-modal"> 
-                            <div class="col-md-2">
-                                <h5>Deuda:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="fPersonasDeudaDesde">
-                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="fPersonasDeudaHasta">
-                            </div>
-                        </div>
-                        <hr class="hr-modal">
-                        <div class="row row-modal" id="fPersonasSexo">
-                            <div class="col-md-2">
-                                <h5>Sexo:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="checkbox" value="Masculino" id="chHombre">
-                                <label for="chHombre">HOMBRE</label>
-                                <input type="checkbox" value="Femenino" id="chFemenino">
-                                <label for="chFemenino">MUJER</label>
-                            </div>
-                        </div>
-                        <hr class="hr-modal">
-                        <div class="row row-modal">
-                            <div class="col-md-2">
-                                <h5>Edad:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="fPersonasEdadDesde">
-                                <input class="input-text-modal" type="number" placeholder="HASTA" id="fPersonasEdadHasta">
-                            </div>
-                        </div>
-                        <hr class="hr-modal">
-                        <div class="row row-modal" id="fPersonasEducacion">
-                            <div class="col-md-2">
-                                <h5>Educación:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="checkbox" value="Primario" id="chPrimario">
-                                <label for="chPrimario">PRIMARIO</label>
-                                <input type="checkbox" value="Secundaria" id="chSecundario">
-                                <label for="chSecundario">SECUNDARIO</label>
-                                <input type="checkbox" value="Terciario" id="chTerceario">
-                                <label for="chTerceario">TERCIARIO</label>
-                                <input type="checkbox" value="Universitario" id="chUniversitario">
-                                <label for="chUniversitario">UNIVERSITARIO</label>
-                            </div>
-                        </div>
-                        <hr class="hr-modal">
-                        <div class="row row-modal" id="fPersonasOcupacion">
-                            <div class="col-md-2">
-                                <h5>Ocupación:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="checkbox" value="Empleado" id="chEmpleado">
-                                <label for="chEmpleado">EMPLEADO</label>
-                                <input type="checkbox" value="Autonomo" id="chAutonomo">
-                                <label for="chAutonomo">AUTÓNOMO</label>
-                                <input type="checkbox" value="Monotributista" id="chMonotributista"> 
-                                <label for="chMonotributista">MONOTRIBUTISTA</label>
-                                <input type="checkbox" value="Jubilado" id="chJubilado">
-                                <label for="chJubilado">JUBILADO</label>
-                                <input type="checkbox" value="Desempleado" id="chDesempleaado">
-                                <label for="chDesempleaado">DESEMPLEADO</label>
-                            </div>
-                        </div> 
-                        <hr class="hr-modal">
-                        <div class="row row-modal" id="fPersonasVotante">
-                            <div class="col-md-2">
-                                <h5>Votante:</h5>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="checkbox" value="Si" id="chVotoSi">
-                                <label for="chVotoSi">SI</label>
-                                <input type="checkbox" value="No" id="chVotoNo">
-                                <label for="chVotoNo">NO</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-modal" >BORRAR FILTROS</button>
-                        <button type="button" class="btn-modal-default" id="applyFilterPersonas">GUARDAR FILTROS</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Fin Modal Filtro Personas -->
-
         <!-- Modal Filtro Propiedades-->
         <div class="modal fade" id="modalFilterPropiedades" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-sm" role="document">
@@ -251,8 +137,8 @@ and open the template in the editor.
                                 <h5>Deuda:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="input-text-modal" placeholder="DESDE" id="fPropiedadesDeudaDesde">
-                                <input type="number" class="input-text-modal" placeholder="HASTA" id="fPropiedadesDeudaHasta">
+                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProDeudaDesde">
+                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProDeudaHasta">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -260,7 +146,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Tipo:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvPropTipo">
                                 <input type="checkbox" value="CASA" id="chCasa">
                                 <label for="chCasa">CASA</label>
                                 <input type="checkbox" value="PH" id="chPH">
@@ -275,10 +161,10 @@ and open the template in the editor.
                         </div>
                         <hr class="hr-modal">
                         <div class="row row-modal"> 
-                            <div class="col-md-2" id="fPropiedadesUso">
+                            <div class="col-md-2" >
                                 <h5>Destino:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvPropDestino">
                                 <input type="checkbox" value="COMERCIAL" id="chComercial">
                                 <label for="chComercial">COMERCIAL</label>
                                 <input type="checkbox" value="VIVIENDA" id="chVivienda">
@@ -291,8 +177,8 @@ and open the template in the editor.
                                 <h5>Metros:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="input-text-modal" placeholder="DESDE" id="fPropiedadesMtsDesde">
-                                <input type="number" class="input-text-modal" placeholder="HASTA" id="fPropiedadesMtsHasta">
+                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProMtsDesde">
+                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProMtsHasta">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -304,28 +190,28 @@ and open the template in the editor.
                             <div class="col-md-10">
                                 <select class="select-modal" id="slPavimento">
                                     <option value="" selected>PAVIMENTO </option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
+                                    <option value="SI">CON PAVIMENTO</option>
+                                    <option value="NO">SIN PAVIMENTO</option>
                                 </select>
                                 <select class="select-modal" id="slLuz">
                                     <option value="" selected>LUZ </option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
+                                    <option value="SI">CON LUZ</option>
+                                    <option value="NO">SIN LUZ</option>
                                 </select>
                                 <select class="select-modal" id="slGas">
                                     <option value="" selected>GAS </option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
+                                    <option value="SI">CON GAS</option>
+                                    <option value="NO">SIN GAS</option>
                                 </select>
                                 <select class="select-modal" id="slAgua">
                                     <option value="" selected>AGUA </option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
+                                    <option value="SI">CON AGUA</option>
+                                    <option value="NO">SIN AGUA</option>
                                 </select>
                                 <select class="select-modal" id="slCloacas">
                                     <option value="" selected>CLOACAS </option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
+                                    <option value="SI">CON COLACAS</option>
+                                    <option value="NO">SIN CLOACAS</option>
                                 </select>
 
                             </div>
@@ -333,13 +219,125 @@ and open the template in the editor.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-modal" >BORRAR FILTROS</button>
-                        <button type="button" class="btn-modal-default" id="applyFilterPropiedades">GUARDAR FILTROS</button>
+                        <button type="button" class="btn-modal-default" id="applyFilterPropiedades" onclick="filtrarPropiedades()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!-- Fin Modal Filtro Propiedades -->
 
+        <!-- Modal Filtro Personas-->
+        <div class="modal fade" id="modalFilterPesonas" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="row modal-title">
+                            <img src="images/personas.png" width="32" height="32" class="modal-title-img"/>
+                            Filtrar personas por:
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row row-modal" >
+                            <div class="col-md-2">
+                                <h5>Rol:</h5>
+                            </div>
+                            <div class="col-md-10" id="dvPerRol">
+                                <input type="checkbox" id="chDueno">
+                                <label for="chDueno">DUEÑO</label>
+                                <input type="checkbox" id="chResidente">
+                                <label for="chResidente">RESIDENTE</label>
+                            </div>
+                        </div>
+                        <hr class="hr-modal">
+                        <div class="row row-modal"> 
+                            <div class="col-md-2">
+                                <h5>Deuda:</h5>
+                            </div>
+                            <div class="col-md-10">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde">
+                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta">
+                            </div>
+                        </div>
+                        <hr class="hr-modal">
+                        <div class="row row-modal" >
+                            <div class="col-md-2">
+                                <h5>Sexo:</h5>
+                            </div>
+                            <div class="col-md-10" id="dvPerSexo">
+                                <input type="checkbox" id="chHombre">
+                                <label for="chHombre">HOMBRE</label>
+                                <input type="checkbox" id="chFemenino">
+                                <label for="chFemenino">MUJER</label>
+                            </div>
+                        </div>
+                        <hr class="hr-modal">
+                        <div class="row row-modal">
+                            <div class="col-md-2">
+                                <h5>Edad:</h5>
+                            </div>
+                            <div class="col-md-10">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde">
+                                <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta">
+                            </div>
+                        </div>
+                        <hr class="hr-modal">
+                        <div class="row row-modal" >
+                            <div class="col-md-2">
+                                <h5>Educación:</h5>
+                            </div>
+                            <div class="col-md-10" id="dvPerEducacion">
+                                <input type="checkbox" id="chPrimario">
+                                <label for="chPrimario">PRIMARIO</label>
+                                <input type="checkbox" id="chSecundario">
+                                <label for="chSecundario">SECUNDARIO</label>
+                                <input type="checkbox" id="chTerceario">
+                                <label for="chTerceario">TERCIARIO</label>
+                                <input type="checkbox" id="chUniversitario">
+                                <label for="chUniversitario">UNIVERSITARIO</label>
+                            </div>
+                        </div>
+                        <hr class="hr-modal">
+                        <div class="row row-modal" >
+                            <div class="col-md-2" >
+                                <h5>Ocupación:</h5>
+                            </div>
+                            <div class="col-md-10" id="dvPerOcupacion">
+                                <input type="checkbox" id="chEmpleado">
+                                <label for="chEmpleado">EMPLEADO</label>
+                                <input type="checkbox" id="chAutonomo">
+                                <label for="chAutonomo">AUTÓNOMO</label>
+                                <input type="checkbox" id="chMonotributista"> 
+                                <label for="chMonotributista">MONOTRIBUTISTA</label>
+                                <input type="checkbox" id="chJubilado">
+                                <label for="chJubilado">JUBILADO</label>
+                                <input type="checkbox" id="chDesempleaado">
+                                <label for="chDesempleaado">DESEMPLEADO</label>
+                            </div>
+                        </div> 
+                        <hr class="hr-modal">
+                        <div class="row row-modal" >
+                            <div class="col-md-2">
+                                <h5>Votante:</h5>
+                            </div>
+                            <div class="col-md-10" id="dvPErVotante">
+                                <input type="checkbox" id="chVotoSi">
+                                <label for="chVotoSi">SI</label>
+                                <input type="checkbox" id="chVotoNo">
+                                <label for="chVotoNo">NO</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-modal" id="clearFilterPersonas">BORRAR FILTROS</button>
+                        <button type="button" class="btn-modal-default" id="applyFilterPersonas">GUARDAR FILTROS</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Fin Modal Filtro Personas -->
+        
         <!-- Modal Filtro Lugares-->
         <div class="modal fade" id="modalFilterLugares" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-sm" role="document">
@@ -351,51 +349,51 @@ and open the template in the editor.
                             Mostrar lugares de ineterés:
                         </div> 
                     </div>
-                    <div class="modal-body" id="fLugTipo">
-                        <div class="row row-modal"> 
+                    <div class="modal-body" >
+                        <div class="row row-modal" id="dvLugTipo"> 
                             <br/>
                             <input type="checkbox" value="ESCUELA" id="chEscuela">
-                            <label for="chEscuela"><img src="images/escuela-circulo.png" width="16" height="16" style="margin-right: 5px"/>ESCUELA</label>
+                            <label for="chEscuela"><img src="images/ESCUELA-circulo.png" width="16" height="16" style="margin-right: 5px"/>ESCUELA</label>
 
-                            <input type="checkbox" value="OFICINA MUNICIPAL" id="chOficinaMunicipal">
-                            <label for="chOficinaMunicipal"><img src="images/municipal-circulo.png" width="16" height="16" style="margin-right: 5px"/>OFICINA MUNICIPAL</label>
+                            <input type="checkbox" value="OFICINA_MUNICIPAL" id="chOficinaMunicipal">
+                            <label for="chOficinaMunicipal"><img src="images/OFICINA_MUNICIPAL-circulo.png" width="16" height="16" style="margin-right: 5px"/>OFICINA MUNICIPAL</label>
 
                             <input type="checkbox" value="HOSPITAL" id="chHospital">
-                            <label for="chHospital"><img src="images/hospital-circulo.png" width="16" height="16" style="margin-right: 5px"/>HOSPITAL</label>
+                            <label for="chHospital"><img src="images/HOSPITAL-circulo.png" width="16" height="16" style="margin-right: 5px"/>HOSPITAL</label>
 
                             <input type="checkbox" value="POLICIA" id="chPolicia">                                
-                            <label for="chPolicia"><img src="images/policia-circulo.png" width="16" height="16" style="margin-right: 5px"/>POLICIA</label>
+                            <label for="chPolicia"><img src="images/POLICIA-circulo.png" width="16" height="16" style="margin-right: 5px"/>POLICIA</label>
                             <br/>
                             <input type="checkbox" value="ONG" id="chONG">
-                            <label for="chONG"><img src="images/ong-circulo.png" width="16" height="16" style="margin-right: 5px"/>ONG</label>
+                            <label for="chONG"><img src="images/ONG-circulo.png" width="16" height="16" style="margin-right: 5px"/>ONG</label>
 
                             <input type="checkbox" value="SEMAFOROS" id="chSemaforos">
-                            <label for="chSemaforos"><img src="images/semaforo-circulo.png" width="16" height="16" style="margin-right: 5px"/>SEMAFOROS</label>
+                            <label for="chSemaforos"><img src="images/SEMAFOROS-circulo.png" width="16" height="16" style="margin-right: 5px"/>SEMAFOROS</label>
 
-                            <input type="checkbox" value="CAMARA" id="chCamara">
-                            <label for="chCamara"><img src="images/camara-circulo.png" width="16" height="16" style="margin-right: 5px"/>CAMARA</label>
+                            <input type="checkbox" value="CAMARAS" id="chCamaras">
+                            <label for="chCamaras"><img src="images/CAMARAS-circulo.png" width="16" height="16" style="margin-right: 5px"/>CAMARAS</label>
 
                             <input type="checkbox" value="RAMPAS" id="chRampas">
-                            <label for="chRampas"><img src="images/rampa-circulo.png" width="16" height="16" style="margin-right: 5px"/>RAMPAS</label>
+                            <label for="chRampas"><img src="images/RAMPAS-circulo.png" width="16" height="16" style="margin-right: 5px"/>RAMPAS</label>
 
                             <input type="checkbox" value="LOMA_DE_BURRO" id="chLomaDeBurro">
-                            <label for="chLomaDeBurro"><img src="images/loma-circulo.png" width="16" height="16" style="margin-right: 5px"/>LOMA DE BURRO</label>
+                            <label for="chLomaDeBurro"><img src="images/LOMA_DE_BURRO-circulo.png" width="16" height="16" style="margin-right: 5px"/>LOMA DE BURRO</label>
                             <br/>
                             <input type="checkbox" value="ESPACIO_VERDE" id="chEspacioVerde">
-                            <label for="chEspacioVerde"><img src="images/arbol-circulo.png" width="16" height="16" style="margin-right: 5px"/>ESPACIO VERDE</label>
+                            <label for="chEspacioVerde"><img src="images/ESPACIO_VERDE-circulo.png" width="16" height="16" style="margin-right: 5px"/>ESPACIO VERDE</label>
 
                             <input type="checkbox" value="DEPOSITO_DE_BASURA" id="chDepositoDeBasura">
-                            <label for="chDepositoDeBasura"><img src="images/basura-circulo.png" width="16" height="16" style="margin-right: 5px"/>DEPOSITO DE BASURA</label>
+                            <label for="chDepositoDeBasura"><img src="images/DEPOSITO_DE_BASURA-circulo.png" width="16" height="16" style="margin-right: 5px"/>DEPOSITO DE BASURA</label>
 
                             <input type="checkbox" value="PUNTO_VERDE" id="chPuntoVerde">
-                            <label for="chPuntoVerde"><img src="images/verde-circulo.png" width="16" height="16" style="margin-right: 5px"/>PUNTO VERDE</label>
+                            <label for="chPuntoVerde"><img src="images/PUNTO_VERDE-circulo.png" width="16" height="16" style="margin-right: 5px"/>PUNTO VERDE</label>
                         </div>
                         <br/>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn-modal" >BORRAR FILTROS</button>
-                        <button type="button" class="btn-modal-default" id="applyFilterLugares">GUARDAR FILTROS</button>
+                        <button type="button" class="btn-modal-default" onclick="filtrarLugares()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -404,20 +402,20 @@ and open the template in the editor.
 
         <!-- Modal Show Lugar-->
         <div class="modal fade" id="modalShowLugar" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-xs" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Información.</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div  id="idlugar"></div>
+                        <div class="row modal-title">
+                            Información.
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+                    <div class="modal-body">
+                        <div class="row row-modal" >
+                            <div  id="dvShowLugar"></div>
+                        </div>
                     </div>
+                   
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
@@ -433,7 +431,7 @@ and open the template in the editor.
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <div  id="idlugar"></div>
+                            <div  id="dvShowProp"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -456,7 +454,7 @@ and open the template in the editor.
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <img  src="images/logo.png" alt="My City" >
+                                    <img  src="images/logo_mini.png" alt="My City" >
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
                                     <h4 id="mpDireccion">Sin datos.</h4>
@@ -547,7 +545,7 @@ and open the template in the editor.
                             <div class="row" id="mperPropiedades">
                                 <div class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
                                     <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
-                                        <img  src="images/logoMini.png"  >
+                                        <img  src="images/logo_mini.png"  >
 
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6" >
