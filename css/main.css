@@ -87,6 +87,8 @@ html,body{
 }
 
 .btnFiltros{
+    font-weight: normal;
+    font-style: normal;
     border: none;
     background-color: #3b3a53;
     margin: 6%;
@@ -97,6 +99,8 @@ html,body{
 }
 
 .btnFiltros2{
+    font-weight: normal;
+    font-style: normal;
     border: none;
     background-color: #3b3a53;
     margin: 6%;
@@ -142,7 +146,7 @@ hr {
     text-align: left;
     vertical-align: middle;
     width: auto;
-    min-width: 45%;
+    min-width: 800px;
 
 }
 
@@ -182,7 +186,7 @@ hr {
 .close{
     color: white;
     font-style: normal;
-   
+
 }
 
 .modal-body{
@@ -201,17 +205,21 @@ hr {
 }
 
 label {
+    font-weight: normal;
     font-size: 12px;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
-    margin: 1%;
+    margin: 0px;
+    margin-top: 1%;
     background: #cccccc;
     color: white;
     border: 1px solid transparent;
     border-radius: 20px;
     min-width: 50px;
     text-align: center;
+
+    cursor:pointer;
 }
 input[type=checkbox] {
     display:none; 
@@ -222,18 +230,27 @@ input[type=checkbox] + label {
 input[type=checkbox]:checked + label {
     background: #ffcc66;
 }
-
+input[type=radio] {
+    display:none; 
+}
+input[type=radio] + label {
+    cursor: pointer;
+}
+input[type=radio]:checked + label {
+    background: #ffcc66;
+}
 .input-text-modal{
     font-size: 12px;
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
-    margin: 1%;
+    margin: 0px;
+    margin-top: 1%;
     background: #cccccc;
     color: white;
     border: 1px solid transparent;
     border-radius: 20px;
-    width: auto;
+    width: 80px;
     text-align: center;
 }
 input[type="number"].input-text-modal::placeholder {
@@ -242,7 +259,7 @@ input[type="number"].input-text-modal::placeholder {
     text-align: center;
     text-align-last: center;
     padding: 0;
-    margin: 0;
+
 }
 
 .btn-modal-default{
@@ -293,7 +310,8 @@ input[type="number"].input-text-modal::placeholder {
     padding: 3px;
     padding-left: 10px;
     padding-right: 10px;
-    margin: 1%;
+    margin: 0px;
+    margin-top: 1%;
     background: #cccccc;
     color: white;
     border: 1px solid transparent;

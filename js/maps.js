@@ -252,7 +252,6 @@ function heightMap() {
 }
 //FIN MAPA----------------------------------------------------------------------
 
-
 //PERSONAS----------------------------------------------------------------------
 function filtrarPersonas() {
     sacarMarkers(arrayMarkerPropiedades);
@@ -327,14 +326,15 @@ function fEdadMinMaxPersonaActivo() {
     return fEdadMinPersonaActivo() && fEdadMaxPersonaActivo();
 }
 function fDeudaMinPersonaActivo() {
-    return $("#fPersonasDeudaDesde").val() != "";
+    return $("#inPerDeudaDesde").val() != "";
 }
 function fDeudaMaxPersonaActivo() {
-    return $("#fPersonasDeudaHasta").val() != "";
+    return $("#inPerDeudaHasta").val() != "";
 }
 function fDeudaMinMaxPersonaActivo() {
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
+
 function tieneProfesion(persona) {
     var coincide = false;
     if (fProfesionPersonaActivo()) {
@@ -411,17 +411,18 @@ function tieneEdad(persona) {
     }
     return true;
 }
-function tieneDeuda(persona) {
+function tieneDeudaPer(propiedad) {
+    
     var deuda = deudaTotal(persona.dni);
     if (fDeudaMinMaxPersonaActivo()) {
-        return deuda >= $("#fPersonasDeudaDesde").val()
-                && deuda <= $("#fPersonasDeudaHasta").val();
+        return deuda >= $("#inPerDeudaDesde").val()
+                && deuda <= $("#inPerDeudaHasta").val();
     }
     if (fDeudaMinPersonaActivo()) {
-        return deuda >= $("#fPersonasDeudaDesde").val();
+        return deuda >= $("#inPerDeudaDesde").val();
     }
     if (fDeudaMaxPersonaActivo()) {
-        return deuda <= $("#fPersonasDeudaHasta").val();
+        return deuda <= $("#inPerDeudaHasta").val();
     }
 
     return true;
@@ -528,32 +529,43 @@ function generarArrayMarkerPropiedades() {
         arrayMarkerPropiedades.push(marker);
     });
 }
-
+function borrarFiltrosPropiedades() {
+    alert("sin implementar");
+}
 //filtrar por datos modal
-//deshabiliatr filtros segun resultado filtro
 function filtrarPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
     var indice = 0;
+    var contador = 0;
     var arrayMarkersPropiedadesMostrar = [];
+
+    cambiarEstadoControles();
+
     arrayPropiedades.forEach(function (propiedad) {
         if (tieneDeudaProp(propiedad)
-                || esTipoProp(propiedad)
-                || tieneDestinoProp(propiedad)
-                || tieneMtsTotProp(propiedad)
-                || tieneServicios(propiedad)
+                && esTipoProp(propiedad)
+                && tieneDestinoProp(propiedad)
+                && tieneMtsTotProp(propiedad)
+                && tieneServicios(propiedad)
+                && tieneDeudaPer(propiedad)
                 )
         {
+            console.log("partidas: " + propiedad.partida);
+            contador++;
+            
             //agregar marker a mostrar
             arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
 
         }
         indice++;
     });
-    addIconMarkers(arrayMarkersPropiedadesMostrar);
-    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
-    $('#modalFilterPropiedades').modal('hide');
+    console.log("propiedades: " + contador);
+    
+    //deshabiliatr filtros segun resultado filtro
+    
 }
 
+//verificacion de estado de filtros
 function fTipoPropActivo() {
     var estado = false;
     $("#dvPropTipo").find("input").each(function () {
@@ -597,14 +609,18 @@ function fMtsTotalesMinMaxPropActivo() {
     return fMtsTotalesMinPropActivo() && fMtsTotalesMaxPropActivo();
 }
 
+//filtros 
 function esTipoProp(propiedad) {
     var coincide = false;
-    $("#dvPropTipo").find("input").each(function () {
-        if ($(this).is(':checked')) {
-            coincide = propiedad.tipo == $(this).val() || coincide;
-        }
-    });
-    return coincide;
+    if (fTipoPropActivo()) {
+        $("#dvPropTipo").find("input").each(function () {
+            if ($(this).is(':checked')) {
+                coincide = propiedad.tipo == $(this).val() || coincide;
+            }
+        });
+        return coincide;
+    }
+    return true;
 }
 function tieneDestinoProp(propiedad) {
     var coincide = false;
@@ -616,23 +632,37 @@ function tieneDestinoProp(propiedad) {
         });
         return coincide;
     }
-    return false;
+    return true;
 }
-
 function tieneCloacaProp(propiedad) {
-    return $("#slCloacas").val() == propiedad.cloacas;
+    if ($("#slCloacas").val() != "") {
+        return $("#slCloacas").val() == propiedad.cloacas;
+    }
+    return true;
 }
 function tieneGasProp(propiedad) {
-    return $("#slGas").val() == propiedad.gas;
+    if ($("#slGas").val() != "") {
+        return $("#slGas").val() == propiedad.gas;
+    }
+    return true;
 }
 function tieneLuzProp(propiedad) {
-    return $("#slLuz").val() == propiedad.luz;
+    if ($("#slLuz").val() != "") {
+        return $("#slLuz").val() == propiedad.luz;
+    }
+    return true;
 }
 function tienePavimentoProp(propiedad) {
-    return $("#slPavimento").val() == propiedad.paviemnto;
+    if ($("#slPavimento").val() != "") {
+        return $("#slPavimento").val() == propiedad.paviemnto;
+    }
+    return true;
 }
 function tieneAguaProp(propiedad) {
-    return $("#slAgua").val() == propiedad.agua;
+    if ($("#slAgua").val() != "") {
+        return $("#slAgua").val() == propiedad.agua;
+    }
+    return true;
 }
 function tieneServicios(propiedad) {
     return tienePavimentoProp(propiedad)
@@ -653,7 +683,7 @@ function tieneMtsCubProp(propiedad) {
     if (fMtsCubMaxPropActivo()) {
         return mts <= $("#fPropiedadesMtsCubiertosHasta").val();
     }
-    return false;
+    return true;
 }
 function tieneMtsTotProp(propiedad) {
     var mts = Number(propiedad.mts_totales);
@@ -667,7 +697,7 @@ function tieneMtsTotProp(propiedad) {
     if (fMtsTotalesMaxPropActivo()) {
         return mts <= $("#inProMtsHasta").val();
     }
-    return false;
+    return true;
 }
 function tieneDeudaProp(propiedad) {
     var deuda = Number(propiedad.deuda);
@@ -683,9 +713,10 @@ function tieneDeudaProp(propiedad) {
         //console.log("filtro deudaMax activo");
         return deuda <= $("#inProDeudaHasta").val();
     }
-    return false;
+    return true;
 }
 
+//extras
 function obtenerIndicesPropiedadesPor(partidas) {
     var contador = 0;
     var arrayResult = [];
@@ -777,6 +808,14 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 //FIN LUGARES-------------------------------------------------------------------
 
 //VISTAS------------------------------------------------------------------------
+//visualiza los marker
+function showPropiedades() {
+    
+    //  addIconMarkers(arrayMarkersPropiedadesMostrar);
+    //  restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+    // $('#modalFilterPropiedades').modal('hide');
+}
+//modales
 function showFilterPropiedad() {
     $('#modalFilterPropiedades').modal('show');
 }
@@ -898,6 +937,53 @@ function showPersona(persona) {
 
 
     $('#modalShowPersona').modal('show');
+}
+//cambia controles segun estado
+function cambiarEstadoControles(){
+    colorSelect();
+    colorInputNumber();
+    
+}
+function colorSelect() {
+
+    $("#dvBodyModalProp").find("select").each(function () {
+        switch ($(this).val()) {
+            case "":
+                $(this).css({"background-color": "#cccccc"});
+                break;
+            case "SI":
+                $(this).css({"background-color": "#66cc99"});
+                break;
+            case "NO":
+                $(this).css({"background-color": "#ff6666"});
+                break;
+        }
+    });
+
+
+}
+function colorInputNumber() {
+
+    $("#dvBodyModalProp").find('input[type="number"]').each(function () {
+        if ($(this).val()=="" || $(this).val()==0) {
+
+            $(this).css({"background-color": "#cccccc"});
+        } else {
+            $(this).css({"background-color": "#ffcc66"});
+
+        }
+    });
+    $("#dvBodyModalPer").find('input[type="number"]').each(function () {
+        if ($(this).val()=="" || $(this).val()==0) {
+
+            $(this).css({"background-color": "#cccccc"});
+        } else {
+            $(this).css({"background-color": "#ffcc66"});
+
+        }
+    });
+
+
 }
 // FIN VISTAS-------------------------------------------------------------------
 

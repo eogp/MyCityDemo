@@ -11,6 +11,7 @@ and open the template in the editor.
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="UTF-8">
 
+        <!-- CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" /><!-- Bootstrap -->        
         <link rel="stylesheet" href="css/main.css" type="text/css" /><!-- Style -->
         <link rel="stylesheet" href="css/maps.css" type="text/css" /><!-- Maps -->
@@ -131,14 +132,14 @@ and open the template in the editor.
                             Filtrar propiedades por:
                         </div>    
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body" id="dvBodyModalProp">
                         <div class="row row-modal"> 
                             <div class="col-md-2">
                                 <h5>Deuda:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProDeudaDesde">
-                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProDeudaHasta">
+                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProDeudaDesde" onfocusout="filtrarPropiedades()">
+                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProDeudaHasta" onfocusout="filtrarPropiedades()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -147,15 +148,15 @@ and open the template in the editor.
                                 <h5>Tipo:</h5>
                             </div>
                             <div class="col-md-10" id="dvPropTipo">
-                                <input type="checkbox" value="CASA" id="chCasa">
+                                <input type="checkbox" value="CASA" id="chCasa" onclick="filtrarPropiedades()">
                                 <label for="chCasa">CASA</label>
-                                <input type="checkbox" value="PH" id="chPH">
+                                <input type="checkbox" value="PH" id="chPH" onclick="filtrarPropiedades()">
                                 <label for="chPH">PH</label>
-                                <input type="checkbox" value="EDIFICIO" id="chEdificio">
+                                <input type="checkbox" value="EDIFICIO" id="chEdificio" onclick="filtrarPropiedades()">
                                 <label for="chEdificio">EDIFICIO</label>
-                                <input type="checkbox" value="CAMPO" id="chCampo">
+                                <input type="checkbox" value="CAMPO" id="chCampo" onclick="filtrarPropiedades()">
                                 <label for="chCampo">CAMPO</label>
-                                <input type="checkbox" value="BALDIO" id="chBaldio">
+                                <input type="checkbox" value="BALDIO" id="chBaldio" onclick="filtrarPropiedades()">
                                 <label for="chBaldio">BALDIO</label>
                             </div>
                         </div>
@@ -165,9 +166,9 @@ and open the template in the editor.
                                 <h5>Destino:</h5>
                             </div>
                             <div class="col-md-10" id="dvPropDestino">
-                                <input type="checkbox" value="COMERCIAL" id="chComercial">
+                                <input type="checkbox" value="COMERCIAL" id="chComercial" onclick="filtrarPropiedades()">
                                 <label for="chComercial">COMERCIAL</label>
-                                <input type="checkbox" value="VIVIENDA" id="chVivienda">
+                                <input type="checkbox" value="VIVIENDA" id="chVivienda" onclick="filtrarPropiedades()">
                                 <label for="chVivienda">VIVIENDA</label>                               
                             </div>
                         </div>
@@ -177,8 +178,8 @@ and open the template in the editor.
                                 <h5>Metros:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProMtsDesde">
-                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProMtsHasta">
+                                <input type="number" class="input-text-modal" placeholder="DESDE" id="inProMtsDesde"  onfocusout="filtrarPropiedades()">
+                                <input type="number" class="input-text-modal" placeholder="HASTA" id="inProMtsHasta"  onfocusout="filtrarPropiedades()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -187,30 +188,30 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Servicios:</h5>
                             </div>        
-                            <div class="col-md-10">
-                                <select class="select-modal" id="slPavimento">
+                            <div class="col-md-10" >
+                                <select class="select-modal" id="slPavimento" onchange="filtrarPropiedades()">
                                     <option value="" selected>PAVIMENTO </option>
                                     <option value="SI">CON PAVIMENTO</option>
                                     <option value="NO">SIN PAVIMENTO</option>
                                 </select>
-                                <select class="select-modal" id="slLuz">
+                                <select class="select-modal" id="slLuz" onchange="filtrarPropiedades()">
                                     <option value="" selected>LUZ </option>
                                     <option value="SI">CON LUZ</option>
                                     <option value="NO">SIN LUZ</option>
                                 </select>
-                                <select class="select-modal" id="slGas">
+                                <select class="select-modal" id="slGas" onchange="filtrarPropiedades()">
                                     <option value="" selected>GAS </option>
                                     <option value="SI">CON GAS</option>
                                     <option value="NO">SIN GAS</option>
                                 </select>
-                                <select class="select-modal" id="slAgua">
+                                <select class="select-modal" id="slAgua" onchange="filtrarPropiedades()">
                                     <option value="" selected>AGUA </option>
                                     <option value="SI">CON AGUA</option>
                                     <option value="NO">SIN AGUA</option>
                                 </select>
-                                <select class="select-modal" id="slCloacas">
+                                <select class="select-modal" id="slCloacas" onchange="filtrarPropiedades()">
                                     <option value="" selected>CLOACAS </option>
-                                    <option value="SI">CON COLACAS</option>
+                                    <option value="SI">CON CLOACAS</option>
                                     <option value="NO">SIN CLOACAS</option>
                                 </select>
 
@@ -218,8 +219,8 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-modal" >BORRAR FILTROS</button>
-                        <button type="button" class="btn-modal-default" id="applyFilterPropiedades" onclick="filtrarPropiedades()">GUARDAR FILTROS</button>
+                        <button type="button" class="btn-modal" onclick="borrarFiltrosPropiedades()">BORRAR FILTROS</button>
+                        <button type="button" class="btn-modal-default" id="applyFilterPropiedades" onclick="showPropiedades()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -237,16 +238,16 @@ and open the template in the editor.
                             Filtrar personas por:
                         </div>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="dvBodyModalPer">
                         <div class="row row-modal" >
                             <div class="col-md-2">
                                 <h5>Rol:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerRol">
-                                <input type="checkbox" id="chDueno">
-                                <label for="chDueno">DUEÑO</label>
-                                <input type="checkbox" id="chResidente">
-                                <label for="chResidente">RESIDENTE</label>
+                                <input name="radRol" type="radio" id="rdDueno" onclick="filtrarPropiedades()">
+                                <label for="rdDueno">DUEÑO</label>
+                                <input name="radRol" type="radio" id="rdResidente" onclick="filtrarPropiedades()">
+                                <label for="rdResidente">RESIDENTE</label>
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -255,8 +256,8 @@ and open the template in the editor.
                                 <h5>Deuda:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde">
-                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde" onfocusout="filtrarPropiedades()">
+                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta" onfocusout="filtrarPropiedades()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -265,10 +266,11 @@ and open the template in the editor.
                                 <h5>Sexo:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerSexo">
-                                <input type="checkbox" id="chHombre">
+                                <input type="checkbox" id="chHombre" onclick="filtrarPropiedades()">
                                 <label for="chHombre">HOMBRE</label>
-                                <input type="checkbox" id="chFemenino">
-                                <label for="chFemenino">MUJER</label>
+                                <input type="checkbox" id="chFemenino" onclick="filtrarPropiedades()">
+                                <label for="chFemenino">MUJER</label >
+                               
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -277,8 +279,8 @@ and open the template in the editor.
                                 <h5>Edad:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde">
-                                <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde" onfocusout="filtrarPropiedades()">
+                                <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta" onfocusout="filtrarPropiedades()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -287,13 +289,13 @@ and open the template in the editor.
                                 <h5>Educación:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerEducacion">
-                                <input type="checkbox" id="chPrimario">
+                                <input type="checkbox" id="chPrimario" onclick="filtrarPropiedades()">
                                 <label for="chPrimario">PRIMARIO</label>
-                                <input type="checkbox" id="chSecundario">
+                                <input type="checkbox" id="chSecundario" onclick="filtrarPropiedades()">
                                 <label for="chSecundario">SECUNDARIO</label>
-                                <input type="checkbox" id="chTerceario">
+                                <input type="checkbox" id="chTerceario" onclick="filtrarPropiedades()">
                                 <label for="chTerceario">TERCIARIO</label>
-                                <input type="checkbox" id="chUniversitario">
+                                <input type="checkbox" id="chUniversitario" onclick="filtrarPropiedades()">
                                 <label for="chUniversitario">UNIVERSITARIO</label>
                             </div>
                         </div>
@@ -303,15 +305,15 @@ and open the template in the editor.
                                 <h5>Ocupación:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerOcupacion">
-                                <input type="checkbox" id="chEmpleado">
+                                <input type="checkbox" id="chEmpleado" onclick="filtrarPropiedades()">
                                 <label for="chEmpleado">EMPLEADO</label>
-                                <input type="checkbox" id="chAutonomo">
+                                <input type="checkbox" id="chAutonomo" onclick="filtrarPropiedades()">
                                 <label for="chAutonomo">AUTÓNOMO</label>
-                                <input type="checkbox" id="chMonotributista"> 
+                                <input type="checkbox" id="chMonotributista" onclick="filtrarPropiedades()"> 
                                 <label for="chMonotributista">MONOTRIBUTISTA</label>
-                                <input type="checkbox" id="chJubilado">
+                                <input type="checkbox" id="chJubilado" onclick="filtrarPropiedades()">
                                 <label for="chJubilado">JUBILADO</label>
-                                <input type="checkbox" id="chDesempleaado">
+                                <input type="checkbox" id="chDesempleaado" onclick="filtrarPropiedades()">
                                 <label for="chDesempleaado">DESEMPLEADO</label>
                             </div>
                         </div> 
@@ -321,9 +323,9 @@ and open the template in the editor.
                                 <h5>Votante:</h5>
                             </div>
                             <div class="col-md-10" id="dvPErVotante">
-                                <input type="checkbox" id="chVotoSi">
+                                <input type="checkbox" id="chVotoSi" onclick="filtrarPropiedades()">
                                 <label for="chVotoSi">SI</label>
-                                <input type="checkbox" id="chVotoNo">
+                                <input type="checkbox" id="chVotoNo" onclick="filtrarPropiedades()">
                                 <label for="chVotoNo">NO</label>
                             </div>
                         </div>
@@ -337,7 +339,7 @@ and open the template in the editor.
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         <!-- Fin Modal Filtro Personas -->
-        
+
         <!-- Modal Filtro Lugares-->
         <div class="modal fade" id="modalFilterLugares" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-sm" role="document">
@@ -415,7 +417,7 @@ and open the template in the editor.
                             <div  id="dvShowLugar"></div>
                         </div>
                     </div>
-                   
+
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
@@ -575,11 +577,12 @@ and open the template in the editor.
 
         <!-- /////////// Fin Modals //////////// -->
 
+        <!-- JS -->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA11xfJHXveMLAnGquzhSuVSUDD3SHB208&callback=initMap" type="text/javascript"></script><!-- Maps -->
         <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
         <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
         <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
         <script type="text/javascript" src="js/markerclusterer/markerclusterer.js"></script><!-- MarkerClusterer -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.js"></script><!-- OverlappingMarkerSpiderfier -->
+        <!-- OMS DESHABILITDO <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.js"></script><!-- OverlappingMarkerSpiderfier --> 
     </body>
 </html>
