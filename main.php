@@ -244,10 +244,11 @@ and open the template in the editor.
                                 <h5>Rol:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerRol">
-                                <input name="radRol" type="radio" id="rdDueno" onclick="filtrarPropiedades()">
+                                <input name="radRol" type="radio" id="rdDueno" value="DUENO" onclick="filtrarPersonas()">
                                 <label for="rdDueno">DUEÑO</label>
-                                <input name="radRol" type="radio" id="rdResidente" onclick="filtrarPropiedades()">
+                                <input name="radRol" type="radio" id="rdResidente" value="RESIDENTE" onclick="filtrarPersonas()">
                                 <label for="rdResidente">RESIDENTE</label>
+                                <label class="danger" hidden id="alerRol" style="color: red; background-color: white;">Debe seleccionar un rol.</label>
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -256,8 +257,8 @@ and open the template in the editor.
                                 <h5>Deuda:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde" onfocusout="filtrarPropiedades()">
-                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta" onfocusout="filtrarPropiedades()">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde" onfocusout="filtrarPersonas()">
+                                <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta" onfocusout="filtrarPersonas()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -266,9 +267,9 @@ and open the template in the editor.
                                 <h5>Sexo:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerSexo">
-                                <input type="checkbox" id="chHombre" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chHombre" value="HOMBRE" onclick="filtrarPersonas()">
                                 <label for="chHombre">HOMBRE</label>
-                                <input type="checkbox" id="chFemenino" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chFemenino" value="MUJER" onclick="filtrarPersonas()">
                                 <label for="chFemenino">MUJER</label >
                                
                             </div>
@@ -279,8 +280,8 @@ and open the template in the editor.
                                 <h5>Edad:</h5>
                             </div>
                             <div class="col-md-10">
-                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde" onfocusout="filtrarPropiedades()">
-                                <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta" onfocusout="filtrarPropiedades()">
+                                <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde" onfocusout="filtrarPersonas()">
+                                <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta" onfocusout="filtrarPersonas()">
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -289,13 +290,13 @@ and open the template in the editor.
                                 <h5>Educación:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerEducacion">
-                                <input type="checkbox" id="chPrimario" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chPrimario" value="PRIMARIO" onclick="filtrarPersonas()">
                                 <label for="chPrimario">PRIMARIO</label>
-                                <input type="checkbox" id="chSecundario" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chSecundario" value="SECUNDARIO" onclick="filtrarPersonas()">
                                 <label for="chSecundario">SECUNDARIO</label>
-                                <input type="checkbox" id="chTerceario" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chTerceario" value="TERCIARIO" onclick="filtrarPersonas()">
                                 <label for="chTerceario">TERCIARIO</label>
-                                <input type="checkbox" id="chUniversitario" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chUniversitario" value="UNIVERSITARIO" onclick="filtrarPersonas()">
                                 <label for="chUniversitario">UNIVERSITARIO</label>
                             </div>
                         </div>
@@ -305,15 +306,15 @@ and open the template in the editor.
                                 <h5>Ocupación:</h5>
                             </div>
                             <div class="col-md-10" id="dvPerOcupacion">
-                                <input type="checkbox" id="chEmpleado" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chEmpleado" value="EMPLEADO" onclick="filtrarPersonas()">
                                 <label for="chEmpleado">EMPLEADO</label>
-                                <input type="checkbox" id="chAutonomo" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chAutonomo" value="AUTONOMO" onclick="filtrarPersonas()">
                                 <label for="chAutonomo">AUTÓNOMO</label>
-                                <input type="checkbox" id="chMonotributista" onclick="filtrarPropiedades()"> 
+                                <input type="checkbox" id="chMonotributista" value="MONOTRIBUTISTA" onclick="filtrarPersonas()"> 
                                 <label for="chMonotributista">MONOTRIBUTISTA</label>
-                                <input type="checkbox" id="chJubilado" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chJubilado" value="JUBILADO" onclick="filtrarPersonas()">
                                 <label for="chJubilado">JUBILADO</label>
-                                <input type="checkbox" id="chDesempleaado" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chDesempleaado" value="DESEMPLEADO" onclick="filtrarPersonas()">
                                 <label for="chDesempleaado">DESEMPLEADO</label>
                             </div>
                         </div> 
@@ -323,9 +324,9 @@ and open the template in the editor.
                                 <h5>Votante:</h5>
                             </div>
                             <div class="col-md-10" id="dvPErVotante">
-                                <input type="checkbox" id="chVotoSi" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chVotoSi"  value="SI" onclick="filtrarPersonas()">
                                 <label for="chVotoSi">SI</label>
-                                <input type="checkbox" id="chVotoNo" onclick="filtrarPropiedades()">
+                                <input type="checkbox" id="chVotoNo"  value="NO" onclick="filtrarPersonas()">
                                 <label for="chVotoNo">NO</label>
                             </div>
                         </div>

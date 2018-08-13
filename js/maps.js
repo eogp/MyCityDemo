@@ -254,30 +254,48 @@ function heightMap() {
 
 //PERSONAS----------------------------------------------------------------------
 function filtrarPersonas() {
-    sacarMarkers(arrayMarkerPropiedades);
-    var arrayMarkersPropiedadesMostrar = []
-    arrayPersonas.forEach(function (persona) {
-        if (tieneProfesion(persona)
-                && tieneEducacion(persona)
-                && esVotante(persona)
-                && tieneSexo(persona)
-                && esPropietario(persona)
-                && tieneEdad(persona)
-                && tieneDeuda(persona)
-                )
-        {
-            //agregar marker a mostrar
-            var indicePropiedad = obtenerIndicePropiedadPor(persona.reside_propiedad);
-            arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indicePropiedad]);
-        }
-    });
-    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
-    $('#modalFilterPesonas').modal('hide');
+
+    if (fRolPersonaActivo()) {
+        filtrarPropiedades();
+        $("#alerRol").hide();
+    }
+    else{
+        //CHROME ALERT ONFOCUS OUT EN LOOP
+        
+           // alert("Debe seleccionar un rol.");
+        $("#alerRol").show();
+    }
+
+
+//    sacarMarkers(arrayMarkerPropiedades);
+//    var arrayMarkersPropiedadesMostrar = []
+//    arrayPersonas.forEach(function (persona) {
+//        if (tieneProfesion(persona)
+//                && tieneEducacion(persona)
+//                && esVotante(persona)
+//                && tieneSexo(persona)
+//                && esPropietario(persona)
+//                && tieneEdad(persona)
+//                && tieneDeuda(persona)
+//                )
+//        {
+//            //agregar marker a mostrar
+//            var indicePropiedad = obtenerIndicePropiedadPor(persona.reside_propiedad);
+//            arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indicePropiedad]);
+//        }
+//    });
+//    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+//    $('#modalFilterPesonas').modal('hide');
 }
 
+function fRolPersonaActivo() {
+//    if($("#rdDueno").is(":checked") ){ alert(""+$("#rdDueno").val())};
+//    if($("#rdResidente").is(":checked")){ alert(""+$("#rdResidente").val())};
+    return $("#rdDueno").is(":checked") || $("#rdResidente").is(":checked");
+}
 function fProfesionPersonaActivo() {
     var estado = false;
-    $("#fPersonasProfesion").find("input").each(function () {
+    $("#dvPerOcupacion").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
     ////console.log("Filtro Persona profesion: "+estado);
@@ -285,7 +303,7 @@ function fProfesionPersonaActivo() {
 }
 function fEducacionPersonaActivo() {
     var estado = false;
-    $("#fPersonasEducacion").find("input").each(function () {
+    $("#dvPerEducacion").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
     ////console.log("Filtro Persona profesion: "+estado);
@@ -293,7 +311,7 @@ function fEducacionPersonaActivo() {
 }
 function fVotantePersonaActivo() {
     var estado = false;
-    $("#fPersonasVotante").find("input").each(function () {
+    $("#dvPErVotante").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
     ////console.log("Filtro Persona profesion: "+estado);
@@ -301,7 +319,7 @@ function fVotantePersonaActivo() {
 }
 function fSexoPersonaActivo() {
     var estado = false;
-    $("#fPersonasSexo").find("input").each(function () {
+    $("#dvPerSexo").find("input").each(function () {
         estado = $(this).is(':checked') || estado;
     });
     ////console.log("Filtro Persona profesion: "+estado);
@@ -317,10 +335,10 @@ function fPropietarioMinMaxPersonaActivo() {
     return fPropietarioMinPersonaActivo() && fPropietarioMaxPersonaActivo();
 }
 function fEdadMinPersonaActivo() {
-    return $("#fPersonasEdadDesde").val() != "";
+    return $("#inPerEdadDesde").val() != "";
 }
 function fEdadMaxPersonaActivo() {
-    return $("#fPersonasEdadHasta").val() != "";
+    return $("#inPerEdadHasta").val() != "";
 }
 function fEdadMinMaxPersonaActivo() {
     return fEdadMinPersonaActivo() && fEdadMaxPersonaActivo();
@@ -335,53 +353,109 @@ function fDeudaMinMaxPersonaActivo() {
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
 
-function tieneProfesion(persona) {
+function personasPorRol(propiedad) {
+    var personas = [];
+    if (fRolPersonaActivo()) {
+        if ($("#rdDueno").is(":checked")) {
+            personas = obtenerProppietarios(propiedad.partida);
+
+        }
+        if ($("#rdResidente").is(":checked")) {
+            personas = obtenerPersonasPorResidencia(propiedad.partida);
+
+        }
+    }
+
+    return personas;
+}
+function tienenProfesionPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fProfesionPersonaActivo()) {
+            return existeProfesion(propiedad);
+        }
+    }
+    return true;
+    
+}
+function existeProfesion(propiedad){
     var coincide = false;
-    if (fProfesionPersonaActivo()) {
-        $("#fPersonasProfesion").find("input").each(function () {
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        $("#dvPerOcupacion").find("input").each(function () {
             if ($(this).is(':checked')) {
                 coincide = persona.profesion == $(this).val() || coincide;
             }
         });
-        return coincide;
+    });
+    return coincide;
+    
+}
+function tienenEducacionPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fEducacionPersonaActivo()) {
+            return existeEducacion(propiedad);
+        }
     }
     return true;
+    
 }
-function tieneEducacion(persona) {
+function existeEducacion(propiedad){
     var coincide = false;
-    if (fEducacionPersonaActivo()) {
-        $("#fPersonasEducacion").find("input").each(function () {
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        $("#dvPerEducacion").find("input").each(function () {
             if ($(this).is(':checked')) {
                 coincide = persona.educacion == $(this).val() || coincide;
             }
         });
-        return coincide;
+    });
+    return coincide;
+    
+}
+function sonVotantesPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fVotantePersonaActivo()) {
+            return existeVotante(propiedad);
+        }
     }
     return true;
 }
-function esVotante(persona) {
+function existeVotante(propiedad){
     var coincide = false;
-    if (fVotantePersonaActivo()) {
-        $("#fPersonasVotante").find("input").each(function () {
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        $("#dvPErVotante").find("input").each(function () {
             if ($(this).is(':checked')) {
                 coincide = persona.votante == $(this).val() || coincide;
             }
         });
-        return coincide;
+    });
+    return coincide;
+    
+}
+function tienenSexoPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fSexoPersonaActivo()) {
+            return existeSexoPer(propiedad);
+        }
     }
     return true;
 }
-function tieneSexo(persona) {
+function existeSexoPer(propiedad) {
     var coincide = false;
-    if (fSexoPersonaActivo()) {
-        $("#fPersonasSexo").find("input").each(function () {
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        $("#dvPerSexo").find("input").each(function () {
             if ($(this).is(':checked')) {
                 coincide = persona.sexo == $(this).val() || coincide;
             }
         });
-        return coincide;
-    }
-    return true;
+    });
+    return coincide;
 }
 function esPropietario(persona) {
     var cantPropiedades = cantPorpiedades(persona.dni);
@@ -397,35 +471,107 @@ function esPropietario(persona) {
     }
     return true;
 }
-function tieneEdad(persona) {
-    var edad = Number(persona.edad);
-    if (fEdadMinMaxPersonaActivo()) {
-        return edad >= $("#fPersonasEdadDesde").val()
-                && edad <= $("#fPersonasEdadHasta").val();
+function tienenEdadPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fEdadMinMaxPersonaActivo()) {
+            return edadMinMaxPer(propiedad);
+        }
+        if (fEdadMinPersonaActivo()) {
+            return edadMinPer(propiedad);
+
+        }
+        if (fEdadMaxPersonaActivo()) {
+            return edadMaxPer(propiedad);
+
+        }
     }
-    if (fEdadMinPersonaActivo()) {
-        return edad >= $("#fPersonasEdadDesde").val();
-    }
-    if (fEdadMaxPersonaActivo()) {
-        return edad <= $("#fPersonasEdadHasta").val();
+    return true;
+    
+}
+function edadMinPer(propiedad){
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        var edad = Number(persona.edad);
+        retorno = retorno || (edad >= $("#inPerEdadDesde").val());
+    });
+
+    return retorno;
+}
+function edadMaxPer(propiedad){
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        var edad = Number(persona.edad);
+        retorno = retorno || (edad <= $("#inPerEdadHasta").val());
+    });
+
+    return retorno;
+}
+function edadMinMaxPer(propiedad){
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        var edad = Number(persona.edad);
+        retorno = retorno || (edad >= $("#inPerEdadDesde").val()
+                && edad <= $("#inPerEdadHasta").val());
+    });
+
+    return retorno;
+}
+function tienenDeudaPer(propiedad) {
+    if (fRolPersonaActivo()) {
+        if (fDeudaMinMaxPersonaActivo()) {
+            return deudaMinMaxPer(propiedad);
+        }
+        if (fDeudaMinPersonaActivo()) {
+            return deudaMinPer(propiedad);
+
+        }
+        if (fDeudaMaxPersonaActivo()) {
+            return deudaMaxPer(propiedad);
+
+        }
     }
     return true;
 }
-function tieneDeudaPer(propiedad) {
-    
-    var deuda = deudaTotal(persona.dni);
-    if (fDeudaMinMaxPersonaActivo()) {
-        return deuda >= $("#inPerDeudaDesde").val()
-                && deuda <= $("#inPerDeudaHasta").val();
-    }
-    if (fDeudaMinPersonaActivo()) {
-        return deuda >= $("#inPerDeudaDesde").val();
-    }
-    if (fDeudaMaxPersonaActivo()) {
-        return deuda <= $("#inPerDeudaHasta").val();
-    }
+function deudaMinPer(propiedad) {
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
 
-    return true;
+    personas.forEach(function (persona) {
+        var deuda = deudaTotal(persona.dni);
+        retorno = retorno || (deuda >= $("#inPerDeudaDesde").val());
+    });
+
+    return retorno;
+}
+function deudaMaxPer(propiedad) {
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        var deuda = deudaTotal(persona.dni);
+        retorno = retorno || (deuda <= $("#inPerDeudaHasta").val());
+
+    });
+
+    return retorno;
+}
+function deudaMinMaxPer(propiedad) {
+    var retorno = false;
+    var personas = personasPorRol(propiedad);
+
+    personas.forEach(function (persona) {
+        var deuda = deudaTotal(persona.dni);
+        retorno = retorno || (deuda >= $("#inPerDeudaDesde").val()
+                && deuda <= $("#inPerDeudaHasta").val());
+    });
+
+    return retorno;
 }
 function obtenerPersonaPor(dni) {
     var retorno;
@@ -482,19 +628,33 @@ function obtenerPartidasReside(arrayIndex) {
     var arrayResult = [];
     arrayIndex.forEach(function (element) {
         arrayResult.push(arrayPersonas[element].reside_propiedad);
-
     });
     return arrayResult;
 }
-function obtenerPersonaPorResidencia(partida) {
-    var retorno;
-    arrayPersonas.forEach(function (element) {
-        if (element.reside_propiedad == partida) {
-            retorno = element;
+function obtenerPersonasPorResidencia(partida) {
+    var personas = [];
+    arrayPersonas.forEach(function (persona) {
+        if (persona.reside_propiedad == partida) {
+            personas.push(persona);
+            console.log("residente: " + persona.dni);
+
+        }
+
+    });
+    return personas;
+}
+function obtenerProppietarios(partida) {
+    var personas = [];
+    arrayPropietarios.forEach(function (registro) {
+        if (registro.partida == partida) {
+            personas.push(obtenerPersonaPor(registro.dni));
+            console.log("propietario: " + registro.dni);
         }
     });
-    return retorno;
+
+    return personas;
 }
+
 //FIN PERSONAS------------------------------------------------------------------
 
 //PROPIEDADES-------------------------------------------------------------------
@@ -535,34 +695,35 @@ function borrarFiltrosPropiedades() {
 //filtrar por datos modal
 function filtrarPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
+    cambiarEstadoControles();
+
     var indice = 0;
     var contador = 0;
     var arrayMarkersPropiedadesMostrar = [];
-
-    cambiarEstadoControles();
-
     arrayPropiedades.forEach(function (propiedad) {
         if (tieneDeudaProp(propiedad)
                 && esTipoProp(propiedad)
                 && tieneDestinoProp(propiedad)
                 && tieneMtsTotProp(propiedad)
                 && tieneServicios(propiedad)
-                && tieneDeudaPer(propiedad)
+                && tienenDeudaPer(propiedad)
+                && tienenSexoPer(propiedad) 
+                && tienenEdadPer(propiedad)
+                && tienenEducacionPer(propiedad)
+                && tienenProfesionPer(propiedad)
+                && sonVotantesPer(propiedad)
                 )
         {
-            console.log("partidas: " + propiedad.partida);
+            console.log("partida nº: " + propiedad.partida);
             contador++;
-            
             //agregar marker a mostrar
             arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
-
         }
         indice++;
     });
     console.log("propiedades: " + contador);
-    
     //deshabiliatr filtros segun resultado filtro
-    
+
 }
 
 //verificacion de estado de filtros
@@ -702,15 +863,15 @@ function tieneMtsTotProp(propiedad) {
 function tieneDeudaProp(propiedad) {
     var deuda = Number(propiedad.deuda);
     if (fDeudaMinMaxPropActivo()) {
-        //console.log("filtro deudaMinMax activo");
+//console.log("filtro deudaMinMax activo");
         return deuda >= $("#inProDeudaDesde").val() && deuda <= $("#inProDeudaHasta").val();
     }
     if (fDeudaMinPropActivo()) {
-        //console.log("filtro deudaMin activo");
+//console.log("filtro deudaMin activo");
         return deuda >= $("#inProDeudaDesde").val();
     }
     if (fDeudaMaxPropActivo()) {
-        //console.log("filtro deudaMax activo");
+//console.log("filtro deudaMax activo");
         return deuda <= $("#inProDeudaHasta").val();
     }
     return true;
@@ -785,7 +946,7 @@ function filtrarLugares() {
     var arrayIndexDejar = [];
     $('#dvLugTipo').find("input").each(function () {
         if ($(this).is(':checked')) {
-            //alert($(this).val());
+//alert($(this).val());
             obtenerIndicesLugares($(this).val(), arrayIndexDejar);
         }
     });
@@ -810,10 +971,10 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 //VISTAS------------------------------------------------------------------------
 //visualiza los marker
 function showPropiedades() {
-    
-    //  addIconMarkers(arrayMarkersPropiedadesMostrar);
-    //  restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
-    // $('#modalFilterPropiedades').modal('hide');
+
+//  addIconMarkers(arrayMarkersPropiedadesMostrar);
+//  restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+// $('#modalFilterPropiedades').modal('hide');
 }
 //modales
 function showFilterPropiedad() {
@@ -827,7 +988,6 @@ function showFilterLugares() {
 }
 function agregarPropidadModal(propiedad) {
     var divPropiedades = $('#mperPropiedades');
-
     var div = document.createElement("div");
     var divImg = document.createElement("div");
     var img = document.createElement("img");
@@ -847,7 +1007,6 @@ function agregarPropidadModal(propiedad) {
     divTexto.append(h4);
     divTexto.append(h5Partida);
     divTexto.append(h5Direccion);
-
     div.append(divImg);
     div.append(divTexto);
     divPropiedades.append(div);
@@ -864,7 +1023,6 @@ function showPropiedad(element) {
     $('#mpLuz').text('Luz: ' + element.luz);
     $('#mpGas').text('Gas: ' + element.gas);
     $('#mpPavimento').text('Pavimento: ' + element.paviemnto);
-
     var indicePropietario = obtenerIndicePropiedadPor(element.partida);
     ////console.log("indice propietario: " + indicePropietario);
     var dniPropietario = arrayPropietarios[indicePropietario].dni;
@@ -874,7 +1032,6 @@ function showPropiedad(element) {
 
     $('#mpPropietario').text(propietario.nombres + ' ' + propietario.apellidos);
     $('#mpSexoEdadProp').text('Sexo: ' + propietario.sexo + ', ' + propietario.edad + ' años');
-
     var indicePropietario = obtenerIndicePropiedadPor(element.partida);
     ////console.log("indice propietario: " + indicePropietario);
     var dniPropietario = arrayPropietarios[indicePropietario].dni;
@@ -901,7 +1058,6 @@ function showPropiedad(element) {
         $('#modalShowPropiedad').modal('hide');
         showPersona(personaResidente);
     });
-
     $('#modalShowPropiedad').modal('show');
 }
 function showLugar(element) {
@@ -923,26 +1079,19 @@ function showPersona(persona) {
     $('#mperTelefono').text("Teléfono: " + persona.telefono);
     $('#mperEmail').text("Email: " + persona.email);
     $('#mperDeuda').text("Deuda: " + deudaTotal(persona.dni));
-
     $('#mperPartidaRes').text("Partida: " + persona.reside_propiedad);
     var propiedadReside = obetnerPropiedadPor(persona.reside_propiedad);
     $('#mperDireccionRes').text(propiedadReside.calle + ' ' + propiedadReside.altura + ', ' + propiedadReside.partido);
-
-
     var arrayPartidas = partidasPorPropietario(persona.dni);
     arrayPartidas.forEach(function (partida) {
         agregarPropidadModal(obetnerPropiedadPor(partida));
     });
-
-
-
     $('#modalShowPersona').modal('show');
 }
 //cambia controles segun estado
-function cambiarEstadoControles(){
+function cambiarEstadoControles() {
     colorSelect();
     colorInputNumber();
-    
 }
 function colorSelect() {
 
@@ -959,31 +1108,25 @@ function colorSelect() {
                 break;
         }
     });
-
-
 }
 function colorInputNumber() {
 
     $("#dvBodyModalProp").find('input[type="number"]').each(function () {
-        if ($(this).val()=="" || $(this).val()==0) {
+        if ($(this).val() == "" || $(this).val() == 0) {
 
             $(this).css({"background-color": "#cccccc"});
         } else {
             $(this).css({"background-color": "#ffcc66"});
-
         }
     });
     $("#dvBodyModalPer").find('input[type="number"]').each(function () {
-        if ($(this).val()=="" || $(this).val()==0) {
+        if ($(this).val() == "" || $(this).val() == 0) {
 
             $(this).css({"background-color": "#cccccc"});
         } else {
             $(this).css({"background-color": "#ffcc66"});
-
         }
     });
-
-
 }
 // FIN VISTAS-------------------------------------------------------------------
 
@@ -1020,7 +1163,7 @@ function restablecerMarkersByArray(arrayMarker) {
 //        oms.addMarker(marker);
 //        addListenerOmsIconMarker(marker);
 //    });
-    //agrega los markers al cluster y al mapa
+//agrega los markers al cluster y al mapa
     markerCluster.addMarkers(arrayMarker, false);
 }
 function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
@@ -1036,7 +1179,7 @@ function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
 
 }
 function sacarMarkers(arrayMarker) {
-    //elimina los markers del cluster y del mapa
+//elimina los markers del cluster y del mapa
     markerCluster.removeMarkers(arrayMarker, false);
     //elimina los markers del oms y del mapa
 //    arrayMarker.forEach(function (element) {
@@ -1060,7 +1203,7 @@ function reiniciar() {
     habilitarControles(false);
 }
 function addClusterer() {
-    //agrega clusterer y markers al map
+//agrega clusterer y markers al map
     if (markerCluster == null) {
         markerCluster = new MarkerClusterer(map, [], {maxZoom: 19, imagePath: 'js/markerclusterer/m'});
     }
@@ -1076,7 +1219,7 @@ function addOms() {
 }
 //OMS DESHABILITADO
 function addListenerOmsIconMarker(marker) {
-    //icono por estado
+//icono por estado
     oms.addListener('format', function (marker, status) {
         var iconURL = status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIED ? 'images/point.png' :
                 status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE ? 'images/group.png' :
@@ -1088,7 +1231,6 @@ function addListenerOmsIconMarker(marker) {
             size: iconSize
         });
     });
-
 }
 //FIN MARKERS----------
 
@@ -1101,40 +1243,31 @@ function traerDatos() {
         success: function (response) {
             if (response == "") {
                 alert("No se cargaron datos para este periodo");
-
                 sacarMarkers(arrayMarkerPropiedades);
                 sacarMarkers(arrayMarkerLugares);
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
-
                 arrayPropiedades = [];
                 arrayPersonas = [];
                 arrayPropietarios = [];
                 arrayLugares = [];
-
                 habilitarControles(false);
-
             } else {
                 array = JSON.parse(response);
-
                 sacarMarkers(arrayMarkerPropiedades);
                 sacarMarkers(arrayMarkerLugares);
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
-
                 arrayPropiedades = [];
                 arrayPersonas = [];
                 arrayPropietarios = [];
                 arrayLugares = [];
-
                 arrayPropiedades = array.propiedades;
                 arrayPersonas = array.personas;
                 arrayPropietarios = array.propietarios;
                 arrayLugares = array.lugares;
-
                 generarArrayMarkerPropiedades();
                 generarArrayMarkerLugares();
-
                 habilitarControles(true);
             }
         },
