@@ -77,11 +77,13 @@ and open the template in the editor.
                         <img src="images/prop.png" width="32" height="32" class="iconMenuIz"/>
                         <button id="filterPropiedades" class="btnFiltros" disabled="true" onclick="showFilterPropiedad()">Propiedades</button>
                     </div>
+                    <div id="filPropMenu" class="dvFilMenu" ></div>
                     <hr >
                     <div>
                         <img src="images/personas.png" width="32" height="32" class="iconMenuIz"/>
                         <button id="filterPersonas" class="btnFiltros" disabled="true" onclick="showFilterPersonas()">Personas</button>
                     </div>
+                    <div id="filPerMenu" class="dvFilMenu" ></div>
                     <hr >
                     <div>
                         <img src="images/event.png" width="32" height="32" class="iconMenuIz"/>
@@ -95,6 +97,8 @@ and open the template in the editor.
 
                         <button id="filterLugares" class="btnFiltros" disabled="true" onclick="showFilterLugares()">Lugares</button>
                     </div>
+                    <div id="lugMenu" class="dvFilMenu" ></div>
+
                     <hr >
                     <div>
                         <img src="images/mapadecalor.png" width="32" height="32" class="iconMenuIz"/>
@@ -137,7 +141,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Deuda:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvDeudaProp">
                                 <input type="number" class="input-text-modal" placeholder="DESDE" id="inProDeudaDesde" onfocusout="filtrarPropiedades()">
                                 <input type="number" class="input-text-modal" placeholder="HASTA" id="inProDeudaHasta" onfocusout="filtrarPropiedades()">
                             </div>
@@ -177,7 +181,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Metros:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvMtsProp">
                                 <input type="number" class="input-text-modal" placeholder="DESDE" id="inProMtsDesde"  onfocusout="filtrarPropiedades()">
                                 <input type="number" class="input-text-modal" placeholder="HASTA" id="inProMtsHasta"  onfocusout="filtrarPropiedades()">
                             </div>
@@ -256,7 +260,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Deuda:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvDeudaPer">
                                 <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerDeudaDesde" onfocusout="filtrarPersonas()">
                                 <input class="input-text-modal" type="number"  placeholder="HASTA" id="inPerDeudaHasta" onfocusout="filtrarPersonas()">
                             </div>
@@ -271,7 +275,7 @@ and open the template in the editor.
                                 <label for="chHombre">HOMBRE</label>
                                 <input type="checkbox" id="chFemenino" value="MUJER" onclick="filtrarPersonas()">
                                 <label for="chFemenino">MUJER</label >
-                               
+
                             </div>
                         </div>
                         <hr class="hr-modal">
@@ -279,7 +283,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Edad:</h5>
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-10" id="dvEdad">
                                 <input class="input-text-modal" type="number" placeholder="DESDE" id="inPerEdadDesde" onfocusout="filtrarPersonas()">
                                 <input class="input-text-modal" type="number" placeholder="HASTA" id="inPerEdadHasta" onfocusout="filtrarPersonas()">
                             </div>
@@ -334,7 +338,7 @@ and open the template in the editor.
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn-modal" id="clearFilterPersonas">BORRAR FILTROS</button>
-                        <button type="button" class="btn-modal-default" id="applyFilterPersonas">GUARDAR FILTROS</button>
+                        <button type="button" class="btn-modal-default" id="applyFilterPersonas" onclick="showPropiedades()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

@@ -9,6 +9,7 @@ var arrayPropietarios;
 var arrayLugares;
 var arrayMarkerPropiedades = [];
 var arrayMarkerLugares = [];
+var arrayMarkersPropiedadesMostrar = [];
 
 //LOADING AJAX------------------------------------------------------------------
 $(document).on({
@@ -234,8 +235,7 @@ function initMap() {
     //altura automatica del mapa
     heightMap();
 }
-
-//AJUSTA LA ALTURA DEL MAPA
+//ajusta la aultura dle mapa
 function heightMap() {
 
     console.log($(window).height());
@@ -258,11 +258,10 @@ function filtrarPersonas() {
     if (fRolPersonaActivo()) {
         filtrarPropiedades();
         $("#alerRol").hide();
-    }
-    else{
+    } else {
         //CHROME ALERT ONFOCUS OUT EN LOOP
-        
-           // alert("Debe seleccionar un rol.");
+
+        // alert("Debe seleccionar un rol.");
         $("#alerRol").show();
     }
 
@@ -375,9 +374,9 @@ function tienenProfesionPer(propiedad) {
         }
     }
     return true;
-    
+
 }
-function existeProfesion(propiedad){
+function existeProfesion(propiedad) {
     var coincide = false;
     var personas = personasPorRol(propiedad);
 
@@ -389,7 +388,7 @@ function existeProfesion(propiedad){
         });
     });
     return coincide;
-    
+
 }
 function tienenEducacionPer(propiedad) {
     if (fRolPersonaActivo()) {
@@ -398,9 +397,9 @@ function tienenEducacionPer(propiedad) {
         }
     }
     return true;
-    
+
 }
-function existeEducacion(propiedad){
+function existeEducacion(propiedad) {
     var coincide = false;
     var personas = personasPorRol(propiedad);
 
@@ -412,7 +411,7 @@ function existeEducacion(propiedad){
         });
     });
     return coincide;
-    
+
 }
 function sonVotantesPer(propiedad) {
     if (fRolPersonaActivo()) {
@@ -422,7 +421,7 @@ function sonVotantesPer(propiedad) {
     }
     return true;
 }
-function existeVotante(propiedad){
+function existeVotante(propiedad) {
     var coincide = false;
     var personas = personasPorRol(propiedad);
 
@@ -434,7 +433,7 @@ function existeVotante(propiedad){
         });
     });
     return coincide;
-    
+
 }
 function tienenSexoPer(propiedad) {
     if (fRolPersonaActivo()) {
@@ -486,9 +485,9 @@ function tienenEdadPer(propiedad) {
         }
     }
     return true;
-    
+
 }
-function edadMinPer(propiedad){
+function edadMinPer(propiedad) {
     var retorno = false;
     var personas = personasPorRol(propiedad);
 
@@ -499,7 +498,7 @@ function edadMinPer(propiedad){
 
     return retorno;
 }
-function edadMaxPer(propiedad){
+function edadMaxPer(propiedad) {
     var retorno = false;
     var personas = personasPorRol(propiedad);
 
@@ -510,7 +509,7 @@ function edadMaxPer(propiedad){
 
     return retorno;
 }
-function edadMinMaxPer(propiedad){
+function edadMinMaxPer(propiedad) {
     var retorno = false;
     var personas = personasPorRol(propiedad);
 
@@ -654,7 +653,6 @@ function obtenerProppietarios(partida) {
 
     return personas;
 }
-
 //FIN PERSONAS------------------------------------------------------------------
 
 //PROPIEDADES-------------------------------------------------------------------
@@ -694,12 +692,11 @@ function borrarFiltrosPropiedades() {
 }
 //filtrar por datos modal
 function filtrarPropiedades() {
-    sacarMarkers(arrayMarkerPropiedades);
     cambiarEstadoControles();
 
     var indice = 0;
     var contador = 0;
-    var arrayMarkersPropiedadesMostrar = [];
+    arrayMarkersPropiedadesMostrar = [];
     arrayPropiedades.forEach(function (propiedad) {
         if (tieneDeudaProp(propiedad)
                 && esTipoProp(propiedad)
@@ -707,14 +704,14 @@ function filtrarPropiedades() {
                 && tieneMtsTotProp(propiedad)
                 && tieneServicios(propiedad)
                 && tienenDeudaPer(propiedad)
-                && tienenSexoPer(propiedad) 
+                && tienenSexoPer(propiedad)
                 && tienenEdadPer(propiedad)
                 && tienenEducacionPer(propiedad)
                 && tienenProfesionPer(propiedad)
                 && sonVotantesPer(propiedad)
                 )
         {
-            console.log("partida nº: " + propiedad.partida);
+            //console.log("partida nº: " + propiedad.partida);
             contador++;
             //agregar marker a mostrar
             arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
@@ -954,6 +951,8 @@ function filtrarLugares() {
     //console.log("sacar: "+arrayIndexQuitar);
     sacarMarkers(arrayMarkerLugares);
     restablecerMarkersByIndex(arrayIndexDejar, arrayMarkerLugares);
+    showLugaresMenu();
+
     $('#modalFilterLugares').modal('hide');
 }
 function obtenerIndicesLugares(tipo, arrayIndex) {
@@ -970,11 +969,280 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 
 //VISTAS------------------------------------------------------------------------
 //visualiza los marker
-function showPropiedades() {
+function showLugaresMenu() {
+    $("#lugMenu").empty();
 
-//  addIconMarkers(arrayMarkersPropiedadesMostrar);
-//  restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
-// $('#modalFilterPropiedades').modal('hide');
+    var imgLug = [];
+    $("#dvLugTipo").find('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            var filtro=$(this);
+            var img = document.createElement('Img');
+            $(img).attr('src','images/' + $(this).val() + '-circulo.png');
+            $(img).css({"padding": "0px", "margin": "3px", "margin-top": "0px", 
+                "width": "16px", "height": "16px", cursor: "pointer"});
+            img.addEventListener("click", function () {
+                $(filtro).removeAttr('checked');
+                $(this).remove();
+                filtrarLugares();
+            });
+            imgLug.push(img);
+        }
+    });
+    imgLug.forEach(function (imgL) {
+        $("#lugMenu").append(imgL);
+    });
+    
+}
+function showPropiedades() {
+    sacarMarkers(arrayMarkerPropiedades);
+    addIconMarkers(arrayMarkersPropiedadesMostrar);
+    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+    showFilterMenu();
+    $('#modalFilterPropiedades').modal('hide');
+    $('#modalFilterPesonas').modal('hide');
+}
+function showFilterMenu() {
+    $("#filPropMenu").empty();
+    $("#filPerMenu").empty();
+
+    var labelsProp = [];
+    var labelsPer = [];
+
+    //PROP
+    $("#dvBodyModalProp").find('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            labelsProp.push(agergarFiltro($(this), "checkbox"));
+        }
+    });
+    $("#dvDeudaProp").find('input[type="number"]').each(function () {
+        if ($(this).val() != "") {
+            labelsProp.push(agergarFiltro($(this), "dvDeudaProp"));
+        }
+    });
+    $("#dvMtsProp").find('input[type="number"]').each(function () {
+        if ($(this).val() != "") {
+            labelsProp.push(agergarFiltro($(this), "dvMtsProp"));
+        }
+    });
+
+    if ($("#slCloacas").val() != "") {
+        labelsProp.push(agergarFiltro($("#slCloacas"), "slCloacas"));
+    }
+    if ($("#slAgua").val() != "") {
+        labelsProp.push(agergarFiltro($("#slAgua"), "slAgua"));
+    }
+    if ($("#slGas").val() != "") {
+        labelsProp.push(agergarFiltro($("#slGas"), "slGas"));
+    }
+    if ($("#slLuz").val() != "") {
+        labelsProp.push(agergarFiltro($("#slLuz"), "slLuz"));
+    }
+    if ($("#slPavimento").val() != "") {
+        labelsProp.push(agergarFiltro($("#slPavimento"), "slPavimento"));
+    }
+
+
+    labelsProp.forEach(function (label) {
+        $("#filPropMenu").append(label);
+    });
+
+    //PER
+    if (fRolPersonaActivo()) {
+        $("#dvPerRol").find('input[type="radio"]').each(function () {
+            if ($(this).is(':checked')) {
+                labelsPer.push(agergarFiltro($(this), "radio"));
+            }
+        });
+        $("#dvPerSexo").find('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                labelsPer.push(agergarFiltro($(this), "checkbox"));
+            }
+        });
+        $("#dvPerEducacion").find('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                labelsPer.push(agergarFiltro($(this), "checkbox"));
+            }
+        });
+        $("#dvPerOcupacion").find('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                labelsPer.push(agergarFiltro($(this), "checkbox"));
+            }
+        });
+        $("#dvPErVotante").find('input[type="checkbox"]').each(function () {
+            if ($(this).is(':checked')) {
+                labelsPer.push(agergarFiltro($(this), "votante"));
+            }
+        });
+        $("#dvEdad").find('input[type="number"]').each(function () {
+            if ($(this).val() != "") {
+                labelsPer.push(agergarFiltro($(this), "dvEdad"));
+            }
+        });
+        $("#dvDeudaPer").find('input[type="number"]').each(function () {
+            if ($(this).val() != "") {
+                labelsPer.push(agergarFiltro($(this), "dvDeudaPer"));
+            }
+        });
+
+        labelsPer.forEach(function (label) {
+            $("#filPerMenu").append(label);
+        });
+    }
+}
+function agergarFiltro(filtro, tipo) {
+    var label = document.createElement('Label');
+    $(label).css({"margin": "3px"});
+    switch (tipo) {
+        case "checkbox":
+            $(label).html("<small><i>" + filtro.val() + "</i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ffcc66"});
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, tipo);
+            });
+            break;
+        case "dvDeudaProp":
+            $(label).html("<small><i> DEUDA: " + $(filtro).attr("placeholder") + " $" + filtro.val() + " </i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ffcc66"});
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "number");
+            });
+            break;
+        case "dvMtsProp":
+            $(label).html("<small><i> " + $(filtro).attr("placeholder") + " " + filtro.val() + " MTS.</i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ffcc66"});
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "number");
+            });
+            break;
+        case "slCloacas":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> CLOACAS </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "sl");
+            });
+            break;
+        case "slAgua":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> AGUA </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "sl");
+            });
+            break;
+        case "slGas":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> GAS </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "sl");
+            });
+            break;
+        case "slLuz":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> LUZ </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "sl");
+            });
+            break;
+        case "slPavimento":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> PAVIMENTO </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "sl");
+            });
+            break;
+        case "votante":
+            if (filtro.val() == "SI")
+            {
+                $(label).css({"background-color": "#66cc99"});
+            }
+            if (filtro.val() == "NO")
+            {
+                $(label).css({"background-color": "#ff6666"});
+            }
+            $(label).html("<small><i> VOTANTE </i></small> <strong>X</strong>");
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "checkbox");
+            });
+            break;
+        case "dvEdad":
+            $(label).html("<small><i> " + $(filtro).attr("placeholder") + " " + filtro.val() + " AÑOS.</i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ffcc66"});
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "number");
+            });
+            break;
+        case "dvDeudaPer":
+            $(label).html("<small><i> DEUDA: " + $(filtro).attr("placeholder") + " $" + filtro.val() + " AÑOS.</i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ffcc66"});
+            label.addEventListener("click", function () {
+                sacarFiltro(this, filtro, "number");
+            });
+            break;
+        case "radio":
+            $(label).html("<small><i>" + filtro.val() + "</i></small>");
+            $(label).css({"background-color": "#ffcc66"});
+            break;
+  
+    }
+    return label;
+
+}
+function sacarFiltro(element, filtro, tipo) {
+    switch (tipo) {
+        case "checkbox":
+            $(filtro).removeAttr('checked');
+            $(element).remove();
+            break;
+
+        case "number":
+            $(filtro).val("");
+            $(element).remove();
+            break;
+
+        case "sl":
+            $(filtro).val("");
+            $(element).remove();
+            break;
+    }
+
+    filtrarPropiedades();
+    showPropiedades();
+
+
 }
 //modales
 function showFilterPropiedad() {

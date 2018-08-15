@@ -126,6 +126,11 @@ hr {
 
 }
 
+.dvFilMenu{
+     margin-left: 30px;
+    margin-right: 0;
+}
+
 /*----------------modal---------------------*/
 .modal {
     text-align: center;
