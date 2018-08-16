@@ -351,6 +351,13 @@ function fDeudaMaxPersonaActivo() {
 function fDeudaMinMaxPersonaActivo() {
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
+function existeFiltroPer(){
+    return fRolPersonaActivo() && (fProfesionPersonaActivo() ||
+            fEducacionPersonaActivo() || fVotantePersonaActivo()
+            || fSexoPersonaActivo() || fEdadMinPersonaActivo()
+            || fEdadMaxPersonaActivo() || fDeudaMinPersonaActivo()
+            || fDeudaMaxPersonaActivo())
+}
 
 function personasPorRol(propiedad) {
     var personas = [];
@@ -687,9 +694,6 @@ function generarArrayMarkerPropiedades() {
         arrayMarkerPropiedades.push(marker);
     });
 }
-function borrarFiltrosPropiedades() {
-    alert("sin implementar");
-}
 //filtrar por datos modal
 function filtrarPropiedades() {
     cambiarEstadoControles();
@@ -698,7 +702,9 @@ function filtrarPropiedades() {
     var contador = 0;
     arrayMarkersPropiedadesMostrar = [];
     arrayPropiedades.forEach(function (propiedad) {
-        if (tieneDeudaProp(propiedad)
+        
+        if ((existeFiltroProp() || existeFiltroPer()) 
+                && tieneDeudaProp(propiedad)
                 && esTipoProp(propiedad)
                 && tieneDestinoProp(propiedad)
                 && tieneMtsTotProp(propiedad)
@@ -766,7 +772,20 @@ function fMtsTotalesMaxPropActivo() {
 function fMtsTotalesMinMaxPropActivo() {
     return fMtsTotalesMinPropActivo() && fMtsTotalesMaxPropActivo();
 }
-
+function fServiciosActivo() {
+    $("#dvServiciosProp").find('select').each(function () {
+        if ($(this).val() != "") {
+            return true;
+        }
+    });
+    return false;
+}
+function existeFiltroProp() {
+    return fTipoPropActivo() || fDestinoPropActivo() ||
+            fDeudaMinPropActivo() || fDeudaMaxPropActivo() ||
+            fMtsTotalesMinPropActivo() || fMtsTotalesMaxPropActivo() ||
+            fServiciosActivo();
+}
 //filtros 
 function esTipoProp(propiedad) {
     var coincide = false;
@@ -969,19 +988,72 @@ function obtenerIndicesLugares(tipo, arrayIndex) {
 
 //VISTAS------------------------------------------------------------------------
 //visualiza los marker
+function clearFilterLug() {
+    $("#lugMenu").empty();
+    $("#dvBodModalLug").find('input').each(function () {
+        if ($(this).is(':checked')) {
+            $(this).prop('checked', false);
+        }
+    });
+
+    filtrarLugares();
+}
+function clearFilterPer() {
+    $("#filPerMenu").empty();
+    $("#dvBodyModalPer").find('input[type="radio"]').each(function () {
+        if ($(this).is(':checked')) {
+            $(this).prop('checked', false);
+        }
+    });
+    $("#dvBodyModalPer").find('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            $(this).prop('checked', false);
+        }
+    });
+    $("#dvBodyModalPer").find('input[type="number"]').each(function () {
+
+        $(this).val("");
+
+    });
+    $("#dvBodyModalPer").find('select').each(function () {
+
+        $(this).val("");
+
+    });
+    filtrarPropiedades();
+}
+function clearFilterProp() {
+    $("#filPropMenu").empty();
+    $("#dvBodyModalProp").find('input[type="checkbox"]').each(function () {
+        if ($(this).is(':checked')) {
+            $(this).prop('checked', false);
+        }
+    });
+    $("#dvBodyModalProp").find('input[type="number"]').each(function () {
+
+        $(this).val("");
+
+    });
+    $("#dvBodyModalProp").find('select').each(function () {
+
+        $(this).val("");
+
+    });
+    filtrarPropiedades();
+}
 function showLugaresMenu() {
     $("#lugMenu").empty();
 
     var imgLug = [];
     $("#dvLugTipo").find('input[type="checkbox"]').each(function () {
         if ($(this).is(':checked')) {
-            var filtro=$(this);
+            var filtro = $(this);
             var img = document.createElement('Img');
-            $(img).attr('src','images/' + $(this).val() + '-circulo.png');
-            $(img).css({"padding": "0px", "margin": "3px", "margin-top": "0px", 
+            $(img).attr('src', 'images/' + $(this).val() + '-circulo.png');
+            $(img).css({"padding": "0px", "margin": "3px", "margin-top": "0px",
                 "width": "16px", "height": "16px", cursor: "pointer"});
             img.addEventListener("click", function () {
-                $(filtro).removeAttr('checked');
+                $(filtro).prop('checked', false);
                 $(this).remove();
                 filtrarLugares();
             });
@@ -991,7 +1063,7 @@ function showLugaresMenu() {
     imgLug.forEach(function (imgL) {
         $("#lugMenu").append(imgL);
     });
-    
+
 }
 function showPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
@@ -1050,7 +1122,7 @@ function showFilterMenu() {
     if (fRolPersonaActivo()) {
         $("#dvPerRol").find('input[type="radio"]').each(function () {
             if ($(this).is(':checked')) {
-                labelsPer.push(agergarFiltro($(this), "radio"));
+                labelsPer.push(agergarFiltro($(this), "rol"));
             }
         });
         $("#dvPerSexo").find('input[type="checkbox"]').each(function () {
@@ -1094,7 +1166,7 @@ function agergarFiltro(filtro, tipo) {
     $(label).css({"margin": "3px"});
     switch (tipo) {
         case "checkbox":
-            $(label).html("<small><i>" + filtro.val() + "</i></small> <strong>X</strong>");
+            $(label).html("<small><i>" + $(filtro).val() + "</i></small> <strong>X</strong>");
             $(label).css({"background-color": "#ffcc66"});
             label.addEventListener("click", function () {
                 sacarFiltro(this, filtro, tipo);
@@ -1212,11 +1284,15 @@ function agergarFiltro(filtro, tipo) {
                 sacarFiltro(this, filtro, "number");
             });
             break;
-        case "radio":
-            $(label).html("<small><i>" + filtro.val() + "</i></small>");
-            $(label).css({"background-color": "#ffcc66"});
+        case "rol":
+            $(label).html("<small><i>" + filtro.val() + "</i></small> <strong>X</strong>");
+            $(label).css({"background-color": "#ff6666"});
+            label.addEventListener("click", function () {
+                clearFilterPer();
+                showPropiedades();
+            });
             break;
-  
+
     }
     return label;
 
@@ -1224,7 +1300,7 @@ function agergarFiltro(filtro, tipo) {
 function sacarFiltro(element, filtro, tipo) {
     switch (tipo) {
         case "checkbox":
-            $(filtro).removeAttr('checked');
+            $(filtro).prop('checked', false);
             $(element).remove();
             break;
 

@@ -192,7 +192,7 @@ and open the template in the editor.
                             <div class="col-md-2">
                                 <h5>Servicios:</h5>
                             </div>        
-                            <div class="col-md-10" >
+                            <div class="col-md-10" id="dvServiciosProp">
                                 <select class="select-modal" id="slPavimento" onchange="filtrarPropiedades()">
                                     <option value="" selected>PAVIMENTO </option>
                                     <option value="SI">CON PAVIMENTO</option>
@@ -223,7 +223,7 @@ and open the template in the editor.
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-modal" onclick="borrarFiltrosPropiedades()">BORRAR FILTROS</button>
+                        <button type="button" class="btn-modal" onclick="clearFilterProp()">BORRAR FILTROS</button>
                         <button type="button" class="btn-modal-default" id="applyFilterPropiedades" onclick="showPropiedades()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -337,7 +337,7 @@ and open the template in the editor.
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn-modal" id="clearFilterPersonas">BORRAR FILTROS</button>
+                        <button type="button" class="btn-modal" id="clearFilterPersonas" onclick="clearFilterPer()">BORRAR FILTROS</button>
                         <button type="button" class="btn-modal-default" id="applyFilterPersonas" onclick="showPropiedades()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
@@ -356,7 +356,7 @@ and open the template in the editor.
                             Mostrar lugares de ineterés:
                         </div> 
                     </div>
-                    <div class="modal-body" >
+                    <div class="modal-body" id="dvBodModalLug">
                         <div class="row row-modal" id="dvLugTipo"> 
                             <br/>
                             <input type="checkbox" value="ESCUELA" id="chEscuela">
@@ -399,7 +399,7 @@ and open the template in the editor.
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn-modal" >BORRAR FILTROS</button>
+                        <button type="button" class="btn-modal"  onclick="clearFilterLug()">BORRAR FILTROS</button>
                         <button type="button" class="btn-modal-default" onclick="filtrarLugares()">GUARDAR FILTROS</button>
                     </div>
                 </div><!-- /.modal-content -->
