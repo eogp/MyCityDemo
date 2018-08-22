@@ -428,166 +428,151 @@ and open the template in the editor.
         </div><!-- /.modal -->
         <!-- Fin Modal Show Lugar -->
 
-        <!-- Modal Show Propiedades-->
-        <div class="modal fade" id="modalShowLugar" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Información.</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div  id="dvShowProp"></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Fin Modal Show Propiedades -->
-
         <!-- Modal Show Propiedad-->
         <div class="modal fade" id="modalShowPropiedad" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Información propiedad.</h4>
+                        <h4 class="modal-title" id="modalTitleProp">Información propiedad.</h4>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <img  src="images/logo_mini.png" alt="My City" >
+                                    <img  src="images/casa.jpg" alt="My City" class="img-modal" >
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="margin-top: 10px">
                                     <h4 id="mpDireccion">Sin datos.</h4>
                                     <h5 id="mpLocalidad">Sin datos.</h5>
 
                                     <br>
-                                    <h5 id="mpDeuda">Sin datos.</h5>
+                                    <h4 id="mpDeuda">Sin datos.</h4>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="margin-top: 10px">
                                     <h5 id="mpTipo">Sin datos.</h5>
                                     <h5 id="mpUso">Sin datos.</h5>
                                     <h5 id="mpMtsCubiertos">Sin datos.</h5>
                                     <h5 id="mpMtsTotales">Sin datos.</h5>
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" style="margin-top: 10px">
                                     <h5 id="mpCloacas">Sin datos.</h5>
                                     <h5 id="mpLuz">Sin datos.</h5>
                                     <h5 id="mpGas">Sin datos.</h5>
                                     <h5 id="mpPavimento">Sin datos.</h5>
                                 </div>
                             </div>
-                            <hr >
+                            <hr class="hr-modal">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
-                                    <img  src="images/persona.jpg"  >
+                                    <img  id="perfilProp" src="images/hombre.png" class="img-modal" >
 
                                 </div>
-                                <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="verPropietario">
+                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" id="verPropietario" style="margin: 20px; margin-left: 30px"/>
 
-                                    <h4 >Propietario</h4>
+                                <h4 >Propietario</h4>
 
-                                    <h5 id="mpPropietario">Sin datos.</h5>
-                                    <h5 id="mpSexoEdadProp">Sin datos.</h5>
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="mpResidenteIMG">
-                                    <img  src="images/persona.jpg"  >
+                                <h5 id="mpPropietario">Sin datos.</h5>
+                                <h5 id="mpSexoEdadProp">Sin datos.</h5>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="mpResidenteIMG">
+                                <img  id="perfilResidente" src="images/hombre.png" class="img-modal"  >
 
-                                </div>
-                                <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2" id="verResidente">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" id="verResidente" style="margin: 20px; margin-left: 30px">
 
-                                    <h4 >Residente</h4>
+                                <h4 >Residente</h4>
 
-                                    <h5 id="mpResidente">Sin datos.</h5>
-                                    <h5 id="mpSexoEdadRes">Sin datos.</h5>
-                                </div>
+                                <h5 id="mpResidente">Sin datos.</h5>
+                                <h5 id="mpSexoEdadRes">Sin datos.</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Fin Modal Show Propiedad -->
+                </div>
 
-        <!-- Modal Show Persona-->
-        <div class="modal fade" id="modalShowPersona" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Información personal.</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <img  src="images/persona.jpg"  >
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <h4 id="mperNombresApellidos">Sin datos.</h4>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Fin Modal Show Propiedad -->
 
-                                    <h5 id="mperDNI">Sin datos.</h5>
-                                    <h5 id="mperSexo">Sin datos.</h5>
-                                    <h5 id="mperEdad">Sin datos.</h5>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
-                                    <h5 id="mperEducacion">Sin datos.</h5>
-                                    <h5 id="mperProfesion">Sin datos.</h5>
-                                    <h5 id="mperTelefono">Sin datos.</h5>
-                                    <h5 id="mperEmail">Sin datos.</h5>
-                                    <h5 id="mperDeuda">Sin datos.</h5>
-                                </div>
+    <!-- Modal Show Propiedades-->
+    <div class="modal fade" id="modalShowPropiedades" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-xxs" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Seleccione una propiedad.</h4>
+                </div>
+                <div class="modal-body" >
+                    <div class="container-fluid" id="dvBodyPropiedades" style=" text-align: center">
+
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Fin Modal Show Propiedades -->
+
+    <!-- Modal Show Persona-->
+    <div class="modal fade" id="modalShowPersona" tabindex="-1" role="dialog" style="overflow-y:auto">
+        <div class="modal-dialog modal-dialog-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Información personal.</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <img id="imgPersona" src="images/persona.jpg" class="img-modal" >
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <h4 id="mperNombresApellidos">Sin datos.</h4>
+
+                                <h5 id="mperDNI">Sin datos.</h5>
+                                <h5 id="mperSexo">Sin datos.</h5>
+                                <h5 id="mperEdad">Sin datos.</h5>
+                                <h4 id="mperDeuda">Sin datos.</h4>
 
                             </div>
-                            <hr >
-                            <div class="row" id="mperPropiedades">
-                                <div class="col-lg-5 col-md-5 col-xs-5 col-sm-5">
-                                    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
-                                        <img  src="images/logo_mini.png"  >
-
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6" >
-
-                                        <h4 >Reside</h4>
-
-                                        <h5 id="mperPartidaRes">Sin datos.</h5>
-                                        <h5 id="mperDireccionRes">Sin datos.</h5>
-                                    </div>
-                                </div>
+                            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4">
+                                <h5 id="mperEducacion">Sin datos.</h5>
+                                <h5 id="mperProfesion">Sin datos.</h5>
+                                <h5 id="mperTelefono">Sin datos.</h5>
+                                <h5 id="mperEmail">Sin datos.</h5>
                             </div>
+
+                        </div>
+                        <hr class="hr-modal">
+                        <div id="mperPropiedades">
+
+                         
+
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <!-- Fin Modal Show Persona -->
+                </div>
+             
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- Fin Modal Show Persona -->
 
-        <!-- Modal Loading-->
-        <div class="modalLoain">
+    <!-- Modal Loading-->
+    <div class="modalLoain">
 
-        </div>
-        <!-- Fin Modal Loading-->
+    </div>
+    <!-- Fin Modal Loading-->
 
-        <!-- /////////// Fin Modals //////////// -->
+    <!-- /////////// Fin Modals //////////// -->
 
-        <!-- JS -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA11xfJHXveMLAnGquzhSuVSUDD3SHB208&callback=initMap" type="text/javascript"></script><!-- Maps -->
-        <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
-        <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
-        <script type="text/javascript" src="js/markerclusterer/markerclusterer.js"></script><!-- MarkerClusterer -->
-        <!-- OMS DESHABILITDO <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.js"></script><!-- OverlappingMarkerSpiderfier --> 
-    </body>
+    <!-- JS -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA11xfJHXveMLAnGquzhSuVSUDD3SHB208&callback=initMap" type="text/javascript"></script><!-- Maps -->
+    <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
+    <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
+    <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
+    <script type="text/javascript" src="js/markerclusterer/markerclusterer.js"></script><!-- MarkerClusterer -->
+    <!-- OMS DESHABILITDO <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier/1.0.3/oms.js"></script><!-- OverlappingMarkerSpiderfier --> 
+</body>
 </html>

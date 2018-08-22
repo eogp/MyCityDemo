@@ -351,7 +351,7 @@ function fDeudaMaxPersonaActivo() {
 function fDeudaMinMaxPersonaActivo() {
     return fDeudaMinPersonaActivo() && fDeudaMaxPersonaActivo();
 }
-function existeFiltroPer(){
+function existeFiltroPer() {
     return fRolPersonaActivo() && (fProfesionPersonaActivo() ||
             fEducacionPersonaActivo() || fVotantePersonaActivo()
             || fSexoPersonaActivo() || fEdadMinPersonaActivo()
@@ -689,7 +689,20 @@ function generarArrayMarkerPropiedades() {
         //     infowindow.close();
         // });
         google.maps.event.addListener(marker, 'click', function (e) {
-            showPropiedad(element);
+            var indice = 0;
+            var propMismaUbicacion = [];
+            arrayMarkerPropiedades.forEach(function (markerProp) {
+                if (marker.getPosition().lat() == markerProp.getPosition().lat()
+                        && marker.getPosition().lng() == markerProp.getPosition().lng()) {
+                    propMismaUbicacion.push(arrayPropiedades[indice]);
+                }
+                indice++;
+            });
+            if (propMismaUbicacion.length > 1) {
+                listarPropiedades(propMismaUbicacion);
+            } else {
+                showPropiedad(element);
+            }
         });
         arrayMarkerPropiedades.push(marker);
     });
@@ -702,8 +715,8 @@ function filtrarPropiedades() {
     var contador = 0;
     arrayMarkersPropiedadesMostrar = [];
     arrayPropiedades.forEach(function (propiedad) {
-        
-        if ((existeFiltroProp() || existeFiltroPer()) 
+
+        if ((existeFiltroProp() || existeFiltroPer())
                 && tieneDeudaProp(propiedad)
                 && esTipoProp(propiedad)
                 && tieneDestinoProp(propiedad)
@@ -1330,7 +1343,7 @@ function showFilterPersonas() {
 function showFilterLugares() {
     $('#modalFilterLugares').modal('show');
 }
-function agregarPropidadModal(propiedad) {
+function agregarPropidadModal(propiedad, relacion) {
     var divPropiedades = $('#mperPropiedades');
     var div = document.createElement("div");
     var divImg = document.createElement("div");
@@ -1339,57 +1352,87 @@ function agregarPropidadModal(propiedad) {
     var h4 = document.createElement("h4");
     var h5Partida = document.createElement("h5");
     var h5Direccion = document.createElement("h5");
-    img.src = "images/logoMini.png";
-    h4.textContent = "Propietario";
+    img.src = "images/casa.jpg";
+    img.className = "img-modal";
+    h4.textContent = relacion;
     h5Partida.textContent = "Partida " + propiedad.partida;
     h5Direccion.textContent = propiedad.calle + ' ' + propiedad.altura + ', ' + propiedad.partido;
-    div.className = "col-lg-5 col-md-5 col-xs-5 col-sm-5";
-    divImg.className = "col-lg-6 col-md-6 col-xs-6 col-sm-6";
+    div.className = "row";
+    divImg.className = "col-lg-3 col-md-3 col-xs-3 col-sm-3";
     divTexto.className = "col-lg-6 col-md-6 col-xs-6 col-sm-6";
     divImg.append(img);
-    divPropiedades.append(divImg);
+    //divPropiedades.append(divImg);
     divTexto.append(h4);
     divTexto.append(h5Partida);
     divTexto.append(h5Direccion);
     div.append(divImg);
     div.append(divTexto);
     divPropiedades.append(div);
+
 }
 function showPropiedad(element) {
+    $('#modalTitleProp').text('Información  partida: ' + element.partida);
     $('#mpDireccion').text(element.calle + ' ' + element.altura);
     $('#mpLocalidad').text(element.partido);
+    if (Number(element.deuda) > 0) {
+        $('#mpDeuda').css("color", "#ff6666");
+    } else {
+        $('#mpDeuda').css("color", "#66cc99");
+    }
     $('#mpDeuda').text('Deuda: ' + element.deuda);
     $('#mpTipo').text('Tipo: ' + element.tipo);
-    $('#mpUso').text('Uso: ' + element.uso);
+    $('#mpUso').text('Destino: ' + element.destino);
     $('#mpMtsCubiertos').text('Mts cubiertos: ' + element.mts_cubiertos);
     $('#mpMtsTotales').text('Mts totales: ' + element.mts_totales);
     $('#mpCloacas').text('Cloacas: ' + element.cloacas);
     $('#mpLuz').text('Luz: ' + element.luz);
     $('#mpGas').text('Gas: ' + element.gas);
     $('#mpPavimento').text('Pavimento: ' + element.paviemnto);
+    //----------------------------------------------------------------------
+
     var indicePropietario = obtenerIndicePropiedadPor(element.partida);
     ////console.log("indice propietario: " + indicePropietario);
     var dniPropietario = arrayPropietarios[indicePropietario].dni;
     ////console.log("dni propietario: " + dniPropietario);
     var propietario = obtenerPersonaPor(dniPropietario);
     ////console.log("dni propietario: " + propietario.dni);
-
+    if (propietario.sexo == "MUJER") {
+        $('#perfilProp').attr("src", "images/mujer.png");
+    } else {
+        $('#perfilProp').attr("src", "images/hombre.png");
+    }
     $('#mpPropietario').text(propietario.nombres + ' ' + propietario.apellidos);
-    $('#mpSexoEdadProp').text('Sexo: ' + propietario.sexo + ', ' + propietario.edad + ' años');
-    var indicePropietario = obtenerIndicePropiedadPor(element.partida);
-    ////console.log("indice propietario: " + indicePropietario);
-    var dniPropietario = arrayPropietarios[indicePropietario].dni;
-    ////console.log("dni propietario: " + dniPropietario);
-    var propietario = obtenerPersonaPor(dniPropietario);
-    ////console.log("dni propietario: " + propietario.dni);
+    $('#mpSexoEdadProp').text(propietario.sexo + ', ' + propietario.edad + ' años');
+//    var indicePropietario = obtenerIndicePropiedadPor(element.partida);
+//    ////console.log("indice propietario: " + indicePropietario);
+//    var dniPropietario = arrayPropietarios[indicePropietario].dni;
+//    ////console.log("dni propietario: " + dniPropietario);
+//    var propietario = obtenerPersonaPor(dniPropietario);
+//    ////console.log("dni propietario: " + propietario.dni);
 
-    var personaResidente = obtenerPersonaPorResidencia(element.partida);
+    var personasResidente = obtenerPersonasPorResidencia(element.partida);
     ////console.log("dni residente: " + personaResidente.dni);
-    if (personaResidente != null) {
-        $('#verResidente').show();
-        $('#mpResidenteIMG').show();
-        $('#mpResidente').text(personaResidente.nombres + ' ' + personaResidente.apellidos);
-        $('#mpSexoEdadRes').text('Sexo: ' + personaResidente.sexo + ', ' + personaResidente.edad + ' años');
+    if (personasResidente.length > 0) {
+        personasResidente.forEach(function (personaResidente) {
+            if (personaResidente.sexo == "MUJER") {
+                $('#perfilResidente').attr("src", "images/mujer.png");
+            } else {
+                $('#perfilResidente').attr("src", "images/hombre.png");
+            }
+            $('#verResidente').show();
+            $('#mpResidenteIMG').show();
+            $('#mpResidente').text(personaResidente.nombres + ' ' + personaResidente.apellidos);
+            $('#mpSexoEdadRes').text(personaResidente.sexo + ', ' + personaResidente.edad + ' años');
+            document.getElementById('verResidente').addEventListener('click', function () {
+                $('#modalShowPropiedad').modal('hide');
+                showPersona(personaResidente);
+            });
+            document.getElementById('perfilResidente').addEventListener('click', function () {
+                $('#modalShowPropiedad').modal('hide');
+                showPersona(personaResidente);
+            });
+        });
+
     } else {
         $('#verResidente').hide();
         $('#mpResidenteIMG').hide();
@@ -1398,12 +1441,30 @@ function showPropiedad(element) {
         $('#modalShowPropiedad').modal('hide');
         showPersona(propietario);
     });
-    document.getElementById('verResidente').addEventListener('click', function () {
+    document.getElementById('perfilProp').addEventListener('click', function () {
         $('#modalShowPropiedad').modal('hide');
-        showPersona(personaResidente);
+        showPersona(propietario);
     });
+
     $('#modalShowPropiedad').modal('show');
 }
+function listarPropiedades(elements) {
+    $("#dvBodyPropiedades").empty();
+    elements.forEach(function (element) {
+        var div = document.createElement("div");
+        div.setAttribute("class", "row");
+        div.setAttribute("class", "item-modal-propiedades");
+        div.innerHTML = "<img src='images/prop.png'/> - Partida nº " + element.partida + "";
+        div.addEventListener('click', function () {
+            $('#modalShowPropiedades').modal('hide');
+            showPropiedad(element);
+        });
+        $("#dvBodyPropiedades").append(div);
+
+    });
+    $("#modalShowPropiedades").modal('show');
+}
+
 function showLugar(element) {
     $('#dvShowLugar').html('<br>'
             + '<img  class="center-block" src="images/' + element.tipo + '-circulo.png">'
@@ -1414,6 +1475,11 @@ function showLugar(element) {
 function showPersona(persona) {
     var divPropiedades = $('#mperPropiedades');
     divPropiedades.empty();
+    if (persona.sexo == "MUJER") {
+        $('#imgPersona').attr("src", "images/mujer.png");
+    } else {
+        $('#imgPersona').attr("src", "images/hombre.png");
+    }
     $('#mperNombresApellidos').text(persona.nombres + ' ' + persona.apellidos);
     $('#mperDNI').text("DNI: " + persona.dni);
     $('#mperSexo').text("Sexo: " + persona.sexo);
@@ -1422,13 +1488,26 @@ function showPersona(persona) {
     $('#mperProfesion').text("Profesión: " + persona.profesion);
     $('#mperTelefono').text("Teléfono: " + persona.telefono);
     $('#mperEmail').text("Email: " + persona.email);
-    $('#mperDeuda').text("Deuda: " + deudaTotal(persona.dni));
-    $('#mperPartidaRes').text("Partida: " + persona.reside_propiedad);
+
+    var deudatotal = deudaTotal(persona.dni);
+    if (Number(deudatotal) > 0) {
+        $('#mperDeuda').css("color", "#ff6666");
+    } else {
+        $('#mperDeuda').css("color", "#66cc99");
+    }
+    $('#mperDeuda').text("Deuda: " + deudatotal);
+
     var propiedadReside = obetnerPropiedadPor(persona.reside_propiedad);
-    $('#mperDireccionRes').text(propiedadReside.calle + ' ' + propiedadReside.altura + ', ' + propiedadReside.partido);
+    agregarPropidadModal(propiedadReside, "Reside");
+
+    var divPropiedades = $('#mperPropiedades');
+    var linea = document.createElement("hr");
+    linea.className = "hr-modal";
+
     var arrayPartidas = partidasPorPropietario(persona.dni);
     arrayPartidas.forEach(function (partida) {
-        agregarPropidadModal(obetnerPropiedadPor(partida));
+        divPropiedades.append(linea);
+        agregarPropidadModal(obetnerPropiedadPor(partida), "Propietario");
     });
     $('#modalShowPersona').modal('show');
 }

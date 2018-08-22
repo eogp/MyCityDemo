@@ -173,6 +173,14 @@ hr {
 
 }
 
+.modal-dialog-xxs{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    width: auto;
+    min-width: 250px;
+
+}
 
 .modal-header{
     background-color: #3b3a53;
@@ -196,6 +204,7 @@ hr {
 
 .modal-body{
     padding: 1px;
+    overflow-y: auto;
 }
 
 .modal-footer{
@@ -310,6 +319,10 @@ input[type="number"].input-text-modal::placeholder {
     border-color: #cccccc;
 }
 
+.img-modal{
+    margin:  10px;
+   
+}
 .select-modal{
     font-size: 12px;
     padding: 3px;
@@ -330,4 +343,12 @@ input[type="number"].input-text-modal::placeholder {
     -moz-appearance: none;
     appearance: none;
     cursor:pointer;
+}
+
+.item-modal-propiedades{
+    text-align: center;
+    margin: 10px;
+    font-size: 16px;
+    cursor:pointer;
+
 }
