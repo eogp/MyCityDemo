@@ -1,6 +1,10 @@
 
 // global vars
 var map;
+var zona1;
+var zona2;
+var zona3;
+var zona4;
 var markerCluster;
 var oms;
 var arrayPropiedades;
@@ -9,8 +13,11 @@ var arrayPropietarios;
 var arrayLugares;
 var arrayMarkerPropiedades = [];
 var arrayMarkerLugares = [];
+var arrayMarkerLugaresMostrar = [];
 var arrayMarkersPropiedadesMostrar = [];
-
+var arrayPropiedadesFiltradas = [];
+var heatmap;
+var flagMapaCalor = false;
 //LOADING AJAX------------------------------------------------------------------
 $(document).on({
     ajaxStart: function () {
@@ -234,6 +241,8 @@ function initMap() {
 
     //altura automatica del mapa
     heightMap();
+
+    generarZonas();
 }
 //ajusta la aultura dle mapa
 function heightMap() {
@@ -714,6 +723,7 @@ function filtrarPropiedades() {
     var indice = 0;
     var contador = 0;
     arrayMarkersPropiedadesMostrar = [];
+    arrayPropiedadesFiltradas = [];
     arrayPropiedades.forEach(function (propiedad) {
 
         if ((existeFiltroProp() || existeFiltroPer())
@@ -734,9 +744,13 @@ function filtrarPropiedades() {
             contador++;
             //agregar marker a mostrar
             arrayMarkersPropiedadesMostrar.push(arrayMarkerPropiedades[indice]);
+            arrayPropiedadesFiltradas.push(propiedad);
         }
         indice++;
     });
+
+    verifControles();
+
     console.log("propiedades: " + contador);
     //deshabiliatr filtros segun resultado filtro
 
@@ -746,6 +760,7 @@ function filtrarPropiedades() {
 function fTipoPropActivo() {
     var estado = false;
     $("#dvPropTipo").find("input").each(function () {
+
         estado = $(this).is(':checked') || estado;
     });
     //console.log("Filtro Propiedad Tipo: "+estado);
@@ -786,12 +801,12 @@ function fMtsTotalesMinMaxPropActivo() {
     return fMtsTotalesMinPropActivo() && fMtsTotalesMaxPropActivo();
 }
 function fServiciosActivo() {
+    var estado = false;
     $("#dvServiciosProp").find('select').each(function () {
-        if ($(this).val() != "") {
-            return true;
-        }
+        estado = $(this).val() != "" || estado;
+
     });
-    return false;
+    return estado;
 }
 function existeFiltroProp() {
     return fTipoPropActivo() || fDestinoPropActivo() ||
@@ -975,14 +990,19 @@ function filtrarLugares() {
     var arrayIndexDejar = [];
     $('#dvLugTipo').find("input").each(function () {
         if ($(this).is(':checked')) {
-//alert($(this).val());
             obtenerIndicesLugares($(this).val(), arrayIndexDejar);
         }
     });
-    //console.log("dejar: "+arrayIndexDejar);
-    //console.log("sacar: "+arrayIndexQuitar);
-    sacarMarkers(arrayMarkerLugares);
     restablecerMarkersByIndex(arrayIndexDejar, arrayMarkerLugares);
+
+    borrarMapaCalor();
+    sacarMarkers(arrayMarkerLugares);
+    if (flagMapaCalor) {
+        showMapaCalor();
+    } else {
+        //agrega los markers al cluster y al mapa
+        cargarMarkers(arrayMarkerLugaresMostrar);
+    }
     showLugaresMenu();
 
     $('#modalFilterLugares').modal('hide');
@@ -1080,9 +1100,15 @@ function showLugaresMenu() {
 }
 function showPropiedades() {
     sacarMarkers(arrayMarkerPropiedades);
-    addIconMarkers(arrayMarkersPropiedadesMostrar);
-    restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+    borrarMapaCalor();
+    if (flagMapaCalor) {
+        showMapaCalor();
+    } else {
+        addIconMarkers(arrayMarkersPropiedadesMostrar);
+        restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
+    }
     showFilterMenu();
+
     $('#modalFilterPropiedades').modal('hide');
     $('#modalFilterPesonas').modal('hide');
 }
@@ -1333,6 +1359,82 @@ function sacarFiltro(element, filtro, tipo) {
 
 
 }
+function generarZonas() {
+    var zona1Coords = [
+        {lat: -35.443109, lng: -60.893373},
+        {lat: -35.451799, lng: -60.886630},
+        {lat: -35.446291, lng: -60.875880},
+        {lat: -35.437533, lng: -60.882610},
+        {lat: -35.443109, lng: -60.893373}
+    ];
+
+    zona1 = new google.maps.Polygon({
+        paths: zona1Coords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0,
+        strokeWeight: 0,
+        fillColor: '#FF0000',
+        fillOpacity: 0.05
+    });
+
+    var zona2Coords = [
+        {lat: -35.458473, lng: -60.923014},
+        {lat: -35.437113, lng: -60.939450},
+        {lat: -35.418571, lng: -60.904034},
+        {lat: -35.440093, lng: -60.887495},
+        {lat: -35.458473, lng: -60.923014}
+    ];
+
+    // Construct the polygon.
+    zona2 = new google.maps.Polygon({
+        paths: zona2Coords,
+        strokeColor: 'green',
+        strokeOpacity: 0,
+        strokeWeight: 0,
+        fillColor: 'green',
+        fillOpacity: 0.05
+    });
+
+    var zona3Coords = [
+        {lat: -35.458473, lng: -60.923014},
+        {lat: -35.492387, lng: -60.896569},
+        {lat: -35.459747, lng: -60.835511},
+        {lat: -35.434374, lng: -60.852848},
+        {lat: -35.451799, lng: -60.886630},
+        {lat: -35.443109, lng: -60.893373},
+        {lat: -35.458473, lng: -60.923014}
+    ];
+
+    // Construct the polygon.
+    zona3 = new google.maps.Polygon({
+        paths: zona3Coords,
+        strokeColor: 'blue',
+        strokeOpacity: 0,
+        strokeWeight: 0,
+        fillColor: 'blue',
+        fillOpacity: 0.05
+    });
+
+    var zona4Coords = [
+        {lat: -35.410565, lng: -60.877167},
+        {lat: -35.418728, lng: -60.904000},
+        {lat: -35.440063, lng: -60.887521},
+        {lat: -35.437496, lng: -60.882559},
+        {lat: -35.446258, lng: -60.875859},
+        {lat: -35.434454, lng: -60.852901},
+        {lat: -35.410565, lng: -60.877167}
+    ];
+
+    // Construct the polygon.
+    zona4 = new google.maps.Polygon({
+        paths: zona4Coords,
+        strokeColor: 'yellow',
+        strokeOpacity: 0,
+        strokeWeight: 0,
+        fillColor: 'yellow',
+        fillOpacity: 0.05
+    });
+}
 //modales
 function showFilterPropiedad() {
     $('#modalFilterPropiedades').modal('show');
@@ -1465,6 +1567,52 @@ function listarPropiedades(elements) {
     $("#modalShowPropiedades").modal('show');
 }
 
+function activarMapaCalor() {
+    flagMapaCalor = !flagMapaCalor;
+    showPropiedades();
+    filtrarLugares();
+}
+function showMapaCalor() {
+    var heatmapData = [];
+    arrayMarkerLugaresMostrar.forEach(function (elemnt) {
+        var lat = elemnt.getPosition().lat();
+        var lng = elemnt.getPosition().lng();
+        heatmapData.push(new google.maps.LatLng(lat, lng));
+    });
+    arrayMarkersPropiedadesMostrar.forEach(function (elemnt) {
+        var lat = elemnt.getPosition().lat();
+        var lng = elemnt.getPosition().lng();
+        heatmapData.push(new google.maps.LatLng(lat, lng));
+    });
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: heatmapData
+    });
+
+    heatmap.setMap(map);
+}
+function borrarMapaCalor() {
+    if (heatmap != null) {
+        heatmap.setData([]);
+        heatmap.setMap(null);
+        heatmap=null;
+    }
+}
+function showZonas() {
+    if (zona1.getMap() == null) {
+        zona1.setMap(map);
+        zona2.setMap(map);
+        zona3.setMap(map);
+        zona4.setMap(map);
+    } else {
+        zona1.setMap(null);
+        zona2.setMap(null);
+        zona3.setMap(null);
+        zona4.setMap(null);
+    }
+
+    console.log("zonas activas ");
+
+}
 function showLugar(element) {
     $('#dvShowLugar').html('<br>'
             + '<img  class="center-block" src="images/' + element.tipo + '-circulo.png">'
@@ -1512,9 +1660,79 @@ function showPersona(persona) {
     $('#modalShowPersona').modal('show');
 }
 //cambia controles segun estado
+function verifControles() {
+    verifInputPropDesde($("#inProDeudaDesde"), "Number(propiedad.deuda)");
+    verifInputPropHasta($("#inProDeudaHasta"), "Number(propiedad.deuda)");
+    verifInputPropDesde($("#inProMtsDesde"), "Number(propiedad.mts_totales)");
+    verifInputPropHasta($("#inProMtsHasta"), "Number(propiedad.mts_totales)");
+    verifInputPerDesde($("#inPerDeudaDesde"), "deudaTotal(persona.dni)");
+    verifInputPerHasta($("#inPerDeudaHasta"), "deudaTotal(persona.dni)");
+    verifInputPerDesde($("#inPerEdadDesde"), "persona.edad");
+    verifInputPerHasta($("#inPerEdadHasta"), "persona.edad");
+}
+function verifInputPropDesde(input, atributo) {
+    var existe = false;
+    if (input.val() != "") {
+        arrayPropiedadesFiltradas.forEach(function (propiedad) {
+            existe = existe || (eval(atributo) >= input.val());
+        });
+        if (!existe) {
+            input.css({"background-color": "coral"});
+        }
+    }
+
+}
+function verifInputPropHasta(input, atributo) {
+    var existe = false;
+    if (input.val() != "") {
+        arrayPropiedadesFiltradas.forEach(function (propiedad) {
+            existe = existe || (eval(atributo) <= input.val());
+        });
+        if (!existe) {
+            input.css({"background-color": "coral"});
+        }
+    }
+
+}
+function verifInputPerDesde(input, atributo) {
+    var existe = false;
+    if (input.val() != "") {
+        arrayPropiedadesFiltradas.forEach(function (propiedad) {
+            var personas = personasPorRol(propiedad);
+            personas.forEach(function (persona) {
+                existe = existe || (eval(atributo) >= input.val());
+
+            });
+        });
+        if (!existe) {
+            input.css({"background-color": "coral"});
+        }
+    }
+}
+function verifInputPerHasta(input, atributo) {
+    var existe = false;
+    if (input.val() != "") {
+        arrayPropiedadesFiltradas.forEach(function (propiedad) {
+            var personas = personasPorRol(propiedad);
+            personas.forEach(function (persona) {
+                existe = existe || (eval(atributo) <= input.val());
+
+            });
+        });
+        if (!existe) {
+            input.css({"background-color": "coral"});
+        }
+    }
+}
 function cambiarEstadoControles() {
     colorSelect();
     colorInputNumber();
+}
+function checkVotoNO() {
+    $("#chVotoSi").prop('checked', false);
+}
+function checkVotoSI() {
+    $("#chVotoNo").prop('checked', false);
 }
 function colorSelect() {
 
@@ -1587,30 +1805,34 @@ function restablecerMarkersByArray(arrayMarker) {
 //        addListenerOmsIconMarker(marker);
 //    });
 //agrega los markers al cluster y al mapa
+
     markerCluster.addMarkers(arrayMarker, false);
+
 }
 function restablecerMarkersByIndex(arrayIndex, arrayMarker) {
-    arrayShowMarkers = [];
+    arrayMarkerLugaresMostrar = [];
     arrayIndex.forEach(function (element) {
-        arrayShowMarkers.push(arrayMarker[element]);
+        arrayMarkerLugaresMostrar.push(arrayMarker[element]);
         //agrega los markers al oms y al mapa
 //        oms.addMarker(arrayMarker[element]);
 //        addListenerOmsIconMarker(arrayMarker[element]);
     });
-    //agrega los markers al cluster y al mapa
-    cargarMarkers(arrayShowMarkers)
+
 
 }
 function sacarMarkers(arrayMarker) {
-//elimina los markers del cluster y del mapa
+    //elimina los markers del cluster y del mapa
     markerCluster.removeMarkers(arrayMarker, false);
+
     //elimina los markers del oms y del mapa
 //    arrayMarker.forEach(function (element) {
 //        oms.removeMarker(element);
 //    });
 }
 function cargarMarkers(arrayMarker) {
+
     markerCluster.addMarkers(arrayMarker, false);
+
 //    arrayMarker.forEach(function (element) {
 //        element.setMap(map);
 //    });
@@ -1668,6 +1890,7 @@ function traerDatos() {
                 alert("No se cargaron datos para este periodo");
                 sacarMarkers(arrayMarkerPropiedades);
                 sacarMarkers(arrayMarkerLugares);
+                borrarMapaCalor();
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
                 arrayPropiedades = [];
@@ -1679,6 +1902,7 @@ function traerDatos() {
                 array = JSON.parse(response);
                 sacarMarkers(arrayMarkerPropiedades);
                 sacarMarkers(arrayMarkerLugares);
+                borrarMapaCalor();
                 eliminarMarkers(arrayMarkerPropiedades);
                 eliminarMarkers(arrayMarkerLugares);
                 arrayPropiedades = [];
@@ -1704,10 +1928,16 @@ function habilitarControles(boolean) {
         document.getElementById('filterPersonas').disabled = false;
         document.getElementById('filterPropiedades').disabled = false;
         document.getElementById('filterLugares').disabled = false;
+        document.getElementById('filterZonas').disabled = false;
+        document.getElementById('filterMapCalor').disabled = false;
+
     } else {
         document.getElementById('filterPersonas').disabled = true;
         document.getElementById('filterPropiedades').disabled = true;
         document.getElementById('filterLugares').disabled = true;
+        document.getElementById('filterZonas').disabled = true;
+        document.getElementById('filterMapCalor').disabled = true;
+
     }
 }
 function todosLosIndices(array) {

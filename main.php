@@ -102,12 +102,12 @@ and open the template in the editor.
                     <hr >
                     <div>
                         <img src="images/mapadecalor.png" width="32" height="32" class="iconMenuIz"/>
-                        <button id="filterMapCalor" class="btnFiltros2" disabled="true">Mapa de calor</button>
+                        <button id="filterMapCalor" class="btnFiltros2" disabled="true" onclick="activarMapaCalor()">Mapa de calor</button>
                     </div>
                     <hr >
                     <div>
                         <img src="images/zonas.png" width="32" height="32" class="iconMenuIz"/>
-                        <button id="filterZonas" class="btnFiltros2" disabled="true">Zonas</button>
+                        <button id="filterZonas" class="btnFiltros2" disabled="true" onclick="showZonas()">Zonas</button>
                     </div>
 
 
@@ -328,9 +328,9 @@ and open the template in the editor.
                                 <h5>Votante:</h5>
                             </div>
                             <div class="col-md-10" id="dvPErVotante">
-                                <input type="checkbox" id="chVotoSi"  value="SI" onclick="filtrarPersonas()">
+                                <input type="checkbox" id="chVotoSi"  value="SI" onclick="checkVotoSI();filtrarPersonas()">
                                 <label for="chVotoSi">SI</label>
-                                <input type="checkbox" id="chVotoNo"  value="NO" onclick="filtrarPersonas()">
+                                <input type="checkbox" id="chVotoNo"  value="NO" onclick="checkVotoNO();filtrarPersonas()">
                                 <label for="chVotoNo">NO</label>
                             </div>
                         </div>
@@ -568,7 +568,7 @@ and open the template in the editor.
     <!-- /////////// Fin Modals //////////// -->
 
     <!-- JS -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA11xfJHXveMLAnGquzhSuVSUDD3SHB208&callback=initMap" type="text/javascript"></script><!-- Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA11xfJHXveMLAnGquzhSuVSUDD3SHB208&callback=initMap&libraries=visualization" type="text/javascript"></script><!-- Maps -->
     <script type="text/javascript" src="js/jquery-2.1.1.js"></script><!-- Jquery -->
     <script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
     <script type="text/javascript" src="js/maps.js"></script><!-- Logica Maps  -->
