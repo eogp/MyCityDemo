@@ -20,10 +20,9 @@
                     <div class="panel-heading">Resultado</div>
                     <div class="panel-body">
                         <?php
-                        require '../Imports/ImportsExcel.php';
-
-                        $dir_subida = '/Applications/XAMPP/xamppfiles/htdocs/demo/excel/';
-
+                        require '../imports/ImportsExcel.php';
+                        $dir_subida = '../excel/';
+//                        $dir_subida = '/Applications/XAMPP/xamppfiles/htdocs/demo/excel/';
                         if (isset($_FILES["excel"])) {
                         $fichero_subido = $dir_subida . "excel" . '_' . $_FILES["excel"]['name'];
 

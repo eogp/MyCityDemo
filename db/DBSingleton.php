@@ -11,27 +11,30 @@
  *
  * @author enriquegomezpena
  */
-
 require "rb-mysql.php";
-  
+//require "rb-mysql.php";
+
 class DBSingleton {
 
     private static $instance;
     private $redBean;
-    
+
     private function __construct() {
         $this->redBean = new R();
-        $this->redBean->setup("mysql:host=localhost;dbname=demo","root","");
+        $this->redBean->setup("mysql:host=localhost;dbname=c0600180_mycity", "c0600180_mycity", "be03deGOme");
+
+//        $this->redBean->setup("mysql:host=localhost;dbname=c0600180_mycity","root","");
     }
-    public static function getInstance(){
-        if(!isset(self::$instance)){
-            self::$instance=new DBSingleton();
+
+    public static function getInstance() {
+        if (!isset(self::$instance)) {
+            self::$instance = new DBSingleton();
         }
         return self::$instance;
     }
-    
+
     function getRedBean() {
         return $this->redBean;
     }
-    
+
 }

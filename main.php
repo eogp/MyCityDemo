@@ -34,11 +34,25 @@ and open the template in the editor.
                     </select>
                 </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 header-puntos">
-
+                    <div class="row content-header-puntos">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <p  class="text-header">Hay <b id="puntosFiltrados"> 0 PUNTOS </b> que coinciden con la búsqeda.</p> 
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                            <button id="btnExport" class="btn-header">EXPORTAR RESULTADO</button>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-5 header-buscar">
-                    <img src="images/lupa_header.png" width="16" height="16" class="icon-header-buscar"/>
-
+                    <div class="row content-header-buscar">
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 ">
+                            <img src="images/lupa_header.png" width="16" height="16"  />
+                        </div>
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                            <input type="text" placeholder="Buscar sobre el resultado..." id="inputBuscar"  class="input-txt-buscar"/>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Fin Header -->
@@ -548,12 +562,12 @@ and open the template in the editor.
                         <hr class="hr-modal">
                         <div id="mperPropiedades">
 
-                         
+
 
                         </div>
                     </div>
                 </div>
-             
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

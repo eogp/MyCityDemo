@@ -7,10 +7,10 @@ var zona3;
 var zona4;
 var markerCluster;
 var oms;
-var arrayPropiedades;
-var arrayPersonas;
-var arrayPropietarios;
-var arrayLugares;
+var arrayPropiedades = [];
+var arrayPersonas = [];
+var arrayPropietarios = [];
+var arrayLugares = [];
 var arrayMarkerPropiedades = [];
 var arrayMarkerLugares = [];
 var arrayMarkerLugaresMostrar = [];
@@ -697,10 +697,15 @@ function generarArrayMarkerPropiedades() {
         //     ////console.log("mouseout: " + this.getTitle());
         //     infowindow.close();
         // });
+        arrayMarkerPropiedades.push(marker);
+    });
+}
+function agregarListenerMarkerPropiedades() {
+    arrayMarkersPropiedadesMostrar.forEach(function (marker) {
         google.maps.event.addListener(marker, 'click', function (e) {
             var indice = 0;
             var propMismaUbicacion = [];
-            arrayMarkerPropiedades.forEach(function (markerProp) {
+            arrayMarkersPropiedadesMostrar.forEach(function (markerProp) {
                 if (marker.getPosition().lat() == markerProp.getPosition().lat()
                         && marker.getPosition().lng() == markerProp.getPosition().lng()) {
                     propMismaUbicacion.push(arrayPropiedades[indice]);
@@ -713,7 +718,7 @@ function generarArrayMarkerPropiedades() {
                 showPropiedad(element);
             }
         });
-        arrayMarkerPropiedades.push(marker);
+        
     });
 }
 //filtrar por datos modal
@@ -1004,6 +1009,7 @@ function filtrarLugares() {
         cargarMarkers(arrayMarkerLugaresMostrar);
     }
     showLugaresMenu();
+    showPuntosFiltrados();
 
     $('#modalFilterLugares').modal('hide');
 }
@@ -1074,6 +1080,9 @@ function clearFilterProp() {
     });
     filtrarPropiedades();
 }
+function showPuntosFiltrados() {
+    $("#puntosFiltrados").text(arrayMarkerLugaresMostrar.length + arrayMarkersPropiedadesMostrar.length + " PUNTOS");
+}
 function showLugaresMenu() {
     $("#lugMenu").empty();
 
@@ -1099,6 +1108,7 @@ function showLugaresMenu() {
 
 }
 function showPropiedades() {
+    agregarListenerMarkerPropiedades();
     sacarMarkers(arrayMarkerPropiedades);
     borrarMapaCalor();
     if (flagMapaCalor) {
@@ -1108,7 +1118,7 @@ function showPropiedades() {
         restablecerMarkersByArray(arrayMarkersPropiedadesMostrar);
     }
     showFilterMenu();
-
+    showPuntosFiltrados();
     $('#modalFilterPropiedades').modal('hide');
     $('#modalFilterPesonas').modal('hide');
 }
@@ -1569,6 +1579,15 @@ function listarPropiedades(elements) {
 
 function activarMapaCalor() {
     flagMapaCalor = !flagMapaCalor;
+    if (flagMapaCalor) {
+        $("#filterMapCalor").removeClass("btnFiltros2");
+        $("#filterMapCalor").addClass("btnFiltros2activo");
+
+    } else {
+        $("#filterMapCalor").removeClass("btnFiltros2activo");
+        $("#filterMapCalor").addClass("btnFiltros2");
+
+    }
     showPropiedades();
     filtrarLugares();
 }
@@ -1594,16 +1613,20 @@ function borrarMapaCalor() {
     if (heatmap != null) {
         heatmap.setData([]);
         heatmap.setMap(null);
-        heatmap=null;
+        heatmap = null;
     }
 }
 function showZonas() {
     if (zona1.getMap() == null) {
+        $("#filterZonas").removeClass("btnFiltros2");
+        $("#filterZonas").addClass("btnFiltros2activo");
         zona1.setMap(map);
         zona2.setMap(map);
         zona3.setMap(map);
         zona4.setMap(map);
     } else {
+        $("#filterZonas").removeClass("btnFiltros2activo");
+        $("#filterZonas").addClass("btnFiltros2");
         zona1.setMap(null);
         zona2.setMap(null);
         zona3.setMap(null);
@@ -1837,14 +1860,23 @@ function cargarMarkers(arrayMarker) {
 //        element.setMap(map);
 //    });
 }
-function eliminarMarkers(arrayMarker) {
-    arrayMarker = [];
-}
+
 function reiniciar() {
-    sacarMarkers(arrayMarkerLugares);
     sacarMarkers(arrayMarkerPropiedades);
-    eliminarMarkers(arrayMarkerLugares);
-    eliminarMarkers(arrayMarkerPropiedades);
+    sacarMarkers(arrayMarkerLugares);
+    borrarMapaCalor();
+    arrayMarkerPropiedades = [];
+    arrayMarkerLugares = [];
+    arrayMarkerLugaresMostrar = [];
+    arrayMarkersPropiedadesMostrar = [];
+    arrayPropiedadesFiltradas = [];
+    arrayPropiedades = [];
+    arrayPersonas = [];
+    arrayPropietarios = [];
+    arrayLugares = [];
+    clearFilterLug();
+    clearFilterPer();
+    clearFilterProp();
     habilitarControles(false);
 }
 function addClusterer() {
@@ -1886,33 +1918,19 @@ function traerDatos() {
         url: 'controlers/controler_return_puntos.php',
         type: 'POST',
         success: function (response) {
+            reiniciar();
+
             if (response == "") {
                 alert("No se cargaron datos para este periodo");
-                sacarMarkers(arrayMarkerPropiedades);
-                sacarMarkers(arrayMarkerLugares);
-                borrarMapaCalor();
-                eliminarMarkers(arrayMarkerPropiedades);
-                eliminarMarkers(arrayMarkerLugares);
-                arrayPropiedades = [];
-                arrayPersonas = [];
-                arrayPropietarios = [];
-                arrayLugares = [];
-                habilitarControles(false);
+
             } else {
                 array = JSON.parse(response);
-                sacarMarkers(arrayMarkerPropiedades);
-                sacarMarkers(arrayMarkerLugares);
-                borrarMapaCalor();
-                eliminarMarkers(arrayMarkerPropiedades);
-                eliminarMarkers(arrayMarkerLugares);
-                arrayPropiedades = [];
-                arrayPersonas = [];
-                arrayPropietarios = [];
-                arrayLugares = [];
+
                 arrayPropiedades = array.propiedades;
                 arrayPersonas = array.personas;
                 arrayPropietarios = array.propietarios;
                 arrayLugares = array.lugares;
+
                 generarArrayMarkerPropiedades();
                 generarArrayMarkerLugares();
                 habilitarControles(true);
