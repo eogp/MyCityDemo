@@ -708,14 +708,14 @@ function agregarListenerMarkerPropiedades() {
             arrayMarkersPropiedadesMostrar.forEach(function (markerProp) {
                 if (marker.getPosition().lat() == markerProp.getPosition().lat()
                         && marker.getPosition().lng() == markerProp.getPosition().lng()) {
-                    propMismaUbicacion.push(arrayPropiedades[indice]);
+                    propMismaUbicacion.push(arrayPropiedadesFiltradas[indice]);
                 }
                 indice++;
             });
             if (propMismaUbicacion.length > 1) {
                 listarPropiedades(propMismaUbicacion);
             } else {
-                showPropiedad(element);
+                showPropiedad(propMismaUbicacion[0]);
             }
         });
         
